@@ -1,0 +1,52 @@
+.shop-page { padding: 9px 0 68px; }
+.shop-page .albums-block { padding: 12px 0 0; } 
+.shop-page .albums-block .top { padding:0; margin-bottom: 0; align-items: center; }
+.shop-page .albums-block .right-select { display:flex; align-items:center; }
+.shop-page .styled-select { margin-right:40px; }
+.shop-page .styled-select select { outline: none !important; border: 0; background-color: transparent; font-size: 14px; font-weight: 400; color: #000000; letter-spacing: 0.5px; padding:0; }
+.shop-page .best { display:flex; align-items:center; }
+.shop-page .best .styled-select { margin-right:21px; }
+.shop-page .best strong { display:inline-block; font-size:16px; color:#9f9f9f; font-weight:400; margin-right:3px; }
+.shop-page .albums-block .right-select ul { margin:0; }
+.shop-page .list-icons {border-radius:4px; border:1px solid #d0c8c8; display: flex; }
+.shop-page .list-icons li {position: relative;}
+.shop-page .list-icons li:after {content: ""; width: 1px; height: 100%; background-color: #d0c8c8; position: absolute; right: 0; top: 0;}
+.shop-page .list-icons li:last-child:after { display:none; } 
+.shop-page .list-icons li button { border: none; background-color: transparent; display:inline-block; font-size:16px; color:#b5b5b5; padding: 4px 11px;  }
+.shop-page .list-icons li.active button {  color:#000000; }
+.shop-page .album-container {padding: 50px 0;}
+.shop-page .albums-block h6 {margin-bottom: 0; font-size: 14px; }
+.shop-page .albums-block h5 {margin-bottom: 0;}
+.shop-page .p-autocomplete {margin-right: 40px;}
+.shop-page .p-autocomplete-input {font-size: 14px;}
+.shop-page .p-inputtext:enabled:hover {border-color: #ffcc00;}
+.shop-page .p-inputtext:enabled:focus {box-shadow: none;border-color: #ffcc00;}
+.p-autocomplete-panel .p-autocomplete-items li {font-size: 12px;}
+.shop-page .no-records-container {text-align: center;}
+.shop-page .no-records-container h4 {margin-bottom: 0;}
+.shop-page .no-records-container img {width: 200px; margin-bottom: 30px; }
+.shop-page .album-container {padding-bottom: 0;}
+.shop-page .albums-list {margin-bottom: 0;}
+.shop-page .rc-pagination {margin-top: 50px;}
+
+@media screen and (max-width: 1199px) {
+    .shop-page .albums-block h2 { margin-bottom:15px; }
+    .shop-page .albums-block .top { display:block; text-align: center; }
+    .shop-page .albums-block .right-select { justify-content: space-around; }
+}
+@media screen and (max-width: 767px) {
+    .shop-page .albums-block .right-select { flex-wrap: wrap; }
+    .shop-page .albums-block .right-select ul,
+    .shop-page .best { margin-bottom: 15px; }
+    .shop-page .dropdown { margin:0 15px 15px }
+    .shop-page .best .dropdown { margin-bottom:0; }
+    .shop-page .dropdown .dropdown-toggle { font-size: 14px; }
+    .shop-page .best strong { font-size: 14px; }
+    .shop-page .list-icons li a { font-size: 14px; }
+}
+@media screen and (max-width: 479px) {
+    .shop-page .albums-block .right-select { display: block; }
+    .shop-page .best { justify-content:center; }
+    .shop-page .albums-block .right-select .list-icons { display:flex; justify-content:center; }
+    .shop-page .dropdown .dropdown-menu { float:none; margin: 0 auto !important; left: 0; right: 0; max-width:200px; }
+}

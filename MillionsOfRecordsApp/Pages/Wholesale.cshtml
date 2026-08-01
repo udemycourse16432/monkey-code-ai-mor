@@ -1,0 +1,112 @@
+﻿@page "/wholesale"
+@model MillionsOfRecordsApp.Pages.WholesaleModel
+@{
+    ViewData["Title"] = "Wholesale Accounts";
+}
+
+<section class="wholesale">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>Wholesale</li>
+        </ul>
+
+        <div class="content-block">
+            <h2>Wholesale Accounts</h2>
+
+            <p>
+                <b>
+                    If you already have a wholesale account, please <a asp-page="/Account/Login">sign in</a>.
+                </b>
+            </p>
+
+            <p>
+                If you resell records (record store, eBay seller, Discogs, Amazon, Facebook, record shows, etc.) then please read this entire page and then click the button below to create your wholesale
+                account to begin ordering immediately.
+            </p>
+
+            <div class="action-row" style="margin: 25px 0;">
+                <a asp-page="/Account/Register" class="btn btn-add-to-cart" style="width: auto; display: inline-flex;">
+                    Create Wholesale Account
+                </a>
+            </div>
+
+            <p>
+                We've offered extraordinary service to record stores around the world since 1993. In many cases record stores view us as their mostly valuable distributor - and certainly the most
+                efficient and customer-friendly. Most orders ship within hours, and all orders within 24 hours.
+            </p>
+
+            <hr class="wholesale-divider" />
+
+            <h4>Wholesale Accounts FAQ:</h4>
+            <ul class="wholesale-faq-list">
+                <li>
+                    <p><b>Am I eligible for a wholesale account?</b></p>
+                    <p>
+                        Wholesale accounts are for anyone who resells records, such as record stores, eBay sellers, Amazon sellers, social media sellers, websites, or other sales channels of any type. Anyone
+                        can open a wholesale account, and we won't ask you for any paperwork. It's as simple as entering your name and address after you click the button above, and then your wholesale account
+                        is instantly activated.
+                    </p>
+                </li>
+                <li>
+                    <p><b>How long does it take before the wholesale account is activated or approved?</b></p>
+                    <p>There is no approval process, no paperwork, no forms - and activation is instant. You can start placing orders in 2 minutes.</p>
+                </li>
+                <li>
+                    <p><b>What is the minimum order requirement?</b></p>
+                    <p>There is no minimum order. We understand sometimes you may need just one or two items for special orders. We're happy to ship small orders, as often as you like.</p>
+                </li>
+                <li>
+                    <p><b>What are the payment options?</b></p>
+                    <p>The checkout page accepts PayPal, Visa, MasterCard, Amex, Discover and all debit cards as well. There are no payment fees of any kind.</p>
+                </li>
+                <li>
+                    <p><b>What are the shipping charges?</b></p>
+                    <p>
+                        We offer FedEx 2day Air at a "flat rate" of $16 per box, up to 24 pounds (that's about 40 standard vinyl records). This special $16 2day Air service is valid to all 50 states. As you
+                        add items to your cart, you'll notice the shipping charge for 2day Air remains at $16, until you eclipse 24 pounds and then the shipping will show $32 (because it is two boxes). If you
+                        place smaller orders, such as just a few vinyl records, then USPS Media Mail will make the most sense (starting at around $5.50). For international orders, we have a huge FedEx
+                        discount and the service is door to door in 2-3 days. Please see the checkout page for the shipping price quote (after you have added items to your cart).
+                    </p>
+                </li>
+                <li>
+                    <p><b>Will the goods arrive safely?</b></p>
+                    <p>
+                        We package orders so they can withstand extreme abuse in transit - the absolute best packaging in the industry. All orders come with tracking, insurance and our delivery guarantee - at
+                        no extra charge.
+                    </p>
+                </li>
+                <li>
+                    <p><b>Do we drop-ship?</b></p>
+                    <p>
+                        Yes - and it's very easy for you: Just place your website order as usual, but on the checkout page change the SHIP TO address (don't worry, this won't affect credit card verification
+                        because you aren't changing the BILL TO address). It's that simple - just change the address. Of course, don't change the BILL TO address (only change the SHIP TO address). We also
+                        offer a greatly simplified drop ship service for those who want to sell in volume (Amazon, eBay, Discogs, etc.) - in these cases you won't want to waste your time placing orders on our
+                        website for each order; you can instead email all of the orders to us.
+                    </p>
+                </li>
+                <li>
+                    <p><b>Can you drop ship large volumes of boxes daily for my Amazon, eBay, Discogs, etc. marketplaces?</b></p>
+                    <p>
+                        Yes. We can easily provide you with daily Excel feeds of our inventory data, and you simply provide us with the daily order information in an Excel spreadsheet. We'll ship all orders
+                        within 24 hours and email you the spreadsheet with the tracking numbers. We currently have about 20,000 SKU's (CD and vinyl) we can upload to your online marketplace.
+                    </p>
+                </li>
+            </ul>
+
+            <div class="wholesale-footer">
+                <p>We look forward to serving you.</p>
+                <p>
+                    Please email Ernie if you have any questions.<br />
+                    Email: <a href="mailto:ernieb12345@gmail.com">ernieb12345@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/wholesale.css" asp-append-version="true" />
+}

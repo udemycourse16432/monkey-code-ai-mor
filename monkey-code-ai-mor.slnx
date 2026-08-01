@@ -1,1 +1,7 @@
-<Solution />
+<Solution>
+  <Project Path="INTERNETREGGAEDatabase/INTERNETREGGAEDatabase.sqlproj" Id="028f7f28-60f1-4eac-9d29-e6e3de466256">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="MillionsOfRecordsApp/MillionsOfRecordsApp.csproj" />
+</Solution>

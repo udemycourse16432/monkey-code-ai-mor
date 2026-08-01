@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[Enter7Inch] (
+    [Quantity]          INT            NOT NULL,
+    [SideATrack1]       NVARCHAR (200) NOT NULL,
+    [SideBTrack1]       NVARCHAR (150) NULL,
+    [Label]             NVARCHAR (120) NOT NULL,
+    [Year]              NVARCHAR (30)  NULL,
+    [Genre1]            NVARCHAR (30)  NULL,
+    [Genre2]            NVARCHAR (30)  NULL,
+    [Genre3]            NVARCHAR (30)  NULL,
+    [Description1]      NVARCHAR (100) NOT NULL,
+    [Description2]      NVARCHAR (250) NULL,
+    [FullDescription]   NVARCHAR (350) NOT NULL,
+    [counter]           INT            IDENTITY (1, 1) NOT NULL,
+    [Worker]            NVARCHAR (100) NOT NULL,
+    [WorkerID]          INT            NOT NULL,
+    [Batch]             NVARCHAR (50)  NOT NULL,
+    [Status]            NVARCHAR (50)  CONSTRAINT [DF_Enter7Inch_Status] DEFAULT ('entered') NOT NULL,
+    [RandomNumberID]    NVARCHAR (50)  NOT NULL,
+    [DateTime]          DATETIME       CONSTRAINT [DF_Enter7Inch_DateTime] DEFAULT (getdate()) NOT NULL,
+    [WallID]            INT            NULL,
+    [WallCatalogLetter] NVARCHAR (5)   NULL,
+    [WallCatalogNumber] INT            NULL,
+    [RhythmName]        NVARCHAR (400) NULL,
+    CONSTRAINT [PK_Enter7Inch] PRIMARY KEY CLUSTERED ([counter] ASC)
+);
+

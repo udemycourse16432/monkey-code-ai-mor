@@ -1,0 +1,32 @@
+.my-account {padding-top: 10px;}
+.my-account .my-account-block {max-width: 1180px; width: 100%; margin: 0 auto; }
+.my-account .my-account-block .sign-in-block {border-right: 1px solid #000; padding-top: 20px; }
+.my-account .my-account-block .sign-in-block h2 {margin-bottom: 5px;}
+.my-account .my-account-block p {font-size: 16px; color: #9f9f9f; font-weight: 700; }
+.my-account .my-account-block p>a {color: #000;}
+.my-account .my-account-block p>a:hover {color: #ffcc00;}
+.my-account .my-account-block h2 {color: #000; font-size: 50px; line-height: 55px; }
+.my-account .my-account-block h6 {color: #9f9f9f; font-size: 16px; margin-bottom: 30px; font-weight: 400; }
+.my-account .my-account-block form {max-width: 508px; width: 100%; }
+.my-account .my-account-block form input {margin-bottom: 18px;}
+.my-account .my-account-block form .forgot-password {font-weight: 800; font-size: 16px; color: #000000; margin: 10px 0 18px; display: inline-block; }
+.my-account .my-account-block form button {margin-bottom: 20px;}
+.my-account .my-account-block .sign-up-block {padding: 20px;}
+
+@media screen and (max-width:1199px){
+    .my-account .my-account-block h2 {font-size: 44px; line-height: 49px;}
+}
+@media screen and (max-width:991px){
+    .my-account .my-account-block h2 {font-size: 40px; line-height: 45px;}
+}
+@media screen and (max-width:767px){
+    .my-account .my-account-block .sign-in-block {border-right: none; border-bottom: 1px solid #000; }
+    .my-account .my-account-block h2 {font-size: 35px; line-height: 40px;}
+    .my-account .my-account-block .sign-up-block {padding-bottom: 0;}
+}
+@media screen and (max-width:599px){
+    .my-account .my-account-block h2 {font-size: 30px; line-height: 35px;}
+}
+@media screen and (max-width:479px){
+    .my-account .my-account-block h2 {font-size: 28px; line-height: 33px;}
+}

@@ -1,0 +1,102 @@
+﻿@page "/your-orders"
+@model MillionsOfRecordsApp.Pages.YourOrdersModel
+@{
+    ViewData["Title"] = "Your Orders";
+}
+
+<section class="your-orders">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li><a href="/">Home</a></li>
+            <li>Your Orders</li>
+        </ul>
+
+        <h2>Your Orders</h2>
+
+        <div class="table-block">
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order Date</th>
+                        <th>Order ID</th>
+                        <th>Ship Date</th>
+                        <th>Invoice #</th>
+                        <th>Invoice Total</th>
+                        <th>Ship Via</th>
+                        <th>Tracking Number</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <tr>
+                            <td>@order.OrderDate</td>
+                            <td>
+                                @if(order.IsPendingOrder)
+                                {
+                                    <a asp-page="success" asp-route-orderNumber="@order.OrderId">
+                                        @order.OrderId
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span>@order.OrderId</span>
+                                }
+
+                            </td>
+                            <td>@order.ShipDate</td>
+                            <td>@order.InvoiceNo</td>
+                            <td>@order.Total</td>
+                            <td>@order.ShipVia</td>
+                            <td>
+                                @if (order.IsArchived)
+                                {
+                                    <span class="badge bg-secondary opacity-75">Archived</span>
+                                }
+                                else if (!order.IsPendingOrder && order.TrackingUrl != "NA")
+                                {
+                                    <div class="tracking-list">
+                                        @* Split tracking numbers by comma or semicolon if multiple exist *@
+                                        @{
+                                            var numbers = order.TrackingNumber.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                        }
+                                        @foreach (var num in numbers)
+                                        {
+                                            <a href="@order.TrackingUrl" target="carrier_tracking_window" class="tracking-link" title="Track @num.Trim()">
+                                                <i class="bi bi-box-seam me-1"></i> @num.Trim()
+                                            </a>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">@order.TrackingNumber</span>
+                                }
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(order.PDFFileName))
+                                {
+                                    <a href="https://cdn.millionsofrecords.com/invoice_pdfs/@order.PDFFileName"
+                                           download="Invoice_@order.OrderId"
+                                           class="btn btn-invoice d-inline-flex align-items-center gap-2">
+                                        <i class="bi bi-download"></i>
+                                        <span>Download Invoice</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted italic" style="font-size: 11px;">Preparing PDF...</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/yourOrders.css" asp-append-version="true" />
+}

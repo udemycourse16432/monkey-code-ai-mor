@@ -1,0 +1,275 @@
+/* --- 1. General Table Layout --- */
+.cart .cart-block .table-block {
+    width: 100%;
+    overflow-x: auto;
+}
+
+    .cart .cart-block .table-block table {
+        width: 100%;
+    }
+
+    .cart .cart-block .table-block th {
+        text-transform: uppercase;
+        border-bottom: 1px solid #000;
+        padding: 5px 15px;
+    }
+
+    .cart .cart-block .table-block td {
+        padding: 22px 15px;
+        border-bottom: 1px solid #000;
+    }
+
+        .cart .cart-block .table-block td .album-details {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+            .cart .cart-block .table-block td .album-details h5 {
+                font-size: 18px;
+                line-height: normal;
+                color: #000;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+
+                .cart .cart-block .table-block td .album-details h5 a {
+                    color: inherit;
+                }
+
+                    .cart .cart-block .table-block td .album-details h5 a:after {
+                        content: ", ";
+                    }
+
+                    .cart .cart-block .table-block td .album-details h5 a:last-child::after {
+                        display: none;
+                    }
+
+                    .cart .cart-block .table-block td .album-details h5 a:hover {
+                        color: #ffcc00;
+                    }
+
+            .cart .cart-block .table-block td .album-details p {
+                font-size: 14px;
+                color: #9f9f9f;
+                font-weight: 500;
+                margin-bottom: 8px;
+            }
+
+            /* --- 2. Image Gallery --- */
+            .cart .cart-block .table-block td .album-details .album-image-gallery {
+                display: flex;
+                flex-direction: row;
+                gap: 6px;
+                flex-shrink: 0;
+            }
+
+                .cart .cart-block .table-block td .album-details .album-image-gallery a.lightbox {
+                    width: 64px;
+                    height: 64px;
+                    flex: 0 0 64px;
+                    display: block;
+                    border-radius: 4px;
+                    box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+                    overflow: hidden;
+                }
+
+                    .cart .cart-block .table-block td .album-details .album-image-gallery a.lightbox img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        display: block;
+                    }
+
+                    .cart .cart-block .table-block td .album-details .album-image-gallery a.lightbox:hover {
+                        box-shadow: 0 0 0 2px #ffcc00;
+                    }
+
+            /* --- 3. Metadata & Tags --- */
+            .cart .cart-block .table-block td .album-details h6 {
+                margin-bottom: 0;
+                font-size: 14px;
+                color: #9f9f9f;
+                font-weight: 700;
+            }
+
+                .cart .cart-block .table-block td .album-details h6.metadata-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    margin-top: 10px;
+                    line-height: 1.4;
+                    font-size: 14px;
+                }
+
+                .cart .cart-block .table-block td .album-details h6 .primary-metadata {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    gap: 12px;
+                }
+
+                .cart .cart-block .table-block td .album-details h6 a.label-link {
+                    color: #ff7035 !important;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    text-decoration: none;
+                    transition: 0.2s;
+                }
+
+                    .cart .cart-block .table-block td .album-details h6 a.label-link:hover {
+                        color: #ffcc00 !important;
+                        text-decoration: underline;
+                    }
+
+                .cart .cart-block .table-block td .album-details h6 .year-info {
+                    font-weight: 700;
+                    color: #9f9f9f;
+                    cursor: help;
+                }
+
+                .cart .cart-block .table-block td .album-details h6 .feature-metadata {
+                    display: flex;
+                    flex-wrap: wrap;
+                    column-gap: 6px;
+                    row-gap: 6px;
+                }
+
+                .cart .cart-block .table-block td .album-details h6 .if-th {
+                    color: #333;
+                    font-weight: 600;
+                    font-size: 12px;
+                    text-decoration: none;
+                    border: 1px solid #ddd;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    transition: all 0.3s ease;
+                }
+
+                    .cart .cart-block .table-block td .album-details h6 .if-th:hover {
+                        background-color: #ffcc00;
+                        border-color: #ffcc00;
+                        color: #000;
+                        text-decoration: none;
+                    }
+
+        /* --- 4. Misc Table Elements --- */
+        .cart .cart-block .table-block td.price {
+            font-size: 18px;
+            color: #ff7035;
+            font-weight: 800;
+        }
+
+    .cart .cart-block .table-block .similar-items {
+        font-size: 16px;
+        font-weight: 400;
+        color: #000;
+    }
+
+        .cart .cart-block .table-block .similar-items:hover {
+            color: #ffcc00;
+        }
+
+        .cart .cart-block .table-block .similar-items i {
+            display: inline-block;
+            margin-left: 7px;
+        }
+
+    .cart .cart-block .table-block .fa.fa-close {
+        border: none;
+        background-color: transparent;
+        font-size: 16px;
+        color: #7e7e7e;
+        padding: 5px;
+        border: 1px solid transparent;
+    }
+
+        .cart .cart-block .table-block .fa.fa-close:hover {
+            border-color: #ffcc00;
+        }
+
+    .cart .cart-block .table-block .btn {
+        margin-top: 22px;
+    }
+
+.cart .empty-cart {
+    text-align: center;
+}
+
+    .cart .empty-cart h3 {
+        margin-bottom: 30px;
+    }
+
+/* --- 5. Media Queries --- */
+@media screen and (max-width:1199px) {
+    .cart .cart-block .table-block td {
+        padding: 20px 10px;
+    }
+
+        .cart .cart-block .table-block td .album-details {
+            flex-direction: column;
+        }
+}
+
+@media screen and (max-width:767px) {
+    .cart .cart-block thead {
+        display: none;
+    }
+
+    .cart .cart-block .table-block tr {
+        border-bottom: 1px solid #000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    .cart .cart-block .table-block td .album-details {
+        max-width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .cart .cart-block .table-block td {
+        display: inline-block !important;
+        border: none;
+        padding: 0;
+    }
+
+        .cart .cart-block .table-block td:first-child {
+            flex: 0 0 100%;
+        }
+}
+
+@media screen and (max-width:479px) {
+    .cart .cart-block .table-block .similar-items {
+        font-size: 14px;
+    }
+
+    .cart .cart-block .table-block td.price,
+    .cart .cart-block .table-block td .album-details h5 {
+        font-size: 16px;
+    }
+
+    .cart .cart-block .table-block td .album-details h6 {
+        font-size: 12px;
+    }
+
+    .quantity-input {
+        width: 90px;
+        height: 38px;
+    }
+
+        .quantity-input button {
+            font-size: 12px;
+        }
+
+        .quantity-input input {
+            font-size: 14px;
+        }
+}

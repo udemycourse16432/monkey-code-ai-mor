@@ -1,0 +1,130 @@
+﻿/* toastr-brand.css 
+    Millions of Records - Custom Toastr Theme (PrimeReact Style)
+*/
+
+/* --- 1. Container & Main Toast Box --- */
+#toast-container > .toast {
+    background-image: none !important; /* Removes default Toastr icons */
+    background-color: #f5f5f5 !important;
+    color: #696969 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    border-left: 6px solid #ffcc00 !important; /* Prime Yellow Border */
+    opacity: 1 !important;
+    max-width: 350px !important;
+    border-radius: 4px;
+    padding: 15px 15px 15px 50px !important; /* Extra left padding for custom icon */
+    transition: visibility 0.5s, opacity 0.5s; /* Extra safety */
+}
+
+/* --- 2. Text Styling (Summary & Detail) --- */
+/* Toast Title (Summary) */
+#toast-container > .toast-success .toast-title {
+    color: #000 !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    margin-bottom: 4px;
+}
+
+/* Toast Message (Detail) */
+#toast-container > .toast-success .toast-message {
+    font-size: 14px !important;
+    color: #696969 !important;
+    line-height: 1.4;
+}
+
+/* --- 3. UI Elements (Close & Progress) --- */
+/* Close Button */
+#toast-container .toast-close-button {
+    color: #000 !important;
+    font-size: 20px !important;
+    top: -8px !important;
+    right: -4px !important;
+    opacity: 0.4;
+    text-shadow: none;
+}
+
+    #toast-container .toast-close-button:hover {
+        opacity: 1;
+    }
+
+/* Progress Bar Color */
+#toast-container > .toast-success .toast-progress {
+    background-color: #ffcc00 !important;
+    opacity: 1;
+    height: 3px;
+}
+
+/* --- 4. Custom Icon Injection --- */
+/* Uses FontAwesome to match the 'fa-cart-plus' from your React setup */
+#toast-container > .toast-success:before {
+    font-family: "FontAwesome";
+    content: "\f217"; /* fa-cart-plus */
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #ffcc00;
+}
+
+/* --- 5. Animations (PrimeReact Style) --- */
+
+/* Entry Animation: Slide Up */
+#toast-container.toast-bottom-center > .toast {
+    animation: toast-slide-up 0.4s ease-out forwards;
+}
+
+@keyframes toast-slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Exit Animation: Slide Down & Height Collapse 
+   Triggered when Toastr adds the .fadeOut class
+*/
+/* 2. Exit Animation: Slide Down & Collapse */
+/* We target .toast.fadeOut because Toastr adds this class when the timer ends */
+#toast-container > .toast.fadeOut {
+    animation: toast-slide-down 0.5s ease-in forwards !important;
+    opacity: 1 !important; /* Keep it visible so the slide is seen */
+    pointer-events: none; /* Prevent clicks during the exit animation */
+}
+
+@keyframes toast-slide-down {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        max-height: 200px;
+        margin-bottom: 10px;
+    }
+
+    40% {
+        transform: translateY(20px);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(40px);
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
+    }
+}
+
+/* --- 6. Responsive Adjustments --- */
+@media (max-width: 480px) {
+    #toast-container > .toast {
+        width: 90vw !important;
+        margin: auto auto 15px auto !important;
+    }
+}

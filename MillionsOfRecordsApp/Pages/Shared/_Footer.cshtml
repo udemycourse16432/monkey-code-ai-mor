@@ -1,0 +1,75 @@
+﻿@* Views/Shared/_Footer.cshtml *@
+@{
+    var footerMenu = new[]
+    {
+        new { Title = "Home", Link = "/" },
+        new { Title = "My Account", Link = "/my-account" },
+        new { Title = "Your Orders", Link = "/your-orders" },
+        new { Title = "Shipping & Payment", Link = "/help-shipping" },
+        new { Title = "Customer Service & Returns", Link = "/customer-service-and-returns" },
+        new { Title = "Wholesale", Link = "/wholesale" },
+        new { Title = "About Us", Link = "/about-us" }
+    };
+}
+
+<footer>
+    <div class="container">
+        <figure>
+            <a href="/">
+                <img src="/assets/images/logo.png" alt="" />
+            </a>
+        </figure>
+        <ul class="nav">
+            @foreach (var item in footerMenu)
+            {
+                <li>
+                    <a href="@item.Link">@item.Title</a>
+                </li>
+            }
+        </ul>
+        <div class="footer-con">
+            <p>
+                <a href="tel:9165869410">
+                    <img src="/assets/images/phone.png" alt="" /> 916-586-9410
+                </a>
+            </p>
+            <p>
+                <a href="mailto:ernnieb12345@gmail.com">
+                    <img src="/assets/images/mail.png" alt="" /> ernnieb12345@gmail.com
+                </a>
+            </p>
+
+            @* Directly embedding SocialIcons logic here to port as is *@
+            <ul class="social-icon clearfix">
+                <li>
+                    <a href="https://www.facebook.com/MillionsOfRecordsdotcom/" target="_blank">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://x.com/MillionsOfRecs" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/millionsofrecords/?hl=en" target="_blank">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/@@MillionsOfRecords" target="_blank">
+                        <i class="fa fa-youtube-play"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyrights">
+        <div class="container">
+            <p>
+                Copyright 2017 - @DateTime.Now.Year <a href="/">Millions Of Records</a>. All rights reserved. 
+            </p>
+            <p>Trademarks, servicemarks, brands, musical works, audio visual works, recordings and artwork are the property of their respective owners.</p>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,109 @@
+﻿/* cart-buttons.css 
+   Millions of Records - Professional Cart Action Buttons
+*/
+
+/* --- 1. Container Wrapper --- */
+.cart-action-wrapper {
+    display: inline-block;
+    width: 100%;
+    min-height: 45px;
+    /* Smooth entry when JS swaps content */
+    animation: fadeIn 0.3s ease-in;
+}
+
+    /* --- 2. Common Button Base --- */
+    .cart-action-wrapper .btn {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-sizing: border-box;
+    }
+
+/* --- 3. Add to Cart (Yellow Outline / Black Text) --- */
+.btn-add-to-cart {
+    background-color: transparent !important;
+    color: #000 !important; /* Always Black Text */
+    border: 2px solid #ffcc00 !important; /* Yellow Outline */
+}
+
+    .btn-add-to-cart:hover {
+        background-color: #ffcc00 !important; /* Fills Yellow */
+        color: #000 !important; /* Stays Black Text */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 204, 0, 0.3);
+    }
+
+    .btn-add-to-cart i {
+        color: #000 !important;
+        font-size: 14px;
+    }
+
+/* --- 4. In-Cart State (Green Outline) --- */
+.btn-in-cart {
+    background-color: transparent !important;
+    color: #28a745 !important; /* Green Text */
+    border: 2px solid #28a745 !important; /* Green Outline */
+    position: relative;
+    overflow: hidden;
+    animation: button-pop 0.4s ease-out;
+}
+
+    .btn-in-cart:hover {
+        background-color: #28a745 !important; /* Fills Green */
+        color: #fff !important; /* Turns White on Green */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(40, 167, 69, 0.2);
+    }
+
+    .btn-in-cart .icon-wrap {
+        font-size: 16px;
+    }
+
+/* --- 5. Animations --- */
+
+/* The "Pop" when the button swaps from Add to In-Cart */
+@keyframes button-pop {
+    0% {
+        transform: scale(0.92);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* General Fade for the wrapper swap */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* --- 6. Mobile Optimization --- */
+@media (max-width: 768px) {
+    .cart-action-wrapper .btn {
+        padding: 12px 10px;
+        font-size: 12px;
+    }
+}

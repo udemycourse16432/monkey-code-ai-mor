@@ -1,0 +1,74 @@
+﻿@page "/wholesale-accepted"
+@model MillionsOfRecordsApp.Pages.WholesaleAcceptedModel
+@{
+    ViewData["Title"] = "Sign In Successful";
+}
+
+<div class="container-fluid p-0">
+    <!-- Header Banner -->
+    <div class="text-center py-3">
+        <h1 class="h2 text-white fw-bold m-0">Sign In Successful</h1>
+    </div>
+
+    <!-- Navigation & Cart Overview -->
+    <div class="text-center py-5">
+        <div class="d-flex justify-content-center flex-wrap gap-2 mb-3">
+            <a asp-page="/Index" class="btn btn-outline-dark"  title="Click here to return to our home page and begin ordering product">
+                Continue Shopping
+            </a>
+            <a asp-page="/Cart" class="btn btn-outline-dark" title="Click here to view your shopping cart / checkout.">
+                View Cart / Checkout
+            </a>
+            <a asp-page="/MyAccount" class="btn btn-outline-dark" title="Click here to view your customer details (shipping address, orders, etc)">
+                Your Account
+            </a>
+            <a asp-page="/YourOrders" class="btn btn-outline-dark" title="Click here to view your orders and invoices">
+                Your Orders
+            </a>
+        </div>
+
+        <div class="fw-bold fs-5 text-dark me-md-5">
+            @Model.CartItemText
+        </div>
+    </div>
+
+    <!-- Informational Boxes Container -->
+    <div class="py-4">
+        <div class="container" style="max-width: 850px;">
+            
+            <!-- Notice Box (Original) -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 fs-6 text-dark">
+                    <p class="fw-bold mb-2">PLEASE NOTE:</p>
+                    <ol class="mb-0 ps-3 lh-base">
+                        <li>You must sign in every time you add items to your cart, or the items will be lost.</li>
+                        <li>Items will remain in your cart until you purchase, so you can work on your order for several days or weeks before purchasing.</li>
+                        <li>There is no minimum order. You can order as much or as little as you like.</li>
+                        <li>To view shipping options and prices, please view the cart page after you have added items to your cart.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Wholesale Account Information Box (New) -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body p-4 fs-6 text-dark">
+                    <p class="mb-3 fw-bold">Your account is open and you may begin ordering. This is a wholesale account with no minimum order amount required.</p>
+                    <ol class="mb-0 ps-3 lh-base">
+                        <li class="mb-2"><strong>Wholesale Pricing:</strong> Your account is set up for wholesale pricing, so you're already seeing our lowest prices. Because we sell exclusively at wholesale prices, these prices are displayed sitewide even when you aren't signed in.</li>
+                        <li class="mb-2"><strong>Account Sign In:</strong> You must sign in every time you add items to your cart, or your selections won't be saved.</li>
+                        <li class="mb-2"><strong>Cart Retention:</strong> Items remain in your cart until an order is placed, allowing you to finalize your order at your convenience.</li>
+                        <li class="mb-2"><strong>Discounted Shipping:</strong> We've leveraged our high volume to negotiate fantastic rates with UPS and FedEx (domestic and international). To see the shipping rates and options, add items to your cart and go to the 'Proceed to Checkout' page.</li>
+                        <li class="mb-2"><strong>Real-Time Inventory:</strong> Everything on the website is in stock and ships today. Expect a tracking number within 24 hours.</li>
+                        <li class="mb-2"><strong>Maximum Protection:</strong> Industry-leading packaging ensures your items arrive safely.</li>
+                        <li class="mb-2"><strong>Instant Checkout:</strong> Enjoy a quick, secure checkout experience with credit card, debit card, or PayPal - with no payment fees.</li>
+                        <li class="mb-2"><strong>Drop-Ship Service:</strong> We also offer free "blind" drop-shipping with no setup required. Just enter your customer's address in the 'ship to' at checkout, and since it won't match the 'bill to' address we'll automatically omit paperwork and branding.</li>
+                        <li class="mb-2"><strong>Excel Stock List:</strong> You can download an Excel file of our full stock list (updated daily). Use this link and bookmark it for future reference: <a href="/All-Inventory.xlsx" class="text-primary text-decoration-none">All-Inventory.xlsx</a></li>
+                        <li><strong>Always Human, 24/7:</strong> Call or text (916) 586-9410 or email us anytime. We provide 100% in-house support around the clock. No call centers, no bots, and no artificial intelligence - just real people ready to help.</li>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

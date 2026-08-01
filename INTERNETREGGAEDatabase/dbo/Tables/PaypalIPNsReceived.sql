@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[PaypalIPNsReceived] (
+    [ReceiverEmail]             NVARCHAR (200) NULL,
+    [ReceiverID]                NVARCHAR (50)  NULL,
+    [WebOrderNumber]            NVARCHAR (255) NULL,
+    [DateTime]                  DATETIME       NULL,
+    [PaymentGross]              FLOAT (53)     NULL,
+    [PaymentStatus]             NVARCHAR (50)  NULL,
+    [PendingReason]             NVARCHAR (50)  NULL,
+    [ReasonCode]                NVARCHAR (50)  NULL,
+    [counter]                   INT            IDENTITY (1, 1) NOT NULL,
+    [PaypalTransactionID]       NVARCHAR (50)  NULL,
+    [ParentPaypalTransactionID] NVARCHAR (50)  NULL,
+    [PaymentType]               NVARCHAR (50)  NULL,
+    [PaymentFee]                FLOAT (53)     NULL,
+    [CustomerID]                INT            NULL,
+    [PayPalEmail]               NVARCHAR (150) NULL,
+    [Category]                  NVARCHAR (50)  NULL,
+    [Note]                      NVARCHAR (255) NULL,
+    [DownloadGroup]             INT            NULL,
+    [PaymentCurrency]           NVARCHAR (50)  NULL,
+    [FirstName]                 NVARCHAR (70)  NULL,
+    [LastName]                  NVARCHAR (70)  NULL,
+    [BusinessName]              NVARCHAR (130) NULL,
+    [PayPalID]                  NVARCHAR (20)  NULL,
+    CONSTRAINT [IX_PaypalIPNsReceived_1] UNIQUE NONCLUSTERED ([PaypalTransactionID] ASC, [PaymentStatus] ASC)
+);
+

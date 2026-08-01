@@ -1,0 +1,11 @@
+.my-account .btn-block {display: flex; justify-content: center; gap: 24px; }
+.my-account .add-new-card {margin-top: 90px;}
+.my-account .add-to-card-form .card-num {position: relative;}
+.my-account .add-to-card-form .card-num input {padding-right: 40px;}
+.my-account .add-to-card-form .card-num i {position: absolute; right: 22px; top: 50%; transform: translateY(-50%); color: #333; }
+.my-account .your-cards table {width: 100%; border: 2px solid #dadde1; }
+.my-account .your-cards th {background-color: #dadde1; padding: 13px 18px; }
+.my-account .your-cards td {border-bottom: 2px solid #dadde1; padding: 13px 18px;}
+.my-account .your-cards td:nth-last-child(-n+2) {text-align: center;}
+.my-account .your-cards td button {border: none; background-color: transparent; font-size: 16px; color: #333; height: 30px; width: 30px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out;}
+.my-account .your-cards td button:hover {background-color: #dadde1;}

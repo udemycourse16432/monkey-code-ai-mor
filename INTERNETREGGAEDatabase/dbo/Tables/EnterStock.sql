@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[EnterStock] (
+    [counter]           INT             IDENTITY (1, 1) NOT NULL,
+    [UPC]               NVARCHAR (50)   NULL,
+    [Artist]            NVARCHAR (150)  NOT NULL,
+    [Title]             NVARCHAR (150)  NOT NULL,
+    [Label]             NVARCHAR (130)  NOT NULL,
+    [Genre1]            NVARCHAR (30)   NULL,
+    [Genre2]            NVARCHAR (30)   NULL,
+    [Genre3]            NVARCHAR (30)   NULL,
+    [Catalog]           NVARCHAR (50)   NULL,
+    [WallCatalogLetter] NVARCHAR (5)    NULL,
+    [WallCatalogNumber] INT             NULL,
+    [Quantity]          INT             CONSTRAINT [DF_EnterStock_Quantity] DEFAULT ((1)) NOT NULL,
+    [Price]             NUMERIC (10, 2) NULL,
+    [UsedItem]          NVARCHAR (1)    CONSTRAINT [DF_EnterStock_UsedItem] DEFAULT ('y') NOT NULL,
+    [Format]            NVARCHAR (7)    CONSTRAINT [DF_EnterStock_Format] DEFAULT ('CD') NOT NULL,
+    [Worker]            NVARCHAR (100)  NOT NULL,
+    [WorkerID]          INT             NOT NULL,
+    [Batch]             INT             NOT NULL,
+    [DateTime]          DATETIME        CONSTRAINT [DF_EnterStock_DateTime] DEFAULT (getdate()) NOT NULL,
+    [Status]            NVARCHAR (50)   CONSTRAINT [DF_EnterStock_Status] DEFAULT ('entered') NOT NULL,
+    [RandomNumberID]    NVARCHAR (50)   NOT NULL,
+    [WallID]            INT             NULL,
+    CONSTRAINT [PK_EnterStock] PRIMARY KEY CLUSTERED ([counter] ASC)
+);
+

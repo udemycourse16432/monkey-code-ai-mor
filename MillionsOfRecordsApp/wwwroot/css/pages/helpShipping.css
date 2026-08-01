@@ -1,0 +1,25 @@
+.help-shipping .text-content {margin-bottom: 50px;}
+.help-shipping .list-block {margin: 30px 0;}
+.help-shipping .list-block li {font-size: 16px;}
+.help-shipping h5 {font-size: 18px; margin-bottom: 10px; }
+.help-shipping.locations {position: relative; background-color: #000; z-index: 0; }
+.help-shipping.locations:before { content: ""; background-image: url(/assets/images/locations-bg.png); opacity: 0.4; background-size: contain; background-repeat: no-repeat; background-position: center center;  background-attachment: fixed; width: 100%; height: 100%; z-index: -1; position: absolute; top: 0; left: 0; }
+.help-shipping.locations h3 {text-align: center; color: #fff; margin-bottom: 50px;}
+.help-shipping.locations ul {column-count: 6;}
+.help-shipping.locations ul li {margin: 0 5px 15px; position: relative; color: #fff; padding-left: 20px; }
+.help-shipping.locations ul li:before {content: "\f124"; font-family: fontawesome; position: absolute; left: 0; }
+
+
+@media screen and (max-width:1399px){
+    .help-shipping.locations ul {column-count: 5;}
+}
+@media screen and (max-width:991px){
+    .help-shipping.locations ul {column-count: 4;}
+}
+@media screen and (max-width:767px){
+    .help-shipping.locations ul {column-count: 3;}
+}
+
+@media screen and (max-width:479px){
+    .help-shipping.locations ul {column-count: 2;}
+}

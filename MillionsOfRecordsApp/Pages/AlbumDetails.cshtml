@@ -1,0 +1,551 @@
+﻿@page "/ItemDetails/{category?}/{id:int}/{slug?}"
+
+@using System.Text.Encodings.Web
+@model MillionsOfRecordsApp.Pages.AlbumDetailsModel
+@{
+    ViewData["Title"] = "Album Details";
+    var assetsBase = Configuration["Appsettings:AssetsPath"];
+    var imgBase = Configuration["Appsettings:ImagesPath"];
+    var mp3Base = Configuration["Appsettings:MP3sPath"];
+    var overviewList = new List<string>
+    {
+        "In stock, ships today",
+        "Ultra-secure packaging",
+        "100% money-back guarantee"
+    };
+    if (!Model.AlbumData.UsedItem)
+    {
+        bool isVinylFormat = Model.AlbumData.Format == "12\"" || Model.AlbumData.Format == "10\"" || Model.AlbumData.Format == "7\"";
+
+        string conditionText = isVinylFormat
+                    ? "Brand-new"
+                    : "Brand-new, factory shrink wrapped";
+
+        overviewList.Insert(0, conditionText);
+    }
+
+    string artistName = "Album Details";
+    if (Model.AlbumData != null && !string.IsNullOrEmpty(Model.AlbumData.ArtistTitle))
+    {
+        artistName = Model.AlbumData.ArtistTitle.Split('-')[0].Trim();
+    }
+    ViewData["Title"] = Model.IsNotFound
+        ? "Record Not Found"
+        : (Model.IsOutOfStock ? $"{Model.AlbumData?.ArtistTitle} - Out of Stock" : Model.AlbumData?.ArtistTitle);
+
+    var frontThumb = $"{imgBase}{Model.AlbumData?.FrontImgThumb}";
+    var backThumb = $"{imgBase}{Model.AlbumData?.BackImgThumb}";
+    var frontMedium = $"{imgBase}{Model.AlbumData?.FrontImgThumb}";
+    var backMedium = $"{imgBase}{Model.AlbumData?.BackImgThumb}";
+    var frontFull = $"{imgBase}{Model.AlbumData?.FrontImgThumb}";
+    var backFull = $"{imgBase}{Model.AlbumData?.BackImgThumb}";
+    var placeholderImg = $"{assetsBase}/images/album-placeholder-img1.png";
+    var isInCart = Model.CartModel != null;
+    var cartQuantity = isInCart ? Model.CartModel!.Quantity : 0;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/albumDetails.css" asp-append-version="true" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="~/css/swiper-bundle.min.css" />
+}
+
+<section class="shop-page shop-detail">
+    <div class="container-fluid">
+
+        <ul class="top-nav clearfix">
+            <li>
+                <a href="~/">Home</a>
+            </li>
+            <li>
+                <a href="@Url.Content(Model.ShopUrl)">Shop</a>
+            </li>
+            <li>@artistName</li>
+        </ul>
+
+        @if (Model.IsNotFound && !Model.IsOutOfStock)
+        {
+            <div class="alert alert-warning text-center my-5">
+                <h4><i class="fa fa-exclamation-triangle"></i> Album Details Not Found</h4>
+                <p>The record you are looking for is unavailable or has been removed from our inventory tracking lines.</p>
+                <a href="@Url.Content(Model.ShopUrl)" class="btn btn-dark mt-3">Return to Shop Storefront</a>
+            </div>
+        }
+        else if (Model.IsOutOfStock)
+        {
+            <div class="alert alert-info text-center my-5 p-5">
+                <h2>This item is out of stock.</h2>
+                <p class="lead my-3">Please click the button below to view our huge inventory of Vinyl and CDs.</p>
+                <a href="@Url.Content(Model.ShopUrl)" class="btn btn-warning btn-lg mt-3">
+                    <i class="fa fa-shopping-cart"></i> Continue Shopping
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="main-details clearfix">
+                <div class="product-gallery">
+                    <figure>
+                        <a href="@frontFull" class="popup-image" id="mainImageAnchor">
+                            <img src="@frontMedium"
+                                 id="mainPreviewImage"
+                                 onerror="this.onerror=null;this.src='@placeholderImg';"
+                                 alt="@Model.AlbumData?.ArtistTitle" />
+                        </a>
+                    </figure>
+
+                    <div class="gallery-images-block">
+                        <button class="thumb-btn active"
+                                onclick="switchGalleryImage(this, '@frontMedium', '@frontFull')"
+                                type="button">
+                            <figure>
+                                <img src="@frontThumb" onerror="this.onerror=null;this.src='@placeholderImg';" alt="Front Cover Thumbnail" />
+                            </figure>
+                        </button>
+
+                        <button class="thumb-btn"
+                                onclick="switchGalleryImage(this, '@backMedium', '@backFull')"
+                                type="button">
+                            <figure>
+                                <img src="@backThumb" onerror="this.onerror=null;this.src='@placeholderImg';" alt="Back Cover Thumbnail" />
+                            </figure>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h1>@Model.AlbumData?.Artist</h1>
+                    <p>@Model.AlbumData?.Title</p>
+
+                    <div class="price-block">
+                        <p class="price">
+                            @Model.AlbumData?.Format <strong>&#36;@Model.AlbumData?.Price.ToString("F2")</strong>
+                        </p>
+
+                        <div class="quantity-input">
+                            <button class="decrease-quantity fa @(cartQuantity == 1 ? "fa-trash" : "fa-minus")"
+                                    id="btnDecreaseQty"
+                                    type="button"
+                                    onclick="updateCartQuantity(this, @Model.AlbumData?.Id, @Model.AlbumData?.Price, -1)"></button>
+
+                            <span id="displayQuantity">@cartQuantity</span>
+
+                            <button class="increase-quantity fa fa-plus"
+                                    id="btnIncreaseQty"
+                                    type="button"
+                                    onclick="updateCartQuantity(this, @Model.AlbumData?.Id, @Model.AlbumData?.Price, 1)"></button>
+
+                            <input type="hidden" name="Quantity" id="hiddenQuantityInput" value="1" />
+                        </div>
+
+                        <p>
+                            <a href="~/shop?sid=@Model.AlbumData?.Id" style="color: inherit;">
+                                Show Similar Items <i class="fa fa-chevron-circle-right"></i>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div id="btn-container-@Model.AlbumId" class="cart-action-wrapper">
+                        @if (isInCart)
+                        {
+                            <a asp-page="/Cart" class="btn btn-in-cart">
+                                <span class="icon-wrap"><i class="fa fa-check"></i></span>
+                                <span class="text-wrap">IN YOUR CART</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-add-to-cart"
+                                    onclick="addToCart('@Model.AlbumData?.Id', '@Model.AlbumData?.Price.ToString("F2")', 1, '@Model.SearchId', '@JavaScriptEncoder.Default.Encode(Model.AlbumData?.Artist ?? "")')">
+                                <i class="fa fa-cart-plus"></i> ADD TO CART
+                            </button>
+                        }
+                    </div>
+
+                    @* --- OVERVIEW SECTION --- *@
+                    <div class="overview my-3">
+                        <ul class="overview-list list">
+                            @foreach (var item in overviewList)
+                            {
+                                <li>@item</li>
+                            }
+                        </ul>
+                    </div>
+
+                    @* --- USED ITEM CONDITION DETAILS --- *@
+                    @if (Model.AlbumData != null && Model.AlbumData.UsedItem)
+                    {
+                        <div class="used-item-condition-block border rounded p-3 my-4 bg-light">
+                            <h5 class="fw-bold text-dark mb-3"><i class="fa fa-info-circle me-2"></i>Item Condition Details</h5>
+
+                            @* Format Specific Guarantee Messaging *@
+                            @switch (Model.AlbumData.Format)
+                            {
+                                case "CD":
+                                    <p class="review">All used CDs play perfectly and have brand-new jewel cases. Backed by our 100% money-back guarantee.</p>
+                                    break;
+                                case "DVD":
+                                    <p class="review">All used DVDs play perfectly and are backed by our 100% money-back guarantee.</p>
+                                    break;
+                                case "VHS":
+                                    <p class="review">All used VHS (videotapes) play perfectly and are backed by our 100% money-back guarantee.</p>
+                                    break;
+                                case "CS":
+                                    <p class="review">All used cassette tapes play perfectly and are backed by our 100% money-back guarantee.</p>
+                                    break;
+                            }
+
+                            @* Jacket Condition *@
+                            @if (!string.IsNullOrEmpty(Model.AlbumData.ConditionJacket))
+                            {
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="me-2 fw-semibold">Jacket Condition: <strong>@Model.AlbumData.ConditionJacket</strong></span>
+                                    @if (!string.IsNullOrEmpty(Model.AlbumData.ConditionText))
+                                    {
+                                        <i class="fa fa-question-circle text-primary ms-1" title="@Model.AlbumData.ConditionText" style="cursor: pointer;"></i>
+                                    }
+                                </div>
+                            }
+
+                            @* Vinyl Condition *@
+                            @{
+                                var fmt = Model.AlbumData.Format;
+                                bool isVinyl = fmt == "LP" || fmt == "12\"" || fmt == "10\"" || fmt == "7\"";
+                            }
+                            @if (!string.IsNullOrEmpty(Model.AlbumData.ConditionVinylOrCD) && isVinyl)
+                            {
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="me-2 fw-semibold">Vinyl Condition: <strong>@Model.AlbumData.ConditionVinylOrCD</strong></span>
+                                    @if (!string.IsNullOrEmpty(Model.AlbumData.ConditionText))
+                                    {
+                                        <i class="fa fa-question-circle text-primary ms-1" title="@Model.AlbumData.ConditionText" style="cursor: pointer;"></i>
+                                    }
+                                </div>
+                            }
+
+                            @* Condition Notes *@
+                            @if (!string.IsNullOrEmpty(Model.AlbumData.ConditionNotes))
+                            {
+                                <p class="review text-muted mt-2 mb-0"><strong>Notes:</strong> @Model.AlbumData.ConditionNotes</p>
+                            }
+                        </div>
+                    }
+
+                    <ul class="label-list clearfix">
+                        <li>
+                            Label:
+                            <strong title="@Model.AlbumData?.Label">
+                                <a href="~/shop?label=@System.Net.WebUtility.UrlEncode(Model.AlbumData?.Label)">@Model.AlbumData?.Label</a>
+                            </strong>
+                        </li>
+                        <li>
+                            Our Item#: <strong>@Model.AlbumData?.Id</strong>
+                        </li>
+                        <li>
+                            Catalog:
+                            <strong title="@Model.AlbumData?.Catalog">
+                                @Model.AlbumData?.Catalog
+                            </strong>
+                        </li>
+                        <li>
+                            Recorded:
+                            <strong>
+                                @if (!string.IsNullOrEmpty(Model.AlbumData?.YearTo))
+                                {
+                                    <a href="~/shop?fyear=@Model.AlbumData.YearFrom&tyear=@Model.AlbumData.YearTo">
+                                        @Model.AlbumData.YearFrom - @Model.AlbumData.YearTo
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="~/shop?year=@Model.AlbumData?.YearFrom">
+                                        @Model.AlbumData?.YearFrom
+                                    </a>
+                                }
+                            </strong>
+                        </li>
+                        <li>
+                            UPC: <strong title="@Model.AlbumData?.UPC">@Model.AlbumData?.UPC</strong>
+                        </li>
+                        <li>
+                            Item Weight: <strong>@Model.AlbumData?.WeightInGrams.ToString("0") grams</strong>
+                        </li>
+                    </ul>
+
+                    @* --- RESTORED FEATURES LIST WITH POPOVERS --- *@
+                    <ul class="list">
+                        @foreach (var feature in Model.FeaturesList)
+                        {
+                            var hoverText = feature.ItemFeatureHoverOverText?.Replace("\"", "'") ?? "";
+                            var featureText = feature.ItemFeatureWebProductDetailsPageText;
+                            var longDesc = feature.ItemFeatureWebProductDetailsPageHyperlinkText?
+                                                  .Replace("NEW PARAGRAPH ", "<br/><br/>")
+                                                  .Replace("\"", "'");
+
+                            <li style="position: relative; margin-bottom: 8px;">
+                                <a href="~/shop?feaitem=@feature.InventoryItemFeatureID">@featureText</a>
+
+                                @if (!string.IsNullOrWhiteSpace(longDesc))
+                                {
+                                    var divId = $"IF{Model.AlbumId}-{feature.InventoryItemFeatureID}";
+
+                                    <span class="whats-this-trigger"
+                                          style="margin-left: 8px; cursor: pointer; color: #6c757d; font-size: inherit; font-weight: normal;"
+                                          onclick="toggleFeatureDetails('@divId', event)">
+                                        What's this?
+                                    </span>
+
+                                    <div class="feature-popover-card"
+                                         id="@divId"
+                                         onclick="hideFeatureDetails('@divId')"
+                                         style="display: none; position: absolute; left: 0; top: 100%; z-index: 2050; max-width: 450px; width: 100%; margin-top: 5px; padding: 15px; background-color: #ffffff; border-left: 4px solid #ffcc00; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer; font-size: inherit; color: #333333; line-height: 1.5;">
+                                        <div style="float: right; font-size: 0.85rem; color: #999999; margin-left: 15px;">
+                                            <i class="fa fa-times-circle"></i> Dismiss
+                                        </div>
+                                        <div>@Html.Raw(longDesc)</div>
+                                        <div style="clear: both;"></div>
+                                    </div>
+                                }
+                            </li>
+                        }
+                    </ul>
+
+                    @* --- RESTORED GENRES BLOCK --- *@
+                    @if (Model.GenresList != null && Model.GenresList.Any())
+                    {
+                        <div class="genres my-3">
+                            <h4>Genres:</h4>
+                            @foreach (var genre in Model.GenresList)
+                            {
+                                <a href="~/shop?genre=@System.Net.WebUtility.UrlEncode(genre)" class="me-2">@genre</a>
+                            }
+                        </div>
+                    }
+
+                </div>
+            </div>
+            @* Album Review Section *@
+            @if (Model.AlbumData != null)
+            {
+                @* Album Review Section *@
+                @if (!string.IsNullOrWhiteSpace(Model.AlbumData.WebReviewHtml))
+                {
+                    <section class="album-review-section clearfix" style="margin-bottom: 20px;">
+                        <h4 class="text-primary">Album Review</h4>
+                        <div class="well well-sm">
+                            @Html.Raw(Model.AlbumData.WebReviewHtml)
+                        </div>
+                    </section>
+                }
+
+                @* Musician Credits Section *@
+                @if (!string.IsNullOrWhiteSpace(Model.AlbumData.MusicianGroupHtml))
+                {
+                    <section class="musician-credits-section clearfix" style="margin-bottom: 20px;">
+                        <h4 class="text-primary">Musician Credits</h4>
+                        <div class="well well-sm">
+                            @Html.Raw(Model.AlbumData.MusicianGroupHtml)
+                        </div>
+                    </section>
+                }
+
+                @* Production Credits Section *@
+                @if (!string.IsNullOrWhiteSpace(Model.AlbumData.ProduceGroupHtml))
+                {
+                    <section class="production-credits-section clearfix" style="margin-bottom: 20px;">
+                        <h4 class="text-primary">Production Credits</h4>
+                        <div class="well well-sm">
+                            @Html.Raw(Model.AlbumData.ProduceGroupHtml)
+                        </div>
+                    </section>
+                }
+            }
+        }
+
+    
+        
+        @* ================= CUSTOMER VIEWED / YOU MAY ALSO BE INTERESTED IN ================= *@
+        @* ================= CUSTOMER VIEWED / YOU MAY ALSO BE INTERESTED IN ================= *@
+        @if (Model.CustomerViewedList.Any())
+        {
+            <section class="related-products-section my-5" style="margin-top: 30px; margin-bottom: 30px; position: relative;">
+                <h3 style="color: #c74100; font-weight: bold; margin-bottom: 20px;">You may also be interested in...</h3>
+
+                <div class="swiper customer-viewed-swiper" style="padding: 10px 5px;">
+                    <div class="swiper-wrapper">
+                        @foreach (var sim in Model.CustomerViewedList)
+                        {
+                            var simImg = $"{imgBase}{sim.ImageUrl}";
+                            var simUrl = AppConstants.SEOPageNameText(sim.ArtistTitle, sim.Format, sim.Id, Model.SearchId);
+
+                            <div class="swiper-slide text-center">
+                                <div class="thumbnail" style="height: 100%; margin-bottom: 0; padding: 10px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <a href="@simUrl">
+                                        <img src="@simImg" alt="@sim.ArtistTitle"
+                                             onerror="this.onerror=null;this.src='@placeholderImg';"
+                                             style="max-height: 160px; margin: 0 auto; display: block;" />
+                                    </a>
+                                    <div class="caption" style="padding: 9px 0 0 0;">
+                                        <p class="small" style="margin-bottom: 5px; font-weight: bold;">
+                                            @sim.Format &#36;@sim.Price.ToString("F2")
+                                        </p>
+                                        <p class="small text-muted text-hide-overflow" title="@sim.ArtistTitle"
+                                           style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0; color: #777;">
+                                            <a href="@simUrl" style="color: inherit; text-decoration: none;">@sim.ArtistTitle</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <!-- Navigation Buttons with Font Awesome 4.7 icons -->
+                    <div class="swiper-button-next" style="color: #c74100;"></div>
+                    <div class="swiper-button-prev" style="color: #c74100;"></div>
+                </div>
+            </section>
+        }
+
+        @* ================= MORE BY THIS ARTIST ================= *@
+        @* ================= MORE BY THIS ARTIST ================= *@
+        @if (Model.MoreByArtistList.Any())
+        {
+            <section class="more-by-artist-section my-5" style="margin-top: 30px; margin-bottom: 30px; position: relative;">
+                <h3 style="color: #c74100; font-weight: bold; margin-bottom: 20px;">More by @Model.ArtistForMoreBy...</h3>
+
+                <div class="swiper more-artist-swiper" style="padding: 10px 5px;">
+                    <div class="swiper-wrapper">
+                        @foreach (var mb in Model.MoreByArtistList)
+                        {
+                            var mbImg = $"{imgBase}{mb.ImageUrl}";
+                            var mbUrl = AppConstants.SEOPageNameText(mb.ArtistTitle, mb.Format, mb.Id, Model.SearchId);
+
+                            <div class="swiper-slide text-center">
+                                <div class="thumbnail" style="height: 100%; margin-bottom: 0; padding: 10px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <a href="@mbUrl">
+                                        <img src="@mbImg" alt="@mb.ArtistTitle"
+                                             onerror="this.onerror=null;this.src='@placeholderImg';"
+                                             style="max-height: 160px; margin: 0 auto; display: block;" />
+                                    </a>
+                                    <div class="caption" style="padding: 9px 0 0 0;">
+                                        <p class="small" style="margin-bottom: 5px; font-weight: bold;">
+                                            @mb.Format &#36;@mb.Price.ToString("F2")
+                                        </p>
+                                        <p class="small text-muted text-hide-overflow" title="@mb.ArtistTitle"
+                                           style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0; color: #777;">
+                                            <a href="@mbUrl" style="color: inherit; text-decoration: none;">@mb.ArtistTitle</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <!-- Navigation Buttons with Font Awesome 4.7 icons -->
+                    <div class="swiper-button-next" style="color: #c74100;"></div>
+                    <div class="swiper-button-prev" style="color: #c74100;"></div>
+                </div>
+            </section>
+        }
+    </div>
+    
+</section>
+
+@section Scripts {
+    <!-- Swiper JS -->
+    <script src="~/js/lib/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swipers after DOM ready
+        $(document).ready(function () {
+            var swiperOptions = {
+                slidesPerView: 2,
+                spaceBetween: 15,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    480: { slidesPerView: 3, spaceBetween: 15 },
+                    768: { slidesPerView: 4, spaceBetween: 15 },
+                    992: { slidesPerView: 5, spaceBetween: 20 }
+                }
+            };
+
+            if (document.querySelector('.customer-viewed-swiper')) {
+                new Swiper('.customer-viewed-swiper', swiperOptions);
+            }
+            if (document.querySelector('.more-artist-swiper')) {
+                new Swiper('.more-artist-swiper', swiperOptions);
+            }
+        });
+        function switchGalleryImage(buttonElement, mediumUrl, fullUrl) {
+            const mainImg = document.getElementById('mainPreviewImage');
+            const mainAnchor = document.getElementById('mainImageAnchor');
+
+            if (mainImg) mainImg.src = mediumUrl;
+            if (mainAnchor) mainAnchor.href = fullUrl;
+
+            const buttons = document.querySelectorAll('.gallery-images-block .thumb-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+        }
+
+        $(document).ready(function() {
+            if ($.fn.magnificPopup) {
+                $('.popup-image').magnificPopup({
+                    type: 'image',
+                    closeOnContentClick: true,
+                    mainClass: 'mfp-img-mobile',
+                    image: {
+                        verticalFit: true
+                    }
+                });
+
+                $(".popup-image").magnificPopup({
+                    type: "image",
+                    gallery: {
+                        enabled: true,
+                    },
+                    mainClass: "mfp-fade",
+                    removalDelay: 300,
+                    zoom: {
+                        enabled: true,
+                        duration: 300,
+                        opener: function (element) {
+                            return element.find("img");
+                        },
+                    },
+                });
+            }
+        });
+
+        function toggleFeatureDetails(divId, event) {
+            if (event) event.stopPropagation();
+
+            var card = document.getElementById(divId);
+            if (card) {
+                if (card.style.display === 'block') {
+                    card.style.display = 'none';
+                } else {
+                    document.querySelectorAll('.feature-popover-card').forEach(function(openCard) {
+                        openCard.style.display = 'none';
+                    });
+                    card.style.display = 'block';
+                }
+            }
+        }
+
+        function hideFeatureDetails(divId) {
+            var card = document.getElementById(divId);
+            if (card) {
+                card.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.feature-popover-card') && !e.target.closest('.whats-this-trigger')) {
+                document.querySelectorAll('.feature-popover-card').forEach(function(card) {
+                    card.style.display = 'none';
+                });
+            }
+        });
+    </script>
+}

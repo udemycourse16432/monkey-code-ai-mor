@@ -1,0 +1,152 @@
+﻿@page "/checkout"
+@model MillionsOfRecordsApp.Pages.CheckoutModel
+@{
+    ViewData["Title"] = "Checkout";
+    string paypalClientId = Configuration.GetValue<string>("PayPal:ClientId") ?? throw new ApplicationException("PayPal:ClientId configuration missing!");
+    string paypalUrl = Configuration.GetValue<string>("PayPal:ScripUrlAlt")!;
+    string buyerCountryAbbr = "US";
+    string currency = "USD";
+    string scriptUrl = $"{paypalUrl}?client-id={paypalClientId}&buyer-country={buyerCountryAbbr}&currency={currency}&components=buttons&enable-funding=card&disable-funding=paylater,venmo&intent=capture";
+}
+
+<section class="checkout">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                
+                <h4><span>1</span> Address</h4>
+                <div class="row address-row">
+                    <div class="col-md-6">
+                        <div class="address-card">
+                            <h6 class="card-label">Shipping Address</h6>
+                            <div class="address-details">
+                                <p>
+                                    <strong>@Model.FullName</strong><br />
+                                    @Model.StreetAddress1<br />
+                                    @if (!string.IsNullOrEmpty(Model.StreetAddress2))
+                                    {
+                                        @Model.StreetAddress2
+                                        <br />
+                                    }
+                                    @Model.City, @Model.StateProvince @Model.PostalCode<br />
+                                    @Model.Country
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="address-card">
+                            <h6 class="card-label">Billing Address <a asp-page="/MyAccount" class="edit-link">Edit</a></h6>
+                            <div class="address-details">
+                                <p>
+                                    <strong>@Model.BillingFullName</strong><br />
+                                    @Model.BillingStreetAddress1<br />
+                                    @if (!string.IsNullOrEmpty(Model.BillingStreetAddress2))
+                                    {
+                                        @Model.BillingStreetAddress2
+                                        <br />
+                                    }
+                                    @Model.BillingCity, @Model.BillingStateProvince @Model.BillingPostalCode<br />
+                                    @Model.BillingCountry
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="address-card" style="margin-bottom: 10px; margin-top: 20px;">
+                    <h6 class="card-label">Contact Information</h6>
+                    <div class="row">
+                        <div class="col-md-6">Phone: @Model.Phone</div>
+                        <div class="col-md-6">Email: @Model.Email</div>
+                    </div>
+                </div>
+                <h4><span>2</span> Shipping Methods</h4>
+                <div class="shipping-methods" style="margin-bottom: 40px;">
+                    @foreach (var method in Model.ShippingMethods)
+                    {
+                        <label class="styled-input">
+                            <input type="radio"
+                                   name="SelectedShippingCode"
+                                   value="@method.Code"
+                                   data-price="@method.Price"
+                            @(Model.SelectedShippingCode == method.Code ? "checked=\"checked\"" : "") />
+                            <span>
+                                @method.Name
+                                <strong>$@method.Price</strong> - @method.ArrivingDate
+                            </span>
+                        </label>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-5 col-sm-6 right-block">
+                <div class="cart-summary">
+                    <h3>Cart Summary</h3>
+                    <div class="cart-meta">
+                        <p>Total Items: <strong>@Model.CartItems.Sum(x => x.Quantity)</strong></p>
+                    </div>
+                    <table>
+                        <tbody class="cart-products">
+                            @foreach (var album in Model.CartItems)
+                            {
+                                <tr>
+                                    <td>
+                                        @{
+                                            var itemDetailsUrl = AppConstants.SEOPageNameText(album.ArtistTitle, album.Format, album.ID, Model.SearchId);
+                                        }
+                                        <a href="@itemDetailsUrl">
+                                            <img class="album-img" src="@album.FrontImg" alt="" />
+                                        </a>
+                                    </td>
+                                    @* .split("-")[0] equivalent using C# Split *@
+                                    <td>@album.ArtistTitle.Split('-')[0]</td>
+                                    <td>@album.Quantity</td>
+                                    <td>$@album.Price.ToString("F2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">Product</td>
+                                <td colspan="2" id="products-price-display" data-value="@Model.ProductsPrice">$@Model.ProductsPrice.ToString("F2")</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Shipping</td>
+                                <td colspan="2" id="shipping-cost-display" data-value="@Model.ShippingCost">$@Model.ShippingCost</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">Total</td>
+                                <td colspan="2">
+                                    <span id="total-amount-display" data-value="@Model.TotalAmount">$@Model.TotalAmount.ToString("F2")</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="payment-options mt-4">
+                        <div id="paypal-button-container"></div>
+                        <p id="result-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/checkout.css" asp-append-version="true" />
+}
+@section Scripts {
+   
+
+    <script id="paypal-sdk" 
+        src="@scriptUrl" 
+        onload="initPayPal()" 
+        async></script>
+    @*  <script
+            src="https://sandbox.paypal.com/sdk/js?client-id=ARrQ4tH5oToed__37MoXBwfW0NrudmHkr9cUYPkheHT3NWCURrsfEdse8jBx68e8tQqge1aov3r556Lj&buyer-country=US&currency=USD&components=buttons&enable-funding=venmo,paylater,card"
+            data-sdk-integration-source="developer-studio"
+        ></script> *@
+    <script src="~/js/pages/checkout.js" asp-append-version="true"></script>
+}

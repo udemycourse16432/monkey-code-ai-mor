@@ -1,0 +1,4 @@
+.social-icon { margin:0; }
+.social-icon li { float:left; padding:0 5px; }
+.social-icon li a { display:inline-block; font-size:21px; color:#000000; border:2px solid #ffd300; width:44px; height:44px; line-height:42px; }
+.social-icon li a:hover { background-color:#ffd300; }

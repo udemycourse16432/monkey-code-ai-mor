@@ -1,0 +1,144 @@
+/* ===== HEADER ====== */
+.mobile-toggle{ display: none; }
+header { border-bottom:1px solid #d2d4d7;}
+header .top-header { background-color:#f5f5f5; }
+header .top-header ul { float:left; margin:0; }
+header .top-header .account-block { float:right; }
+header .top-header ul li { font-size:14px; font-weight:400; color:#000000; line-height:32px; float:left; padding: 5px 24px 6px 0; }
+header .top-header ul li:last-child { padding-right:0; }
+header .top-header .account-block li { padding-right:26px; }
+header .top-header ul li a { color:#000000; padding:0; }
+header .top-header ul li a:hover {color: #ffcc00;}
+header .top-header ul li a:hover,
+header .top-header ul li a:focus { background-color:transparent; }
+header .top-header ul li i { margin-right:4px; }
+header .logo { float: left; position: relative; padding:0 28px 0 0; }
+header nav { float:none; width:100%; margin-bottom: 11px; }
+header nav .navbar-nav { float:none; text-align:center; }
+header .navbar-nav li {float:none; display:inline-block; position:relative;}
+header .navbar-nav li:after { content:""; position:absolute; background-image:url('/assets/images/line.png'); background-repeat:no-repeat; background-position:center; background-size:100%; top:0; width:1px; height:100%; right:0; }
+header .navbar-nav li:last-child::after {display: none;}
+header .navbar-nav li button { outline: none; text-transform:uppercase; letter-spacing: 0.5px; color:#000; line-height:18px; font-size:16px; font-weight:600; color:#000; padding:11px 35px; display:inline-block; background-color: transparent; border: none; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out;}
+header .navbar-nav li button:hover {transform: scale(0.9);  }
+header .navbar-nav li:last-child a:after { display:none; }
+header .header-middle { display:flex; align-items:center; padding: 13px 0 15px; }
+header .search-block { width: calc(100% - 505px); position: relative; }
+header .singup { margin:0; padding: 0 31px 0 40px; display:flex; }
+header .singup li { padding:0 11px; position:relative; font-size:14px; font-weight:400; color:#000000; }
+header .singup li:first-child:after { display:none; }
+header .singup li:after { content:""; position:absolute; width:1px; height:10px; background-color: #424242; left:0; top:50%; transform:translateY(-50%); -webkit-transform:translateY(-50%); -ms-transform:translateY(-50%); -moz-transform:translateY(-50%); }
+header .singup li a { color:#000000; }
+header .singup a:hover {color: #ffcc00;}
+header .cart-link {font-size: 16px; font-weight: 600; color: #000; position: relative;}
+header .cart-link img {margin-right: 8px;}
+header .cart-link span {font-size: 16px; line-height: 16px; color: #ffcc00; font-family: "Poppins", sans-serif; font-weight: 500; position: absolute; top: 0; left: 17px; width: 20px; text-align: center;}
+header .cart-link:hover {transform: scale(0.9);}
+
+
+@media screen and (max-width: 1499px) {
+    header .navbar-nav li button { padding: 11px 30px; }
+}
+@media screen and (max-width: 1399px) {
+    header .navbar-nav li button { padding: 11px 25px; }
+}
+@media screen and (max-width: 1299px) {
+    header .navbar-nav li button { padding: 11px 20px; }
+}
+@media screen and (max-width: 1199px) {
+    header .navbar-nav li { font-size: 15px; }
+    header .navbar-nav li button { padding: 10px 15px; font-size: 14px; }
+    header .search-block {flex-grow: 1;}
+    header .singup {padding: 0;}
+}
+@media screen and (max-width: 991px) {
+    header .top-header .nav { display:none; }
+    header .top-header .account-block { float: left; }
+    header nav .navbar-nav { max-width: 350px; width: 100%; margin: 0 auto; text-align: left; }
+    header .navbar-nav li.dropdown { display:block !important; }
+    header .navbar-nav .dropdown-menu { position: relative; float: none; }
+    header .navbar-nav li { display:block; border-bottom:1px solid #fff; }
+    header .navbar-nav li button { display:block; }
+    header .navbar-nav li button::after { display:none; }
+    header .header-middle { flex-wrap: wrap; justify-content: center; gap: 15px; }
+    header .logo { padding: 0; flex: auto; float: none; margin-right: auto; }
+    header .search-block { width: 100%; order: 1;}    
+    header .navbar-nav li:after {display: none;}
+    header .navbar-nav li button:hover {transform: scale(1.0);}
+    header nav#nav.is-active { opacity: 1; visibility: visible; overflow: scroll;}
+    header nav#nav { position: fixed; top:0; left:0; margin-top:0; z-index:990; opacity:0.0; visibility: hidden; height:100%; width:100%; background-color:#ffcc00; transition:all 0.35s ease-in-out;}    
+    .navbar-nav{ padding:150px 0; text-align:center;}
+    /* Cross icon */
+    .mobile-toggle { position: absolute; top: 8px; right:15px; z-index:999; display: inline-block; cursor: pointer; transition-property: opacity, filter; transition-duration: 0.25s; transition-timing-function: linear; background-color: transparent; border: 0; margin: 0; overflow: visible; padding: 0; width: 30px; height: 28px;}
+    .mobile-toggle-box { width: 34px; height: 28px; display: inline-block; position: relative;}
+    .mobile-toggle-inner { display: block; top: 50%; margin-top: -2px;}    
+    .mobile-toggle-inner,
+    .mobile-toggle-inner::before,
+    .mobile-toggle-inner::after { width: 28px; height: 3px; background-color: #000; border-radius: 4px; position: absolute; transition-property: transform; transition-duration: 0.15s; transition-timing-function: ease;}    
+    .is-active .mobile-toggle-inner,
+    .is-active .mobile-toggle-inner::before,
+    .is-active .mobile-toggle-inner::after { background-color: #000;}
+    .mobile-toggle-inner::before,
+    .mobile-toggle-inner::after { content: ""; display: block;}    
+    .mobile-toggle-inner::before { top: -9px;}    
+    .mobile-toggle-inner::after { bottom: -9px;}
+    .mobile-toggle--squeeze .mobile-toggle-inner { -webkit-transition-duration: 0.075s; -ms-transition-duration: 0.075s; transition-duration: 0.075s; -webkit-transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); -ms-transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);}    
+    .mobile-toggle--squeeze .mobile-toggle-inner::before { -webkit-transition: top 0.075s 0.12s ease, opacity 0.075s ease; -ms-transition: top 0.075s 0.12s ease, opacity 0.075s ease; transition: top 0.075s 0.12s ease, opacity 0.075s ease;}    
+    .mobile-toggle--squeeze .mobile-toggle-inner::after { -webkit-transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19); -ms-transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19); transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);}
+    .mobile-toggle--squeeze.is-active .mobile-toggle-inner { -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); -webkit-transition-delay: 0.12s; -ms-transition-delay: 0.12s; transition-delay: 0.12s; -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); -ms-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);}    
+    .mobile-toggle--squeeze.is-active .mobile-toggle-inner::before { top: 0; opacity: 0; transition: top 0.075s ease, opacity 0.075s 0.12s ease;}    
+    .mobile-toggle--squeeze.is-active .mobile-toggle-inner::after { bottom: 0; -webkit-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg); -webkit-transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); -ms-transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);}
+    
+}
+@media screen and (max-width: 767px) {
+    header .header-middle figure { float:right; }
+}
+
+/* ===== ScaleLoader ====== */
+/*
+1. The CSS Replacement for ScaleLoader
+Add this to your header.css to replicate the look of the React ScaleLoader:*/
+
+/* Replaces React ScaleLoader */
+.loader {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    /*padding: 20px;*/
+    padding: 40px 0;
+}
+
+    .loader.active {
+        display: flex;
+    }
+
+.scale-loader {
+    display: flex;
+    gap: 4px;
+}
+
+    .scale-loader div {
+        /*background-color: #333;*/
+        background-color: #ffcc00; /* Matches your brand yellow */
+        height: 35px;
+        width: 4px;
+        border-radius: 2px;
+        animation: scale-stretch 1s infinite ease-in-out;
+    }
+
+        .scale-loader div:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .scale-loader div:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+@keyframes scale-stretch {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(0.4);
+    }
+}

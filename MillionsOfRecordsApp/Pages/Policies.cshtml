@@ -1,0 +1,60 @@
+﻿@page "/policies"
+@model MillionsOfRecordsApp.Pages.PoliciesModel
+@{
+    ViewData["Title"] = "Policies";
+}
+
+<section class="privacy-policy">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a asp-page="/AboutUs">About Us</a>
+            </li>
+            <li>Policies</li>
+        </ul>
+        <div class="container">
+            <h2>Returns and Customer Service</h2>
+
+            <h5>Returns or Exchanges</h5>
+            <p>For returns, exchanges, defects or any other problems please email Ernie at ernieb12345@gmail.com with a brief description of the issue (photos not necessary). We'll reply promptly. Please do not return items without an authorization. Please note that vinyl is non-returnable (all vinyl sales are final).
+            </p>
+
+            <h5>Packaging Guarantee</h5>
+            <p>We have developed the very best system for packaging vinyl to ensure damage-free transit. Simply double-boxing LPs is not good enough. We designed and invented a special line of boxes specifically made to handle extreme abuse. Our LP orders are boxed snugly in an inner box and then that box is packed in an outer box which has heavily reinforced protective areas around the corners. This creates an extremely rigid, sturdy double-box with extra protection that is certainly the best in the industry. We also pack CD's with great care, and never ship in padded envelopes (all orders are shipped in boxes). You won't experience the disappointment and frustration of bent LP corners, split seems, or cracked CD cases.
+            </p>
+
+            <h5>Delivery Guarantee</h5>
+            <p>All orders include tracking, insurance and our delivery guarantee at no extra charge. We guarantee your order against loss or damage in transit.
+            </p>
+
+            <div class="contact-info">
+                <h5>Contact</h5>
+                <p>
+                    <b>Phone: </b>
+                    <a href="tel:9165869410">916-586-9410</a>
+                </p>
+                <p>
+                    <b>Email: </b>
+                    <a href="mailto:ernnieb12345@gmail.com">ernnieb12345@gmail.com</a>
+                </p>
+                <p>
+                    <b>Address: </b>
+                    Millions of Records
+                    <br />
+                    PO BOX 5309 El Dorado Hills,
+                    <br />
+                    CA 95762
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+@section Styles {
+    <link href="~/css/pages/aboutus.css" rel="stylesheet" asp-append-version="true" />
+}

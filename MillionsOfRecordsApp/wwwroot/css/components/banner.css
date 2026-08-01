@@ -1,0 +1,8 @@
+.banner {background-image: url('/assets/images/banner.jpg'); background-repeat:no-repeat; background-position:center; background-size:cover; text-align:center; padding: 77px 0 75px; }
+.banner h1 { text-shadow:6px 0 8px rgb(0, 0, 0,0.25); margin-bottom: 7px; }
+.banner p { font-size:20px; font-weight:400; color:#ffffff; line-height:32px; letter-spacing:0.5px; margin-bottom: 26px }
+
+@media screen and (max-width: 767px) {
+    .banner { padding: 60px 0; }
+    .banner p { font-size: 16px; margin-bottom: 15px; }   
+}

@@ -1,0 +1,34 @@
+﻿@page "/privacy-policy"
+@model MillionsOfRecordsApp.Pages.PrivacyPolicyModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<section class="privacy-policy">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a asp-page="/AboutUs">About Us</a>
+            </li>
+            <li>Privacy Policy</li>
+        </ul>
+        <div class="container">
+            <h2>Privacy Policy</h2>
+            <p>
+                By using this website you consent to the collection, storage and processing of your personal information as well as any other information you provide while using this website (this
+                includes information you directly provide, as well as IT information we may collect during your usage such as IP address, page views, connection data and statistical information). You
+                consent to the use of cookies and similar technologies related to your connection and usage of the website.
+            </p>
+            <p>We won't sell, rent or share your personal information (or IT information collected) except if compelled by law enforcement or other legal requirements.</p>
+            <p>We may amend our Privacy Policy at any time by updating this page.</p>
+            <p>Customers are number one at Millions of Records. The security of your information is paramount to us.</p>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/privacyPolicy.css" asp-append-version="true" />
+}

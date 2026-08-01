@@ -1,0 +1,17 @@
+﻿@{
+    var isLoggedIn = (bool)(ViewData["IsLoggedIn"] ?? false);
+}
+@if (!isLoggedIn)
+{
+    <section class="never-miss">
+        <div class="container">
+            <h2>Never Miss a Beat</h2>
+            <p>Get industry news, insights, and tips sent right to your inbox.</p>
+            <div class="singup-block">
+                <i class="fa fa-envelope-o"></i>
+                <input type="text" class="form-control" placeholder="Enter Email Address" />
+                <button class="btn">Sign Up</button>
+            </div>
+        </div>
+    </section>
+}

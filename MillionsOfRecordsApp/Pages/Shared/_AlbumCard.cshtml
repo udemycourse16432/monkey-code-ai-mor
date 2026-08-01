@@ -1,0 +1,133 @@
+﻿@using MillionsOfRecordsApp.Models
+@using System.Text.Encodings.Web
+@model Inventory
+@{
+    var isInCart = (bool)(ViewData["IsInCart"] ?? false);
+    var SearchId = (string)(ViewData["SearchId"] ?? "-");
+    var (artist, title) = Model.SplitTitle();
+    var formatDetails = Model.GetFormatDetails();
+    var parsedFeatures = Model.GetParsedFeatures();
+    var truncatedRhythm = Model.GetTruncatedRhythmName();
+
+    var assetsBase = ViewData["assetsBase"]?.ToString();
+    var imgBase = ViewData["imgBase"]?.ToString();
+    var itemDetailsUrl = AppConstants.SEOPageNameText(Model.ArtistTitle, Model.Format, Model.Id, SearchId);
+
+}
+<div class="album">
+    <figure>
+        <a href="@itemDetailsUrl">
+            @* This calls our new GetImagePath logic *@
+            <img src="@imgBase@Model.GetImagePath("320")"
+                 onerror="this.onerror=null;this.src='@(assetsBase)/out-288.jpg';" @* TODO there is another type error image we need to handle out-cd... *@
+                 alt="@Model.CleanArtistTitle">
+        </a>
+        @if (Model.UsedItem == "y" || Model.ArtistTitle.Contains("USED ITEM:"))
+        {
+            <span class="used-label">USED ITEM</span>
+        }
+    </figure>
+    <div class="content">
+        <h5>
+            @{
+                var artistLinks = Model.GetFormattedArtistLinks();
+                for (int i = 0; i < artistLinks.Count; i++)
+                {
+                    if (artistLinks[i].IsLink)
+                    {
+                        @* CSS adds the comma after this <a> automatically *@
+                        <a asp-page="/Shop" asp-route-artist="@artistLinks[i].Name" class="grid-z">@artistLinks[i].Name</a>
+                    }
+                    else
+                    {
+                        @* Plain text (Various/Etc) - CSS won't add a comma to <span> *@
+                        <span>@artistLinks[i].Name</span>
+                    }
+                }
+            }
+        </h5>
+        <p>@title</p>
+        <ul class="price-list">
+            <li class="volume">
+                @if (Model.Mp3fileCompleted == "Y")
+                {
+                    @* <i class="fa fa-volume-up"></i> *@
+                    <a href="#" target="_blank">
+                        <i class="fa fa-volume-up"></i>
+                    </a>
+                }
+            </li>
+
+            <li class="circle">
+                <a asp-page="/Shop"
+                   asp-route-Format="@Model.Format"
+                   title="@formatDetails.Tooltip"
+                   style="background-color: @(formatDetails.BgColor); color: @(formatDetails.TextColor);">
+                    @formatDetails.DisplayText
+                </a>
+            </li>
+            <li>$@Model.RetailPrice.ToString("F2")</li>
+        </ul>
+
+        <div style="height: 22px; margin-bottom: 2px;">
+            @if (parsedFeatures.Any())
+            {
+                <strong style="font-size: 0.9em;">
+                    @foreach (var feature in parsedFeatures)
+                    {
+                        @("(")
+                        <a href="~/shop?feaitem=@feature.Id" title="@feature.HoverText">@feature.DisplayText</a>
+                        @(")")
+                    }
+                </strong>
+            }
+            else
+            {
+                <span>&nbsp;</span>
+            }
+        </div>
+
+        <div style="height: 22px; overflow: hidden; margin-bottom: 5px;">
+            @if (!string.IsNullOrEmpty(Model.RhythmName))
+            {
+                <strong style="font-size: 0.85em; color: #555;">
+                    RHYTHM:
+                    <a href="~/shop?rhythm=@Uri.EscapeDataString(Model.RhythmName)" class="grid-if" title="Show all on this rhythm">
+                        @truncatedRhythm
+                    </a>
+                </strong>
+            }
+            else
+            {
+                <span>&nbsp;</span>
+            }
+        </div>
+        <div id="btn-container-@Model.Id" class="cart-action-wrapper">
+            @if (isInCart)
+            {
+                <a asp-page="/Cart" class="btn btn-in-cart">
+                    <span class="icon-wrap"><i class="fa fa-check"></i></span>
+                    <span class="text-wrap">IN YOUR CART</span>
+                </a>
+            }
+            else
+            {
+                @* Show the standard Yellow button if not in cart *@
+                <button type="button" class="btn btn-add-to-cart"
+                        onclick="addToCart('@Model.Id', '@Model.GetComputedPrice("")', 1, '@SearchId', '@JavaScriptEncoder.Default.Encode(artist)')">
+                    <i class="fa fa-cart-plus"></i> ADD TO CART
+                </button>
+            }
+        </div>
+        @* Mapping: Label and Similar Items *@
+        <ul class="bottom-list clearfix">
+            <li><a href="/shop?label=@Uri.EscapeDataString(Model.Label)">@Model.Label</a></li>
+            <li><a href="/shop?sid=@Model.Id">Similar Items</a></li>
+
+            @* VB logic: if year is within 6 years, show similar *@
+            @if (int.TryParse(Model.YearFrom, out int yf) && int.TryParse(Model.YearTo, out int yt) && Math.Abs(yf - yt) < 6)
+            {
+            }
+        </ul>
+    </div>
+</div>

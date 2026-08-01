@@ -1,0 +1,55 @@
+﻿@page "/country"
+@model MillionsOfRecordsApp.Pages.CountryModel
+@{
+    ViewData["Title"] = "Select Your Country";
+}
+<section class="country-selection-layout">
+    <div class="container text-center" style="margin-top: 40px; margin-bottom: 60px;">
+        <h2>Select Your Country</h2>
+        <p class="lead" style="font-size: 18px; margin-top: 20px;">
+            Please select the country your orders will be shipping to:
+        </p>
+
+        <!-- Form posts to /sign-up as expected by SignUp.cshtml.cs -->
+        <form name="shiptocounty" id="shiptocounty" action="/sign-up" method="get" style="margin-top: 30px;">
+            
+            <!-- Hidden state parameters retained from legacy ASPX -->
+            <input type="hidden" id="WholesaleOrRetailTxt" name="WholesaleOrRetailTxt" value="@Model.WholesaleOrRetailTxt" />
+            <input type="hidden" id="ContinueToPurchasePage" name="ContinueToPurchasePage" value="@Model.ContinueToPurchasePage" />
+
+            <div class="form-group d-flex justify-content-center">
+                <select id="CountryListCode" 
+                        name="CountryListCode" 
+                        onchange="document.getElementById('shiptocounty').submit();"
+                        class="form-control" 
+                        style="border-radius: 12px; width: 450px; height: 50px; background-color: #EEF6EE; font-size: 16px; border: 1px solid #AAB0AA; display: inline-block;">
+                    @foreach (var country in Model.CountryList)
+                    {
+                        <!-- Default selection to "USA (50 States)" if matched -->
+                            bool isDefault = country.Counter == Model.DefaultCountryCounter;
+                        <option value="@country.Counter" selected="@(isDefault ? "selected" : null)">
+                            @country.CountryText
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 40px; padding-right: 40px;">
+                    Continue
+                </button>
+            </div>
+        </form>
+
+        <!-- Informational Notice Box from Legacy -->
+        <div class="row justify-content-center" style="margin-top: 50px;">
+            <div class="col-md-8 text-left" style="border: 1px solid #565656; padding: 20px; background-color: #f9f9f9; border-radius: 6px;">
+                <p style="font-size: 14px; margin-bottom: 0; color: #000;">
+                    <strong>PLEASE NOTE:</strong><br />
+                    1) If you reside outside of the USA and want orders shipped to the USA then select <strong>"USA (50 States)"</strong>.<br />
+                    2) If you want orders shipped to a US military address (APO, FPO, DPO) then select your military address from the country drop-down list above.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,183 @@
+﻿@page "/cart"
+@model MillionsOfRecordsApp.Pages.CartModel
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<section class="cart">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li><a href="/">Home</a></li>
+            <li>Cart</li>
+        </ul>
+
+        <div class="cart-block">
+            @if (Model.CartItems.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="table-block">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.CartItems)
+                                    {
+                                        <tr id="row-@item.ID">
+                                            <td>
+                                                <div class="album-details">
+                                                    <div class="album-image-gallery">
+                                                        <a href="@item.LargeFrontImg" class="lightbox" data-gallery="gallery-@item.ID">
+                                                            @* <a class="album-img" asp-page="/AlbumDetails" asp-route-id="@item.ID"> *@
+                                                            <img src="@item.FrontImg" alt="" />
+                                                        </a>
+                                                        @if (!string.IsNullOrEmpty(item.BackImg))
+                                                        {
+                                                            <a href="@item.LargeBackImg" class="lightbox" data-gallery="gallery-@item.ID">
+                                                                @* <a class="album-img-back" asp-page="/AlbumDetails" asp-route-id="@item.ID"> *@
+                                                                <img src="@item.BackImg" alt="Back Cover" />
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                    <div>
+                                                        <h5>
+                                                            @{
+                                                                var artistPart = item.ArtistTitle.Split('-')[0];
+                                                                var artists = artistPart.Split(new[] { ", " }, StringSplitOptions.None);
+                                                            }
+                                                            @foreach (var name in artists)
+                                                            {
+                                                                if (name.ToLower().Contains("etc"))
+                                                                {
+                                                                    <a href="#">@name</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a asp-page="/Shop" asp-route-artist="@name" title="Show all by this Artist">@name</a>
+                                                                }
+                                                            }
+                                                        </h5>
+                                                        <p>@item.ArtistTitle.Substring(artistPart.Length + 1)</p>
+                                                        <h6 class="metadata-container">
+                                                            <span class="primary-metadata">
+                                                                <a asp-page="/Shop" asp-route-label="@item.Label" class="label-link" title="Show all on this label">@item.Label</a>
+                                                                <span class="year-info" title="The years on our website refer to when the music was recorded. Most other websites show the year the item was released.">
+                                                                    @item.YearFrom@(string.IsNullOrEmpty(item.YearTo) || item.YearTo == item.YearFrom ? "" : $" - {item.YearTo}")
+                                                                </span>
+                                                            </span>
+                                                            @if (item.Features != null && item.Features.Any())
+                                                            {
+                                                                <span class="feature-metadata">
+                                                                    @foreach (var feature in item.Features)
+                                                                    {
+                                                                        <span class="feature-tag">
+                                                                            <a class="if-th"
+                                                                               title="@feature.HoverText"
+                                                                               asp-page="/Shop"
+                                                                               asp-route-featureid="@feature.Id">@feature.DisplayText.Replace(" ", "\u00A0")</a>
+                                                                        </span>
+                                                                    }
+                                                                </span>
+                                                            }
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="price">$@item.Price.ToString("F2")</td>
+                                            <td>
+                                                <div class="quantity-input">
+                                                    <button class="decrease-quantity fa @(item.Quantity == 1 ? "fa-trash" : "fa-minus")"
+                                                            type="button" onclick="updateCartQuantity(this, @item.ID, @item.Price, -1)"></button>
+                                                    <span>@item.Quantity</span>
+                                                    <button class="increase-quantity fa fa-plus"
+                                                            type="button" onclick="updateCartQuantity(this, @item.ID, @item.Price, 1)"></button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if (item.ShowSimilarItems)
+                                                {
+                                                    <a asp-page="/Shop" asp-route-sid="@item.ID" class="similar-items">
+                                                        Show <br /> Similar Items <i class="fa fa-chevron-circle-right"></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <span class="no-similar-items">&nbsp;</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <button class="fa fa-close" type="button" onclick="updateCartQuantity(this, @item.ID, @item.Price, 0)"></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-4 cart-summary-col">
+                        <div class="cart-summary">
+                            <h3>Cart Summary</h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Product</td>
+                                        <td id="summary-products-price">$@Model.ProductsPrice.ToString("F2")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shipping</td>
+                                        <td id="summary-shipping-fee">$@Model.ShippingFee.ToString("F2")</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td id="summary-total-amount">$@Model.TotalAmount.ToString("F2")</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <form>
+                                @* <div class="form-group">
+                                    <label>Enter your Email Address below</label>
+                                    <input type="email" class="form-control" placeholder="Email Address" />
+                                </div> *@
+                                <a asp-page="/Checkout" class="btn">
+                                    <i class="fa fa-play-circle"></i> Proceed to Checkout
+                                </a>
+                                <img class="payment-opt-img" src="/assets/images/payment-img.png" alt="Payment Options" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="empty-cart">
+                    <img style="max-width: 150px; width: 100%; margin-bottom: 40px;" src="/assets/images/shopping-cart_18851977.png" alt="" />
+                    <h3>Your Millions of Records Cart is empty</h3>
+                    <a href="/" class="btn">Continue Shopping</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <link rel="stylesheet" href="~/css/pages/cart.css" asp-append-version="true" />
+}
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+        var lightbox = GLightbox({
+            selector: '.lightbox'
+        });
+        
+    </script>
+}

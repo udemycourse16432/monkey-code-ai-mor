@@ -1,0 +1,215 @@
+﻿@page "/checkout/success"
+@model MillionsOfRecordsApp.Pages.SuccessModel
+@{
+    ViewData["Title"] = "Order Received | " + Model.OrderNumber;
+}
+<style>
+    /* :root {
+        --vinyl-yellow: #FFD200;
+        --vinyl-yellow-hover: #e6bd00;
+        --dark-accent: #212529;
+        --muted-bg: #fdfdfd;
+        --border-color: #f1f1f1;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #ffffff;
+    } */
+
+    /* Modern Hero Banner */
+    .success-hero {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 12px;
+        padding: 4rem 2rem;
+        margin-bottom: 3rem;
+        text-align: center;
+        border: 1px solid var(--border-color);
+    }
+
+        .success-hero h1 {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: var(--dark-accent);
+            margin-bottom: 10px;
+        }
+
+    /* Structured Sidebar (Fixes "Staircase") */
+    .sidebar-section {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .sidebar-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #adb5bd;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    /* Button Stack - Uniform & Professional */
+    .action-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-vinyl {
+        background-color: var(--vinyl-yellow);
+        border: 2px solid var(--vinyl-yellow);
+        color: #000;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 14px;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        font-size: 0.85rem;
+    }
+
+        .btn-vinyl:hover {
+            background-color: var(--vinyl-yellow-hover);
+            border-color: var(--vinyl-yellow-hover);
+            transform: translateY(-2px);
+        }
+
+    .btn-vinyl-outline {
+        background-color: transparent;
+        border: 2px solid var(--vinyl-yellow);
+        color: #000;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 14px;
+        border-radius: 8px;
+    }
+
+    /* Table Cleanliness */
+    .table-order thead th {
+        border-top: none;
+        background: var(--muted-bg);
+        font-size: 0.75rem;
+        color: #6c757d;
+        padding: 15px;
+    }
+
+    .fmt-tag {
+        color: #0d6efd;
+        font-weight: 700;
+        background: #e7f1ff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+    }
+
+    .total-row {
+        font-size: 1.25rem;
+        font-weight: 700;
+        border-top: 2px solid #000 !important;
+    }
+
+    .stock-notice {
+        background-color: #fff9db;
+        border: 1px solid #ffe066;
+        border-radius: 8px;
+        padding: 1rem;
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="success-hero shadow-sm">
+        <i class="bi bi-check-circle-fill text-success fs-1 mb-3 d-block"></i>
+        <h1>We've received your order. <span class="text-warning">Thank You!</span></h1>
+        <p class="text-muted">Order Confirmation: <strong>@Model.OrderNumber</strong></p>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <h5 class="fw-bold mb-4">Order Summary</h5>
+            
+            <div class="table-responsive border rounded-3 mb-4">
+                <table class="table table-hover align-middle mb-0 table-order">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">Fmt</th>
+                            <th>Description / Label</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td><span class="fmt-tag">@item.Format</span></td>
+                                <td>
+                                    <div class="fw-bold">@item.Description</div>
+                                    <div class="text-muted small">@item.Label</div>
+                                </td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-end fw-bold">$@item.Total.ToString("F2")</td>
+                            </tr>
+                        }
+                        <tr class="table-light">
+                            <td colspan="3" class="text-end text-muted small">Sales Tax</td>
+                            <td class="text-end">$@Model.SalesTax.ToString("F2")</td>
+                        </tr>
+                        <tr class="table-light">
+                            <td colspan="3" class="text-end text-muted small">Shipping (@Model.ShippingMethod)</td>
+                            <td class="text-end">$@Model.ShippingCost.ToString("F2")</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="3" class="text-end">Total</td>
+                            <td class="text-end text-primary">$@Model.GrandTotal.ToString("F2")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="stock-notice d-flex align-items-center">
+                <i class="bi bi-exclamation-triangle-fill text-warning me-3 fs-4"></i>
+                <div>
+                    <strong>Stock Notice:</strong> This summary lists items currently held. Final invoices reflect adjustments for out-of-stock items at the time of shipping.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sidebar-section mb-4">
+                <span class="sidebar-label">Delivery Address</span>
+                <p class="mb-1 fw-bold">@Model.ShippingName</p>
+                <p class="text-muted small mb-0">@Model.AddressLine1</p>
+                <p class="text-muted small">@Model.City, @Model.State @Model.Zip</p>
+                
+                <hr class="my-3">
+                
+                <span class="sidebar-label">Method</span>
+                <p class="fw-bold small"><i class="bi bi-truck me-2"></i>@Model.ShippingMethod</p>
+            </div>
+
+            <div class="sidebar-section">
+                <span class="sidebar-label">Support & Actions</span>
+                <div class="action-stack">
+                    <a href="mailto:ernieb12345@gmail.com" class="btn btn-vinyl">
+                        <i class="bi bi-envelope-fill me-2"></i>Email Ernie
+                    </a>
+                    <a href="tel:9165869410" class="btn btn-vinyl-outline">
+                        <i class="bi bi-telephone-fill me-2"></i>Call / Text Ernie
+                    </a>
+                    <a asp-page="Index" class="btn btn-dark py-3">
+                        Continue Shopping
+                    </a>
+                    <a asp-page="YourOrders" class="btn btn-link text-dark text-decoration-none fw-bold small">
+                        Manage Orders
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

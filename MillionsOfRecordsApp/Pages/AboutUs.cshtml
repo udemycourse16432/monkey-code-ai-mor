@@ -1,0 +1,94 @@
+﻿@page "/about-us"
+@model MillionsOfRecordsApp.Pages.AboutUsModel
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<section class="about-us-section">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>About Us</li>
+        </ul>
+        <div class="about-us-container container">
+            <div class="text-content">
+                <h2>Millions of Records</h2>
+                <p>
+                    Millions of Records is a worldwide mail-order and one-stop distribution company based in El Dorado Hills, California, selling records, CDs, tapes and other music products. The company is
+                    owned and operated by Ernie Boetius (founder of Ernie B's Reggae Distribution, later known as EBreggae and EBrecords). At Millions of Records all genres are represented, with special
+                    attention to reggae music.
+                </p>
+                <p>
+                    We offer a vast selection of rare and obscure CDs, records & tapes, as well as supplying the full line of releases by key labels such as Ace Records, Waxtime, VP Records, Greensleeves,
+                    Not Now Music and many more.
+                </p>
+                <p>You will receive unbeatable, first-rate service - always at a reasonable price. We look forward to serving you.</p>
+
+                <div class="contact-info">
+                    <h5>Contact</h5>
+                    <p>
+                        <b>Phone: </b>
+                        <a href="tel:9165869410">916-586-9410</a>
+                    </p>
+                    <p>
+                        <b>Email: </b>
+                        <a href="mailto:ernnieb12345@gmail.com">ernnieb12345@gmail.com</a>
+                    </p>
+                    <p>
+                        <b>Address: </b>
+                        Millions of Records
+                        <br />
+                        PO BOX 5309 El Dorado Hills,
+                        <br />
+                        CA 95762
+                    </p>
+                </div>
+            </div>
+
+            <div class="row quick-links">
+                <div class="col-sm-4 each-col">
+                    <h5>Ordering</h5>
+                    <ul>
+                        <li>
+                            <a asp-page="/HelpShipping">Payment & Shipping Info</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 each-col">
+                    <h5>Policies</h5>
+                    <ul>
+                        <li>
+                            <a asp-page="/Policies">Returns & Customer Service</a>
+                        </li>
+                        <li>
+                            <a asp-page="/Policies">Satisfaction Guarantee</a>
+                        </li>
+                        <li>
+                            <a asp-page="/Policies">Packaging Guarantee</a>
+                        </li>
+                        <li>
+                            <a asp-page="/Policies">Delivery Guarantee</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 each-col">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li>
+                            <a asp-page="/PrivacyPolicy">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a asp-page="/TermsAndConditions">Website Usage Terms & Conditions</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link href="~/css/pages/aboutus.css" rel="stylesheet" asp-append-version="true" />
+}

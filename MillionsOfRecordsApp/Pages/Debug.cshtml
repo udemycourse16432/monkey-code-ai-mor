@@ -1,0 +1,82 @@
+﻿@page "/admin/debug"
+@using Microsoft.AspNetCore.Http
+@using System.Collections
+@model MillionsOfRecordsApp.Pages.DebugModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>System Debugger - Millions of Records</title>
+    <style>
+        body { background-color: #000; color: #ccc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #569cd6; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        h2 { color: #4ec9b0; margin-top: 30px; background: #1e1e1e; padding: 10px; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #0d0d0d; }
+        th, td { text-align: left; padding: 12px; border: 1px solid #333; }
+        th { background-color: #252526; color: #9cdcfe; }
+        tr:hover { background-color: #1a1a1a; }
+        .key { color: #ce9178; font-weight: bold; font-family: monospace; width: 30%; }
+        .val { word-break: break-all; font-family: monospace; }
+        .empty { color: #666; font-style: italic; }
+        .btn-clear { background: #d16969; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; float: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="post" asp-page-handler="ClearSession">
+            <button type="submit" class="btn-clear">Clear All Session Data</button>
+        </form>
+        <h1>System Debugger (v10.0)</h1>
+
+        <h2>Session Variables</h2>
+        @if (HttpContext.Session.Keys.Any())
+        {
+            <table>
+                <thead><tr><th>Key</th><th>Value</th></tr></thead>
+                <tbody>
+                    @foreach (var key in HttpContext.Session.Keys)
+                    {
+                        <tr>
+                            <td class="key">@key</td>
+                            <td class="val">@HttpContext.Session.GetString(key)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="empty">No session variables found.</p>
+        }
+
+        <h2>Request Cookies</h2>
+        <table>
+            <thead><tr><th>Cookie Name</th><th>Value</th></tr></thead>
+            <tbody>
+                @foreach (var cookie in Request.Cookies)
+                {
+                    <tr>
+                        <td class="key">@cookie.Key</td>
+                        <td class="val">@cookie.Value</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h2>Environment & Headers</h2>
+        <table>
+            <thead><tr><th>Variable</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td class="key">Remote IP (Forwarded)</td><td class="val">@HttpContext.Connection.RemoteIpAddress</td></tr>
+                <tr><td class="key">Request Path</td><td class="val">@Request.Path</td></tr>
+                <tr><td class="key">User Agent</td><td class="val">@Request.Headers["User-Agent"]</td></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

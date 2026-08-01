@@ -1,0 +1,390 @@
+﻿{
+   "CodeGenerationMode": 6,
+   "ContextClassName": "ReggaeDbContext",
+   "ContextNamespace": "Data",
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "IrregularWords": null,
+   "MinimumProductVersion": "2.6.1378",
+   "ModelNamespace": "Models",
+   "OutputContextPath": "Data",
+   "OutputPath": "Models",
+   "PluralRules": null,
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "MillionsOfRecordsApp",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "SingularRules": null,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Carts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CountryList]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Customers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Inventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InventoryItemFeatureIndex]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InventoryItemFeatures]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WebArtists]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WebCountryStateProvincesList]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WebSearchSuggestions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AdjustCart]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[CartNumberOfItems]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[DeleteBackorders]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spAddRetailCartItemToWholesaleCart]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spCartPricesSalePricesToo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spCheckForLPor12InchInCart]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spCheckIfLogInEmailExists]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spCheckLogInEmailExists]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spCheckLogInEmailExistsWholesale]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDeleteCart]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDeleteCartItem]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_Carts_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_Carts]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_CustomerEmailChanges]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_Customers]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_DeleteBackordersInStockNow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_Enter7Inch]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_EnterStock]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_OrderCorrectionNotes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_Orders]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_PayFlowRequests]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_PayPalIPNsReceived]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownloadOK_SignInLog]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetAirMailLetterPostZone]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetAirParcelPostZone]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCartItems]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCartItemsForPurchase]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCartTotalsRetailPrice]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCartTotalsWholesalePrice]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCountOfWebCountryStateProvinces]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCountryInfoFromCounter]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCountryList]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCountryListRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCustomerDetails]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCustomerDetailsByServerCounter]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetCustomerInvoices]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetEmailFooter]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetInventoryItem]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetMinimumFlatShippngCharge]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetOrderItems]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetOrdersByCustomerServerCounter]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetOrdersRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetPendingCustomerOrders]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetShippingCutoffMinutes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetShippingMethodsRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetTermsOfSaleTypesRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebCountryShippingZonesTRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebCountryStateProvincesList]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebCountryStateProvincesListRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebSHIPX_FedExGroundTimeInTransitRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebSHIPX_MaxWeightOfBoxForPacking]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebSHIPX_PackagingWeight]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebSHIPX_ShippingHolidaysOutboundRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebSHIPX_ShippingMethodsRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWebSHIPX_UPSTimeInTransitRow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetWeightOfProduct]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertCustomer]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertCustomerCartsNotifications]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertCustomerCartsNotificationsToSend]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertCustomerEmailChanges]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertCustomerInteraction]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertNewReleaseEmailOptInOrOut]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertStoreLogOnAccessedSuccessful]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInsertStoreLogOnAccessedUnsuccessful]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInventoryItemFeaturesForListView]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spInventoryItemFeaturesForProductDetailsPage]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spOrderedQueries]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spRecordPurchase]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spResidentialDelivery]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSeeIfOrderNumberExists]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spUpdateCartQuantityInCustomersTable]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spUpdateCustomerDateOfLastLogin]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spUpdateCustomers]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spUpdateCustomerTotalSignIns]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spUpdateEmailedOrderConfirmation]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spUSPSNotShippingTo]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false,
+   "UseTypedTvpParameters": true
+}

@@ -1,0 +1,46 @@
+﻿@page "/sign-out"
+@model MillionsOfRecordsApp.Pages.SignOutModel
+@{
+    ViewData["Title"] = "Signed Out";
+}
+<section>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm border-0 text-center p-5">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <i class="fa fa-check-circle text-success" style="font-size: 4rem;"></i>
+                        </div>
+
+                        <h2 class="fw-bold mb-3">Thank You</h2>
+
+                        <p class="text-muted fs-5 mb-4">
+                            <span>You are now signed out. Any items left in your shopping cart will still be there when you sign back in later.</span>
+
+                            @* @if (Model.IsRetailSignOut)
+                        {
+                            <span>You are now signed out.</span>
+                        }
+                        else
+                        {
+                            <span>You are now signed out. Any items left in your shopping cart will still be there when you sign back in later.</span>
+                        } *@
+                        </p>
+
+                        <hr class="my-4">
+
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <a href="/" class="btn btn-primary btn-lg px-4">
+                                <i class="fa fa-home me-2"></i>Return Home
+                            </a>
+                            <a asp-page="SignIn" class="btn btn-outline-secondary btn-lg px-4">
+                                Sign In Again
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,18 @@
+﻿<div id="back-to-top" style="display:none; position:fixed; bottom:20px; right:20px; cursor:pointer;">
+    <button class="btn btn-primary">↑</button>
+</div>
+
+<script>
+    // Visual "Back to Top" button logic (Optional)
+    window.onscroll = function() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("back-to-top").style.display = "block";
+        } else {
+            document.getElementById("back-to-top").style.display = "none";
+        }
+    };
+
+    document.getElementById("back-to-top").onclick = function() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+</script>

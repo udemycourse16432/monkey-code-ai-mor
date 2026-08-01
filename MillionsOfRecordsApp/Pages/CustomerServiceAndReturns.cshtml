@@ -1,0 +1,70 @@
+﻿@page "/customer-service-and-returns"
+@model MillionsOfRecordsApp.Pages.CustomerServiceAndReturnsModel
+@{
+    ViewData["Title"] = "Customer Service & Returns";
+}
+
+<section class="customer-service">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>Customer Service & Returns</li>
+        </ul>
+        <div class="content-block">
+            <h2>Customer Service & Returns</h2>
+            
+            <div class="policy-section">
+                <h5>Returns or Exchanges</h5>
+                <p>
+                    For returns, exchanges, defects or any other problems please email Ernie at 
+                    <a href="mailto:ernieb12345@gmail.com">ernieb12345@gmail.com</a> with a brief description 
+                    of the issue (photos not necessary). We'll reply promptly. Please do not return items 
+                    without an authorization. <strong>Please note that vinyl is non-returnable (all vinyl sales are final).</strong>
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h5>Packaging Guarantee</h5>
+                <p>
+                    We have developed the very best system for packaging vinyl to ensure damage-free transit. 
+                    Simply double-boxing LPs is not good enough. We designed and invented a special line of boxes 
+                    specifically made to handle extreme abuse. Our LP orders are boxed snugly in an inner box and 
+                    then that box is packed in an outer box which has heavily reinforced protective areas around 
+                    the corners.
+                </p>
+                <p>
+                    This creates an extremely rigid, sturdy double-box with extra protection that is certainly 
+                    the best in the industry. We also pack CD's with great care, and never ship in padded 
+                    envelopes (all orders are shipped in boxes). You won't experience the disappointment and 
+                    frustration of bent LP corners, split seems, or cracked CD cases.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h5>Delivery Guarantee</h5>
+                <p>All orders include tracking, insurance and our deliver guarantee at no extra charge. We guarantee your order against loss or damage in transit.</p>
+            </div>
+
+            <div class="contact-card">
+                <h5>Contact Us</h5>
+                <p>
+                    <strong>Email:</strong> <a href="mailto:ernieb12345@gmail.com">ernieb12345@gmail.com</a><br />
+                    <strong>Phone:</strong> <a href="tel:9165869410">(916) 586-9410</a>
+                </p>
+                <p>
+                    <strong>Mailing and Shipping Address:</strong><br />
+                    Millions of Records<br />
+                    1144 Suncast Ln, Ste 2<br />
+                    El Dorado Hills, CA 95762-0006
+                </p>
+                <p><em>We are open 7 days a week.</em></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link href="~/css/pages/customerService.css" rel="stylesheet" asp-append-version="true" />
+}

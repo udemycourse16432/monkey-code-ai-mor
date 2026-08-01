@@ -1,0 +1,62 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+    var assetsBase = Configuration["Appsettings:AssetsPath"];
+    var imgBase = Configuration["Appsettings:ImagesPath"];
+    var mp3Base = Configuration["Appsettings:MP3sPath"];
+}
+@section Styles {
+    <link href="~/css/components/banner.css" rel="stylesheet" />
+    <link href="~/css/components/album.css" rel="stylesheet" />
+    <link href="~/css/cart-buttons.css" rel="stylesheet" />
+}
+@section Scripts {
+    <script>
+        $(window).on('load', function() {
+            $('.album h5, .album strong').matchHeight();
+        });
+    </script>
+}
+<section class="banner">
+    <div class="container">
+        <h1>Millions of Records is a worldwide mail-order and one-stop distribution company</h1>
+        <p>You will receive unbeatable, first-rate service - always at a reasonable price. We look forward to serving you.</p>
+        <a href="#homeAlbumsSection" class="btn">
+            Explore Now
+        </a>
+    </div>
+</section>
+
+<section class="albums-block home-section" id="homeAlbumsSection">
+    <div class="container-fluid">
+        @foreach (var fmtSection in Model.Sections.Values)
+        {
+            <div class="albums-category">
+                <div class="top">
+                    <h2>@fmtSection.Title</h2>
+                    <a asp-page="/Shop"
+                       asp-route-format="@fmtSection.FormatLink"
+                       asp-route-order="@fmtSection.Order"
+                       asp-route-useditem="@fmtSection.UsedItem"
+                       asp-route-desc="@fmtSection.HeaderTitle"
+                       class="all">Show all</a>
+                </div>
+
+                <div class="albums-list">
+                    @foreach (Models.Inventory album in fmtSection.Items)
+                    {
+                        <partial name="_AlbumCard"
+                                 model="album"
+                                 view-data='@new ViewDataDictionary(ViewData) {
+                                                                                           { "assetsBase", assetsBase },
+                                                                                           { "imgBase", imgBase },
+                                                                                           { "IsInCart", Model.ItemsInCart.Contains(album.Id) },
+                                                                                           { "SearchId", Model.SearchId }
+                                                                                       }' />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>

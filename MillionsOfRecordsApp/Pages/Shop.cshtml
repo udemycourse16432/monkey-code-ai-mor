@@ -1,0 +1,290 @@
+﻿@page "/shop"
+@using Microsoft.Extensions.Primitives
+@model MillionsOfRecordsApp.Pages.ShopModel
+@{
+    ViewData["Title"] = "Shop";
+    var assetsBase = Configuration["Appsettings:AssetsPath"];
+    var imgBase = Configuration["Appsettings:ImagesPath"];
+    var mp3Base = Configuration["Appsettings:MP3sPath"];
+}
+@{
+
+    var sortingList = new[] {
+          new { label = "Artist", value= AppConstants.ShopSortOrders.Artist },
+          new { label = "Newest Arrivals", value= AppConstants.ShopSortOrders.NewestArrivals },
+          new { label = "Best Sellers", value= AppConstants.ShopSortOrders.BestSellers },
+          new { label = "Label", value= AppConstants.ShopSortOrders.Label },
+          new { label = "Price (High to Low)", value= AppConstants.ShopSortOrders.PriceHighToLow },
+          new { label = "Price (Low to High)", value= AppConstants.ShopSortOrders.PriceLowToHigh },
+        };
+
+    var formatList = new[] {
+          new { label = "Vinyl", value= AppConstants.ShopFormats.Vinyl },
+          new { label = "CD", value= AppConstants.ShopFormats.CD },
+          new { label = "LP", value= AppConstants.ShopFormats.LP },
+          new { label = "7\"", value= AppConstants.ShopFormats.SevenInch },
+          new { label = "12\"", value= AppConstants.ShopFormats.TwelveInch },
+          new { label = "10\"", value= AppConstants.ShopFormats.TenInch },
+          new { label = "12\",10\"", value= AppConstants.ShopFormats.TwelveAndTenInch },
+          // new { label = "BK", value= "BK" },
+          // new { label = "DVD-A", value= "DVD-A" },
+          // new { label = "P", value= "P" }
+        };
+
+    // string order = Request.Query.TryGetValue("order", out var sv) && !StringValues.IsNullOrEmpty(sv)
+    // ? sv.ToString()
+    // : "1";
+
+    string currentOrder = Model.Order;
+
+    // Sanitize the input to prevent XSS
+    string sanitizedYear = !string.IsNullOrWhiteSpace(Model.CurrentYear) 
+        ? System.Net.WebUtility.HtmlEncode(Model.CurrentYear.Trim()) 
+        : string.Empty;
+}
+<section class="shop-page">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li>
+                <a asp-page="/Index">Home</a>
+            </li>
+            <li>Shop</li>
+        </ul>
+        <div class="albums-block">
+            <div class="top">
+                <div>
+                    <h5>
+                        @if (!string.IsNullOrWhiteSpace(Model.SearchHeaderDescription))
+                        {
+                            <span>@Model.SearchHeaderDescription </span>
+                        }
+                        @Model.ViewModel.Pagination.TotalRecords items found
+                    </h5>
+                </div>
+                <div class="right-select">
+                    <div class="best">
+                        <strong>Sort Search Results By :</strong>
+                        <div class="styled-select">
+                            <select id="sortOrderSelect" name="order">
+                                @foreach (var item in sortingList)
+                                {
+                                    bool isSelected = currentOrder == item.value;
+                                    <option value="@item.value" selected="@isSelected">
+                                        @item.label
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="styled-select">
+                        <select id="priceFilterSelect">
+                            <option value="" data-min="" data-max="">Price</option>
+
+                            @foreach (var item in Model.PriceFilterList)
+                            {
+                                var isUnder = item.IsOverPrice == false;
+
+                                // Logic to keep the dropdown selected after page reload
+                                // This assumes you have min_price and max_price in your Request.Query
+                                bool isSelected = false;
+                                if (isUnder)
+                                {
+                                    isSelected = Model.MaxPrice?.ToString() == item.Price.ToString() && string.IsNullOrEmpty(Model.MinPrice?.ToString());
+                                }
+                                else
+                                {
+                                    isSelected = Model.MinPrice?.ToString() == item.Price.ToString() && string.IsNullOrEmpty(Model.MaxPrice?.ToString());
+                                }
+
+                                <option value="@item.Value"
+                                        data-min="@(isUnder ? "" : item.Price)"
+                                        data-max="@(isUnder ? item.Price : "")"
+                                        selected="@(isSelected ? "selected" : null)">
+                                    @item.Label
+                                </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="styled-select">
+                        <select id="formatFilterSelect" name="format">
+                            @{
+                                // Get current selection from URL query string
+                                // string currentFormat = Request.Query["format"].ToString();
+                                string currentFormat = Model.CurrentFormat;
+                            }
+
+                            <option value="" selected="@(string.IsNullOrEmpty(currentFormat) ? "selected" : null)">Format</option>
+
+                            @foreach (var item in formatList)
+                            {
+                                <option value="@item.value" selected="@(currentFormat == item.value ? "selected" : null)">
+                                    @item.label
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="album-container">
+                @if (Model.ViewModel.Items != null && Model.ViewModel.Items.Any())
+                {
+                    @* 2. Ported renderAlbumsListview() *@
+                    <div class="albums-list">
+                        @foreach (Models.Inventory album in Model.ViewModel.Items)
+                    {
+                        <partial name="_AlbumCard"
+                                 model="album"
+                                 view-data='@new ViewDataDictionary(ViewData) {
+                                                                                  { "assetsBase", assetsBase },
+                                                                                  { "imgBase", imgBase },
+                                                                                  { "IsInCart", Model.ItemsInCart.Contains(album.Id) },
+                                                                                  { "SearchId", Model.SearchId }
+                                                                              }' />
+                                }
+                    </div>
+                }
+                else
+                {
+                    @* 3. Ported renderNoAlbumsView() *@
+                    <div class="no-records-container">
+                        <img src="~/assets/images/disk.svg" alt="No records disk layout emblem" />
+                        <h4>No Records Found</h4>
+                    </div>
+                }
+            </div>
+            @* Ported Pagination Block *@
+            @if (Model.ViewModel.Pagination.TotalRecords > MillionsOfRecordsApp.Pages.ShopModel.PageSize)
+            {
+                <ul class="rc-pagination">
+                    @* Previous Page Arrow *@
+                    <li class="rc-pagination-prev @(!Model.ViewModel.Pagination.HasPreviousPage ? "rc-pagination-disabled" : "")"
+                        aria-disabled="@(!Model.ViewModel.Pagination.HasPreviousPage ? "true" : "false")"
+                        tabindex="0">
+                        @if (Model.ViewModel.Pagination.HasPreviousPage)
+                        {
+                            <a href="?@GetPaginationUrl(Model.ViewModel.Pagination.CurrentPage - 1)" rel="nofollow" class="">
+                                <button type="button" aria-label="prev page" class="rc-pagination-item-link" style="pointer-events: none;"></button>
+                            </a>
+                        }
+                        else
+                        {
+                            <button type="button" aria-label="prev page" class="rc-pagination-item-link" disabled></button>
+                        }
+                    </li>
+
+                    @* Dynamic Page Numbers *@
+                    @{
+                        int currentPage = Model.ViewModel.Pagination.CurrentPage;
+                        int totalPages = Model.ViewModel.Pagination.TotalPages;
+
+                        int startPage = Math.Max(1, currentPage - 2);
+                        int endPage = Math.Min(totalPages, startPage + 4);
+
+                        if (endPage - startPage < 4)
+                        {
+                            startPage = Math.Max(1, endPage - 4);
+                        }
+                    }
+
+                    @if (startPage > 1)
+                    {
+                        <li class="rc-pagination-item rc-pagination-item-1 @(currentPage == 1 ? "rc-pagination-item-active" : "")">
+                            <a href="?@GetPaginationUrl(1)" rel="nofollow">1</a>
+                        </li>
+                        @if (startPage > 2)
+                        {
+                            int jumpPrevTarget = Math.Max(1, currentPage - 5);
+                            <li tabindex="0" class="rc-pagination-jump-prev">
+                                <a href="?@GetPaginationUrl(jumpPrevTarget)" rel="nofollow" style="display: block; width: 100%; height: 100%;">
+                                    <button type="button" aria-label="prev page" class="rc-pagination-item-link" style="pointer-events: none;"></button>
+                                </a>
+                            </li>
+                        }
+                    }
+
+                    @for (int p = startPage; p <= endPage; p++)
+                    {
+                        var positionClass = "";
+                        if (startPage > 2 && p == startPage)
+                        {
+                            positionClass = "rc-pagination-item-after-jump-prev";
+                        }
+                        else if (endPage < totalPages - 1 && p == endPage)
+                        {
+                            positionClass = "rc-pagination-item-before-jump-next";
+                        }
+                        <li class="rc-pagination-item rc-pagination-item-@p @positionClass @(p == currentPage ? "rc-pagination-item-active" : "")">
+                            <a href="?@GetPaginationUrl(p)" rel="nofollow">@p</a>
+                        </li>
+                    }
+
+                    @if (endPage < totalPages)
+                    {
+                        @if (endPage < totalPages - 1)
+                        {
+                            int jumpNextTarget = Math.Min(totalPages, currentPage + 5);
+                            <li tabindex="0" class="rc-pagination-jump-next">
+                                <a href="?@GetPaginationUrl(jumpNextTarget)" rel="nofollow" style="display: block; width: 100%; height: 100%;">
+                                    <button type="button" aria-label="next page" class="rc-pagination-item-link" style="pointer-events: none;"></button>
+                                </a>
+                            </li>
+                        }
+                        <li class="rc-pagination-item rc-pagination-item-@totalPages @(currentPage == totalPages ? "rc-pagination-item-active" : "")" tabindex="0">
+                            <a href="?@GetPaginationUrl(totalPages)" rel="nofollow">@totalPages</a>
+                        </li>
+                    }
+
+                    @* Next Page Arrow *@
+                    <li class="rc-pagination-next @(!Model.ViewModel.Pagination.HasNextPage ? "rc-pagination-disabled" : "")"
+                        aria-disabled="@(!Model.ViewModel.Pagination.HasNextPage ? "true" : "false")"
+                        tabindex="0">
+                        @if (Model.ViewModel.Pagination.HasNextPage)
+                        {
+                            <a href="?@GetPaginationUrl(currentPage + 1)" rel="nofollow" class="">
+                                <button type="button" aria-label="next page" class="rc-pagination-item-link" style="pointer-events: none;"></button>
+                            </a>
+                        }
+                        else
+                        {
+                            <button type="button" aria-label="next page" class="rc-pagination-item-link" disabled></button>
+                        }
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/components/album.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cart-buttons.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/shop.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/pages/shop.js" asp-append-version="true"></script>
+    <script>
+        $(window).on('load', function() {
+            $('.album h5, .album strong').matchHeight();
+        });
+    </script>
+}
+@functions {
+    // Utility helper to inject changing page index while fully preserving existing query parameters
+    private string GetPaginationUrl(int targetPage)
+    {
+        var queryMap = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(Request.QueryString.Value);
+        var routeValues = new Dictionary<string, string>();
+
+        foreach (var key in queryMap.Keys)
+        {
+            routeValues[key] = queryMap[key].ToString();
+        }
+
+        // Mutate or inject the target page parameter tracking property
+        routeValues["page"] = targetPage.ToString();
+
+        return string.Join("&", routeValues.Select(kvp => $"{System.Net.WebUtility.UrlEncode(kvp.Key)}={System.Net.WebUtility.UrlEncode(kvp.Value)}"));
+    }
+}

@@ -1,0 +1,342 @@
+﻿@page "/sign-up"
+@model MillionsOfRecordsApp.Pages.SignUpModel
+@{
+    ViewData["Title"] = "Register";
+
+    var currentRouteData = new Dictionary<string, string>();
+    if (!string.IsNullOrEmpty(Model.WholesaleOrRetailTxt)) 
+        currentRouteData["WholesaleOrRetailTxt"] = Model.WholesaleOrRetailTxt;
+    if (!string.IsNullOrEmpty(Model.ContinueToPurchasePage)) 
+        currentRouteData["ContinueToPurchasePage"] = Model.ContinueToPurchasePage;
+    if (!string.IsNullOrEmpty(Model.CountryListCode)) 
+        currentRouteData["CountryListCode"] = Model.CountryListCode;
+}
+
+<section class="sign-up form-layout">
+    <div class="container-fluid">
+        <ul class="top-nav clearfix">
+            <li><a href="/">Home</a></li>
+            <li>Register</li>
+        </ul>
+    </div>
+    <div class="container">
+        <h2>New Account Sign Up</h2>
+
+        <!-- Display Model Level / Summary Validation Errors -->
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <form method="post">
+            <!-- Preserve route context across form postbacks -->
+            <input type="hidden" asp-for="WholesaleOrRetailTxt" />
+            <input type="hidden" asp-for="ContinueToPurchasePage" />
+            <input type="hidden" asp-for="CountryListCode" />
+            <div class="row contact-info">
+                <div class="col-sm-6 left-block">
+                    <h5>Contact Information</h5>
+                    <div class="form-group">
+                        <input asp-for="Input.EmailAddress" type="email" placeholder="Email" class="form-control" />
+                        <span asp-validation-for="Input.EmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Input.TelephoneNumber" type="text" placeholder="Phone" class="form-control" />
+                        <span asp-validation-for="Input.TelephoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6 right-block">
+                    <h5>&nbsp;</h5>
+                    <div class="form-group">
+                        <input asp-for="Input.Password" type="password" placeholder="Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row address-info separation">
+                <div class="col-sm-6 left-block">
+                    <h5>Shipping Address</h5>
+
+                    <div class="form-group">
+                        <input asp-for="Input.FullName" placeholder="Full Name" class="form-control" />
+                        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Input.StreetAddress1" placeholder="Street Address Line 1" class="form-control" />
+                        <span asp-validation-for="Input.StreetAddress1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Input.StreetAddress2" placeholder="Street Address Line 2" class="form-control" />
+                    </div>
+                    
+                    @if(Model.CountryShippingZone?.CityRequired != "n")
+                    {
+                        <div class="form-group">
+                            <input asp-for="Input.City" placeholder="@(Model.CountryShippingZone?.CityWord ?? "City")" class="form-control" />
+                            <span asp-validation-for="Input.City" class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Input.City" value="" />
+                    }
+                    
+                    @if(Model.CountryShippingZone?.StateProvinceRequired != "n")
+                    {
+                        <div class="form-group">
+                            <select asp-for="Input.StateOrProvince" asp-items="Model.StateOptions" class="form-control">
+                                <option value="">Select a @(Model.CountryShippingZone?.StateProvinceWord ?? "State/Province")</option>
+                            </select>
+                            <span asp-validation-for="Input.StateOrProvince" class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Input.StateOrProvince" value="" />
+                    }
+
+                    @if(Model.CountryShippingZone?.PostalCodeRequired != "n")
+                    {
+                        <div class="form-group">
+                            <input asp-for="Input.PostalCode" placeholder="@(Model.CountryShippingZone?.PostalCodeWord ?? "Zip Code")" class="form-control" />
+                            <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Input.PostalCode" value="" />
+                    }
+
+                    @if(Model.CountryShippingZone?.IslandRequired != "n")
+                    {
+                        <div class="form-group">
+                            <input asp-for="Input.Island" placeholder="@(Model.CountryShippingZone?.IslandWord ?? "Island")" class="form-control" />
+                        </div>
+                    }
+                    else 
+                    {
+                        <input type="hidden" asp-for="Input.Island" value="" />
+                    }
+
+                    <div class="form-group">
+                        <select asp-for="Input.Country" 
+                                asp-items="Model.CountryOptions" 
+                                class="form-control" 
+                                onchange="submitCountryChange('shipping')">
+                            <option value="">Select Country</option>
+                        </select>
+                        <span asp-validation-for="Input.Country" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 right-block">
+                    <h5 class="billing-heading">
+                        Billing Address
+                        <label style="font-size: 12px; font-weight: normal; margin-left: 10px;">
+                            <input type="checkbox" 
+                                   asp-for="Input.SameAsShipping" 
+                                   id="copyAddress" 
+                                   onchange="document.getElementById('btnSameAsShippingChange').click();" /> Use Same as Shipping
+                        </label>
+                    </h5>
+                    <div id="billingSection">
+                        <div class="form-group">
+                            <input asp-for="Input.BillingFullName" placeholder="Full Name" class="form-control" />
+                            <span asp-validation-for="Input.BillingFullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.BillingStreetAddress1" placeholder="Street Address Line 1" class="form-control" />
+                            <span asp-validation-for="Input.BillingStreetAddress1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.BillingStreetAddress2" placeholder="Street Address Line 2" class="form-control" />
+                        </div>
+                        @if(Model.CountryBillingZone?.CityRequired != "n")
+                        {
+                            <div class="form-group">
+                                <input asp-for="Input.BillingCity" placeholder="@(Model.CountryBillingZone?.CityWord ?? "City")" class="form-control" />
+                                <span asp-validation-for="Input.BillingCity" class="text-danger"></span>
+                            </div>
+                        }
+                        else 
+                        {
+                            <input type="hidden" asp-for="Input.BillingCity" value="" />
+                        }
+                        
+                        @if(Model.CountryBillingZone?.StateProvinceRequired != "n")
+                        {
+                            <div class="form-group">
+                                <select asp-for="Input.BillingStateOrProvince" asp-items="Model.BillingStateOptions" class="form-control">
+                                    <option value="">Select a @(Model.CountryBillingZone?.StateProvinceWord ?? "State/Province")</option>
+                                </select>
+                                <span asp-validation-for="Input.BillingStateOrProvince" class="text-danger"></span>
+                            </div>
+                        }
+                        else 
+                        {
+                            <input type="hidden" asp-for="Input.BillingStateOrProvince" value="" />
+                        }
+
+                        @if(Model.CountryBillingZone?.PostalCodeRequired != "n")
+                        {
+                            <div class="form-group">
+                                <input asp-for="Input.BillingPostalCode" placeholder="@(Model.CountryBillingZone?.PostalCodeWord ?? "Zip Code")" class="form-control" />
+                                <span asp-validation-for="Input.BillingPostalCode" class="text-danger"></span>
+                            </div>
+                        }
+                        else 
+                        {
+                            <input type="hidden" asp-for="Input.BillingPostalCode" value="" />
+                        }
+                        
+                        @if(Model.CountryBillingZone?.IslandRequired != "n")
+                        {
+                            <div class="form-group">
+                                <input asp-for="Input.BillingIsland" placeholder="@(Model.CountryBillingZone?.IslandWord ?? "Island")" class="form-control" />
+                            </div>
+                        }
+                        else 
+                        {
+                            <input type="hidden" asp-for="Input.BillingIsland" value="" />
+                        }
+
+                        <div class="form-group">
+                            <select asp-for="Input.BillingCountry" 
+                                    asp-items="Model.CountryOptions" 
+                                    class="form-control" 
+                                    onchange="submitCountryChange('billing')">
+                                <option value="">Select Country</option>
+                            </select>
+                            <span asp-validation-for="Input.BillingCountry" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top: 30px;">
+                <button class="btn btn-add-to-cart" 
+                        type="submit" 
+                        asp-page-handler="" 
+                        asp-all-route-data="currentRouteData">
+                    Submit And Begin Shopping
+                </button>
+            </div>
+            <!-- Hidden submit buttons targeting specific handlers -->
+            <button type="submit" 
+                id="btnShippingCountryChange" 
+                asp-page-handler="ShippingCountryChanged" 
+                asp-all-route-data="currentRouteData" 
+                style="display:none;" 
+                formnovalidate></button>
+            <button type="submit" 
+                id="btnBillingCountryChange" 
+                asp-page-handler="BillingCountryChanged" 
+                asp-all-route-data="currentRouteData" 
+                style="display:none;" 
+                formnovalidate></button>
+            <button type="submit" 
+                id="btnSameAsShippingChange" 
+                asp-page-handler="SameAsShippingChanged" 
+                asp-all-route-data="currentRouteData" 
+                style="display:none;" 
+                formnovalidate></button>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function submitCountryChange(type) {
+            if (type === 'shipping') {
+                document.getElementById('btnShippingCountryChange').click();
+            } else if (type === 'billing') {
+                document.getElementById('btnBillingCountryChange').click();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Restore scroll position if present
+            const scrollPos = sessionStorage.getItem('signUpScrollPos');
+            if (scrollPos) {
+                window.scrollTo(0, parseInt(scrollPos, 10));
+                sessionStorage.removeItem('signUpScrollPos');
+            }
+
+            // 2. Save scroll position on form submit (including hidden handler clicks)
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    sessionStorage.setItem('signUpScrollPos', window.scrollY.toString());
+                });
+            }
+
+            const checkbox = document.getElementById('copyAddress');
+            const billingSection = document.getElementById('billingSection');
+            
+            if (!checkbox || !billingSection) return;
+
+            function applyBillingUIState() {
+                const isChecked = checkbox.checked;
+
+                if (isChecked) {
+                    const getVal = (id) => document.getElementById(id)?.value || '';
+                    const setVal = (targetId, sourceId) => {
+                        const target = document.getElementById(targetId);
+                        if (target) target.value = getVal(sourceId);
+                    };
+
+                    // Copy values into billing inputs
+                    setVal('@Html.IdFor(m => m.Input.BillingFullName)', '@Html.IdFor(m => m.Input.FullName)');
+                    setVal('@Html.IdFor(m => m.Input.BillingStreetAddress1)', '@Html.IdFor(m => m.Input.StreetAddress1)');
+                    setVal('@Html.IdFor(m => m.Input.BillingStreetAddress2)', '@Html.IdFor(m => m.Input.StreetAddress2)');
+                    setVal('@Html.IdFor(m => m.Input.BillingCity)', '@Html.IdFor(m => m.Input.City)');
+                    setVal('@Html.IdFor(m => m.Input.BillingStateOrProvince)', '@Html.IdFor(m => m.Input.StateOrProvince)');
+                    setVal('@Html.IdFor(m => m.Input.BillingPostalCode)', '@Html.IdFor(m => m.Input.PostalCode)');
+                    setVal('@Html.IdFor(m => m.Input.BillingIsland)', '@Html.IdFor(m => m.Input.Island)');
+                    setVal('@Html.IdFor(m => m.Input.BillingCountry)', '@Html.IdFor(m => m.Input.Country)');
+
+                    // Visually disable billing section
+                    billingSection.style.opacity = '0.6';
+                    billingSection.style.pointerEvents = 'none';
+                    billingSection.querySelectorAll('input').forEach(el => el.readOnly = true);
+                    billingSection.querySelectorAll('select, input').forEach(el => el.tabIndex = -1);
+                } else {
+                    // Re-enable billing section
+                    billingSection.style.opacity = '1';
+                    billingSection.style.pointerEvents = 'auto';
+                    billingSection.querySelectorAll('input').forEach(el => el.readOnly = false);
+                    billingSection.querySelectorAll('select, input').forEach(el => el.removeAttribute('tabindex'));
+                }
+            }
+
+            // Live-sync billing inputs as the user types in shipping fields
+            const fieldPairs = [
+                ['@Html.IdFor(m => m.Input.FullName)', '@Html.IdFor(m => m.Input.BillingFullName)'],
+                ['@Html.IdFor(m => m.Input.StreetAddress1)', '@Html.IdFor(m => m.Input.BillingStreetAddress1)'],
+                ['@Html.IdFor(m => m.Input.StreetAddress2)', '@Html.IdFor(m => m.Input.BillingStreetAddress2)'],
+                ['@Html.IdFor(m => m.Input.City)', '@Html.IdFor(m => m.Input.BillingCity)'],
+                ['@Html.IdFor(m => m.Input.PostalCode)', '@Html.IdFor(m => m.Input.BillingPostalCode)'],
+                ['@Html.IdFor(m => m.Input.Island)', '@Html.IdFor(m => m.Input.BillingIsland)'],
+            ];
+
+            fieldPairs.forEach(([sourceId, targetId]) => {
+                const sourceEl = document.getElementById(sourceId);
+                const targetEl = document.getElementById(targetId);
+                if (sourceEl && targetEl) {
+                    sourceEl.addEventListener('input', function () {
+                        if (checkbox.checked) {
+                            targetEl.value = sourceEl.value;
+                        }
+                    });
+                }
+            });
+
+            // Initial execution on page load (preserves UI state after server postback)
+            applyBillingUIState();
+        });
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/signUp.css" asp-append-version="true" />
+}

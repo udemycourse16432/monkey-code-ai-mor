@@ -1,0 +1,35 @@
+.about-us-section {min-height: 920px; position: relative; overflow: hidden; }
+.about-us-section:after { content: ""; background-image: url(/assets/images/disk.png); position: absolute; top: 60px; right: -420px; height: 800px; width: 800px; background-repeat: no-repeat; z-index: -1; background-size: contain; animation: rotate 10s infinite linear; }
+@keyframes rotate {
+    to {
+        transform: rotate(0deg);
+    }
+    from {
+        transform: rotate(360deg);
+    }
+}
+.about-us-section h2 {text-align: left;}
+.about-us-section h5 {padding-bottom: 5px; position: relative;}
+.about-us-section h5:after {content: ""; width: 30px; height: 3px; position: absolute; top: 100%; left: 0; background-color: #ffcc00; border-radius: 25px; }
+.about-us-section .about-us-container {width: calc(100% - 400px); }
+.about-us-section .about-us-container .contact-info {margin-top: 30px;}
+.about-us-section .about-us-container .contact-info p {font-size: 16px; margin-bottom: 5px; }
+.about-us-section .about-us-container .contact-info a {color: inherit;}
+.about-us-section .about-us-container .contact-info a:hover {color: #ffcc00;}
+.about-us-section .each-col {margin: 50px 0;}
+.about-us-section .quick-links a {font-size: 14px;}
+
+@media screen and (max-width:991px){
+    .about-us-section {padding-bottom: 0;}
+    .about-us-section .about-us-container {width: 100%;}
+    .about-us-section:after {position: static; display: block; width: 600px; height: 600px; margin: 0 auto -300px; }
+}
+@media screen and (max-width:767px){
+    .about-us-section:after {width: 500px; height: 500px; margin: 0 auto -250px; }
+}
+@media screen and (max-width:599px){
+    .about-us-section:after {width: 400px; height: 400px; margin: 0 auto -200px; }
+}
+@media screen and (max-width:599px){
+    .about-us-section:after {width: 300px; height: 300px; margin: 0 auto -150px; }
+}

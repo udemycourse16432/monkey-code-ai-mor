@@ -1,0 +1,159 @@
+/* --- 1. GENERAL LAYOUT --- */
+.checkout {
+    padding: 60px 0;
+    background: #fafafa;
+}
+
+    /* --- 2. STEP HEADERS --- */
+    .checkout h4 {
+        background-color: #edeff2;
+        padding: 15px;
+        font-size: 20px;
+        margin-bottom: 25px;
+        font-family: 'bebas_neuebold';
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+        .checkout h4 span {
+            background-color: #333;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+    .checkout .right-block {
+        position: sticky;
+        top: 0;
+    }
+
+
+/* --- 3. EQUAL HEIGHT ADDRESS CARDS --- */
+.row.address-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.address-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    height: 100%; /* Force height to match parent */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-label {
+    font-family: 'bebas_neueregular', sans-serif;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-link {
+    font-size: 12px;
+    color: #ffcc00;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* --- 4. RADIO BUTTONS & FORMS --- */
+.styled-input {
+    display: flex;
+    align-items: center;
+    /*user-select: none;*/
+    cursor: pointer; /* Critical: tells the user it's clickable */
+    gap: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #000;
+    font-weight: 400;
+}
+    /*.styled-input input {
+        flex-shrink: 0;
+        appearance: none;
+        height: 22px;
+        width: 22px;
+        border: 2px solid #dcdfe3;
+        border-radius: 50%;
+        outline: none;
+        position: relative;
+        transition: 0.3s;
+    }*/
+    .styled-input input {
+        flex-shrink: 0;
+        appearance: none;
+        -webkit-appearance: none; /* Safari support */
+        height: 20px;
+        width: 20px;
+        border: 2px solid #dcdfe3;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+        display: grid; /* Best way to center the dot */
+        place-content: center;
+        transition: border-color 0.2s;
+    }
+        .styled-input input:checked {
+            border-color: #000; /* Darken the outer ring when selected */
+        }
+        /*.styled-input input:before {
+            content: "";
+            opacity: 0;
+            height: 12px;
+            width: 12px;
+            background-color: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: 0.3s;
+        }*/
+        .styled-input input:before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #000;
+            transition: 0.2s transform ease-in-out;
+            transform: scale(0); /* Start invisible and small */
+        }
+
+        /*.styled-input input:checked:before {
+            opacity: 1;
+        }*/
+        .styled-input input:checked:before {
+            transform: scale(1);
+        }
+
+    /*.styled-input:hover input:before {
+        opacity: 0.3;
+    }*/
+    /* Subtle hover effect for the ring */
+    .styled-input:hover input {
+        border-color: #999;
+    }
+
+.form-control {
+    border: 2px solid #dadde1;
+    border-radius: 0;
+    height: 50px;
+    font-size: 15px;
+}
+
+    .form-control:focus {
+        border-color: #ffcc00;
+        box-shadow: none;
+    }
