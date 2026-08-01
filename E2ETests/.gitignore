@@ -1,0 +1,15 @@
+# Test artifacts
+node_modules/
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# Env / secrets
+.env
+*.local
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

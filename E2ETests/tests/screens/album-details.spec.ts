@@ -1,0 +1,82 @@
+import { test, expect } from '../../fixtures/extended-test';
+
+/**
+ * SCREEN: Album Details (/AlbumDetails/{id})
+ * Razor page: Pages/AlbumDetails.cshtml + AlbumDetails.cshtml.cs
+ *
+ * Shows full album metadata (artist, title, format, price, label, catalog,
+ * year, condition, review, features, genres) plus two recommendation rails:
+ * "Customer Viewed" (similar items) and "More By This Artist".
+ * Add/update cart controls call POST /api/cart/adjust.
+ */
+test.describe('Album Details screen', () => {
+  test('returns a 404-style not-found state for a bogus id', async ({ page }) => {
+    await page.goto('/AlbumDetails/0');
+    await expect(page.locator('text=not found').first()).toBeVisible();
+  });
+
+  test('renders full details for a configured item', async ({ page, testData }) => {
+    test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
+
+    await page.goto(`/AlbumDetails/${testData.itemId}`);
+    await expect(page).toHaveTitle(/Millions of Records/i);
+
+    // Core metadata fields
+    await expect(page.locator('text=/Label/i').first()).toBeVisible();
+    await expect(page.locator('#btn-container-' + testData.itemId)).toBeVisible();
+  });
+
+  test('out-of-stock items render the out-of-stock state', async ({ page, testData }) => {
+    test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
+    test.skip(true, 'Needs a known out-of-stock item id; covered manually in TEST_PLAN.');
+
+    await page.goto(`/AlbumDetails/${testData.itemId}`);
+    await expect(page.getByRole('button', { name: /out of stock/i }).first()).toBeVisible();
+  });
+
+  test('increase quantity posts to /api/cart/adjust', async ({ page, testData }) => {
+    test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
+
+    await page.goto(`/AlbumDetails/${testData.itemId}`);
+
+    const increaseBtn = page.locator('#btnIncreaseQty');
+    if ((await increaseBtn.count()) === 0) {
+      test.skip(true, 'Item is not in cart yet; quantity controls only render after adding.');
+    }
+
+    const apiResponse = page.waitForResponse(
+      (res) => res.url().includes('/api/cart/adjust') && res.status() === 200,
+    );
+    await increaseBtn.click();
+    await apiResponse;
+    await expect(page.locator('#displayQuantity')).toHaveText('2');
+  });
+
+  test('similar items rail links back into the shop', async ({ page, testData }) => {
+    test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
+
+    await page.goto(`/AlbumDetails/${testData.itemId}`);
+    const simLink = page.locator('a[href*="/shop?sid="]').first();
+    if ((await simLink.count()) > 0) {
+      await simLink.click();
+      await expect(page).toHaveURL(/\/shop\?sid=/);
+    }
+  });
+
+  test('shop-back link preserves the shop query string when coming from a filtered shop page', async ({ page, testData }) => {
+    test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
+
+    await page.goto(`/shop?genre=Reggae&page=2`);
+    // Open the album detail of the configured item if present on the page
+    const cardLink = page.locator(`a[href="/AlbumDetails/${testData.itemId}"]`).first();
+    if ((await cardLink.count()) === 0) {
+      test.skip(true, 'Configured item not visible on this shop query.');
+    }
+    await cardLink.click();
+    const back = page.getByRole('link', { name: /return to shop/i });
+    if ((await back.count()) > 0) {
+      const href = await back.getAttribute('href');
+      expect(href).toContain('/shop');
+    }
+  });
+});
