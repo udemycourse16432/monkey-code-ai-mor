@@ -50,7 +50,7 @@ Razor Pages are mapped by their `@page` directive or default route. All screens 
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Home / Storefront | `/` | `Index.cshtml.cs` | - | 13 catalog sections, add-to-cart buttons, header cart count | `home.spec.ts` |
 | 2 | Shop / Catalog | `/shop` | `Shop.cshtml.cs` | - | filters (format, genre, label, artist, title, year, rhythm, feaitem, sid, price), sorting, pagination (48/page) | `shop.spec.ts` |
-| 3 | Album Details | `/AlbumDetails/{id}` | `AlbumDetails.cshtml.cs` | - | full metadata, gallery, qty add/adjust, similar-items + more-by-artist rails | `album-details.spec.ts` |
+| 3 | Album Details | `/ItemDetails/{id}` | `AlbumDetails.cshtml.cs` | - | full metadata, gallery, qty add/adjust, similar-items + more-by-artist rails | `album-details.spec.ts` |
 | 4 | Cart | `/cart` | `Cart.cshtml.cs` | - | line items, +/-/delete (POST /api/cart/adjust), summary totals | `cart.spec.ts` |
 | 5 | Checkout | `/checkout` | `Checkout.cshtml.cs` | required | shipping-method radios, totals, PayPal button, shipping freeze | `checkout.spec.ts` |
 | 6 | Order Success | `/checkout/success?orderNumber=` | `Success.cshtml.cs` | required | receipt: shipping address, itemized table, totals | `success.spec.ts` |
@@ -163,7 +163,7 @@ Legend: **P0** critical path - **P1** high - **P2** medium - **P3** low. `@smoke
 | SHOP-13 | P2 | Add to cart from a card | POST `/api/cart/add` succeeds; button flips to "IN YOUR CART" |
 | SHOP-14 | P3 | Artist / label / title text filters | URL params + scoped results |
 
-### 5.3 Album Details `/AlbumDetails/{id}` (`album-details.spec.ts`)
+### 5.3 Album Details `/ItemDetails/{id}` (`album-details.spec.ts`)
 
 | ID | Priority | Test case | Expected result |
 | --- | --- | --- | --- |
@@ -441,7 +441,7 @@ Notes:
 
 ## 10. Known Risks / Notes
 
-- `Program.cs` maps `/album-details/{id:int}` to a non-existent page `AlbumDetails2` (line 44). The functional route is `/AlbumDetails/{id}`. Add a regression test to lock in whichever route is intended.
+- The legacy `/album-details/{id:int}` page-route mapping to a non-existent `AlbumDetails2` page was removed from `Program.cs`; album detail links use `/ItemDetails/{category}/{id}/{slug}` (`@page "/ItemDetails/{category?}/{id:int}/{slug?}"` on `AlbumDetails.cshtml`). Specs must navigate to `/ItemDetails/{id}`.
 - `CheckoutController.CreateOrder` calls `GetCustomerDetailsAsync().First()` without an empty guard; a logged-out session hits a 5xx. This is intentional behavior to verify, not a crash.
 - PayPal `capture-order` returns a 5xx on the happy path if `X-Forwarded-For` parsing or session state is incomplete - treat as environment-specific.
 - `Success` page silently skips the confirmation email in the current code (commented out), so email assertions are DB-only.

@@ -13,7 +13,7 @@
         "Ultra-secure packaging",
         "100% money-back guarantee"
     };
-    if (!Model.AlbumData.UsedItem)
+    if (Model.AlbumData != null && !Model.AlbumData.UsedItem)
     {
         bool isVinylFormat = Model.AlbumData.Format == "12\"" || Model.AlbumData.Format == "10\"" || Model.AlbumData.Format == "7\"";
 

@@ -38,11 +38,7 @@ namespace MillionsOfRecordsApp
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddHttpClient();
             builder.Services.AddControllers();
-            builder.Services.AddRazorPages(options =>
-            {
-                // Legacy route mapping only: /album-details/292029 -> /AlbumDetails.cshtml
-                options.Conventions.AddPageRoute("/AlbumDetails2", "album-details/{id:int}");
-            });
+            builder.Services.AddRazorPages();
 
             builder.Services.AddMemoryCache();
             builder.Services.AddDistributedMemoryCache();

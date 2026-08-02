@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/extended-test';
 
 /**
- * SCREEN: Album Details (/AlbumDetails/{id})
+ * SCREEN: Album Details (/ItemDetails/{id})
  * Razor page: Pages/AlbumDetails.cshtml + AlbumDetails.cshtml.cs
  *
  * Shows full album metadata (artist, title, format, price, label, catalog,
@@ -11,14 +11,16 @@ import { test, expect } from '../../fixtures/extended-test';
  */
 test.describe('Album Details screen', () => {
   test('returns a 404-style not-found state for a bogus id', async ({ page }) => {
-    await page.goto('/AlbumDetails/0');
-    await expect(page.locator('text=not found').first()).toBeVisible();
+    await page.goto('/ItemDetails/0');
+    await expect(
+      page.getByRole('heading', { name: /album details not found/i }),
+    ).toBeVisible();
   });
 
   test('renders full details for a configured item', async ({ page, testData }) => {
     test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
 
-    await page.goto(`/AlbumDetails/${testData.itemId}`);
+    await page.goto(`/ItemDetails/${testData.itemId}`);
     await expect(page).toHaveTitle(/Millions of Records/i);
 
     // Core metadata fields
@@ -30,14 +32,14 @@ test.describe('Album Details screen', () => {
     test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
     test.skip(true, 'Needs a known out-of-stock item id; covered manually in TEST_PLAN.');
 
-    await page.goto(`/AlbumDetails/${testData.itemId}`);
+    await page.goto(`/ItemDetails/${testData.itemId}`);
     await expect(page.getByRole('button', { name: /out of stock/i }).first()).toBeVisible();
   });
 
   test('increase quantity posts to /api/cart/adjust', async ({ page, testData }) => {
     test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
 
-    await page.goto(`/AlbumDetails/${testData.itemId}`);
+    await page.goto(`/ItemDetails/${testData.itemId}`);
 
     const increaseBtn = page.locator('#btnIncreaseQty');
     if ((await increaseBtn.count()) === 0) {
@@ -55,7 +57,7 @@ test.describe('Album Details screen', () => {
   test('similar items rail links back into the shop', async ({ page, testData }) => {
     test.skip(!testData.itemId, 'TEST_ITEM_ID not configured');
 
-    await page.goto(`/AlbumDetails/${testData.itemId}`);
+    await page.goto(`/ItemDetails/${testData.itemId}`);
     const simLink = page.locator('a[href*="/shop?sid="]').first();
     if ((await simLink.count()) > 0) {
       await simLink.click();
@@ -68,7 +70,7 @@ test.describe('Album Details screen', () => {
 
     await page.goto(`/shop?genre=Reggae&page=2`);
     // Open the album detail of the configured item if present on the page
-    const cardLink = page.locator(`a[href="/AlbumDetails/${testData.itemId}"]`).first();
+    const cardLink = page.locator(`a[href*="/ItemDetails/"][href*="/${testData.itemId}/"]`).first();
     if ((await cardLink.count()) === 0) {
       test.skip(true, 'Configured item not visible on this shop query.');
     }
