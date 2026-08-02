@@ -1,4 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
+import { config as loadEnv } from 'dotenv';
+import path from 'path';
+
+// Playwright does not auto-load .env; load it so process.env reaches both the
+// config (above) and the worker processes it spawns.
+loadEnv({ path: path.resolve(__dirname, '.env') });
 
 /**
  * Playwright configuration for MillionsOfRecordsApp E2E tests.

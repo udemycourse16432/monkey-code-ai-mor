@@ -21,7 +21,9 @@ npx playwright install chromium firefox webkit
 
 ## Configuration
 
-Copy `.env.example` to `.env` and fill in real values:
+Copy `.env.example` to `.env` and fill in real values. The `.env` file is
+loaded automatically via `dotenv` from `playwright.config.ts` (Playwright does
+not load it on its own):
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
