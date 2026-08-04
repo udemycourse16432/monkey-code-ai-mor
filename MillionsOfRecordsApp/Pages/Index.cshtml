@@ -5,6 +5,12 @@
     var assetsBase = Configuration["Appsettings:AssetsPath"];
     var imgBase = Configuration["Appsettings:ImagesPath"];
     var mp3Base = Configuration["Appsettings:MP3sPath"];
+
+    string SectionId(string key)
+    {
+        var parts = System.Text.RegularExpressions.Regex.Split(key, "(?<=[a-z0-9])(?=[A-Z])");
+        return string.Join("-", parts).ToLowerInvariant();
+    }
 }
 @section Styles {
     <link href="~/css/components/banner.css" rel="stylesheet" />
@@ -30,11 +36,11 @@
 
 <section class="albums-block home-section" id="homeAlbumsSection">
     <div class="container-fluid">
-        @foreach (var fmtSection in Model.Sections.Values)
+        @foreach (var (sectionKey, fmtSection) in Model.Sections)
         {
-            <div class="albums-category">
+            <div class="albums-category" data-testid="index-category-@SectionId(sectionKey)">
                 <div class="top">
-                    <h2>@fmtSection.Title</h2>
+                    <h2 data-testid="index-category-title">@fmtSection.Title</h2>
                     <a asp-page="/Shop"
                        asp-route-format="@fmtSection.FormatLink"
                        asp-route-order="@fmtSection.Order"

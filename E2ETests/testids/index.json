@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "step": 1,
+  "scope": "home-page",
+  "generated": "2026-08-03",
+  "convention": {
+    "format": "lower-kebab-case",
+    "prefixes": {
+      "nav-": "header / navigation bar",
+      "footer-": "footer components",
+      "index-": "home-page-exclusive sections",
+      "product-card-": "shared _AlbumCard partial (repeating container)",
+      "scroll-to-top": "shared _ScrollToTop partial",
+      "layout-": "master layout chrome"
+    },
+    "dynamic": "Razor model interpolation appended to base id, e.g. product-card-<ItemId>"
+  },
+  "layout": {
+    "layout-global-loader": "div#global-loader - JS overlay removed on window load; wait-for-app-ready sync point"
+  },
+  "nav": {
+    "nav-account-link": "header account link (Welcome, <storeName> when logged in / My Account when logged out - state-dependent, dynamic text)",
+    "nav-search-clear": "icon-only clear button in search box (no accessible name, JS-driven visibility)",
+    "nav-search-suggestions": "JS-injected search suggestions dropdown container (structural scoping)",
+    "nav-search-suggestions-albums": "JS-injected Albums suggestion tab pane",
+    "nav-search-suggestions-artists": "JS-injected Artists suggestion tab pane",
+    "nav-search-suggestions-labels": "JS-injected Labels suggestion tab pane",
+    "nav-search-suggestions-genres": "JS-injected Genres suggestion tab pane",
+    "nav-cart-link": "header cart link (anchor)",
+    "nav-cart-count": "span#cartCount - dynamic cart badge updated by cart.js",
+    "nav-mobile-toggle": "icon-only hamburger toggle (no accessible name)",
+    "nav-content-popup": "JS-driven <dialog> content popup (structural modal wrapper)",
+    "nav-content-popup-title": "dynamic popup heading populated by contentPopup.js",
+    "nav-content-popup-close": "modal close button (also aria-label=Close)",
+    "nav-content-popup-loader": "modal loader sync point",
+    "nav-content-popup-body": "JS-injected popup body container"
+  },
+  "footer": {
+    "footer-logo": "footer logo link (img has empty alt - no accessible name)",
+    "footer-social-facebook": "icon-only Facebook link",
+    "footer-social-twitter": "icon-only Twitter/X link",
+    "footer-social-instagram": "icon-only Instagram link",
+    "footer-social-youtube": "icon-only YouTube link"
+  },
+  "index": {
+    "index-category-<sectionKey>": "home catalog section wrapper (repeating Razor loop); sectionKey is the IndexModel.Sections dictionary key lower-kebab-cased, e.g. index-category-best-selling-lps",
+    "index-category-title": "section heading inside index-category-* wrapper (dynamic DB text)"
+  },
+  "components": {
+    "product-card-<ItemId>": "_AlbumCard root .album container",
+    "product-card-preview-<ItemId>": "icon-only audio preview link (conditional on Mp3fileCompleted=Y)",
+    "product-card-price-<ItemId>": "dynamic price text",
+    "product-card-feature-<ItemId>-<FeatureId>": "dynamic feature link",
+    "product-card-rhythm-<ItemId>": "dynamic rhythm link",
+    "product-card-cart-<ItemId>": "cart action wrapper (was id=btn-container-<ItemId>; id retained)",
+    "product-card-label-<ItemId>": "dynamic label link",
+    "scroll-to-top": "back-to-top button (glyph-only, no text label)"
+  }
+}

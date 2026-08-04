@@ -14,7 +14,7 @@
     var itemDetailsUrl = AppConstants.SEOPageNameText(Model.ArtistTitle, Model.Format, Model.Id, SearchId);
 
 }
-<div class="album">
+<div class="album" data-testid="product-card-@Model.Id">
     <figure>
         <a href="@itemDetailsUrl">
             @* This calls our new GetImagePath logic *@
@@ -52,7 +52,7 @@
                 @if (Model.Mp3fileCompleted == "Y")
                 {
                     @* <i class="fa fa-volume-up"></i> *@
-                    <a href="#" target="_blank">
+                    <a href="#" target="_blank" data-testid="product-card-preview-@Model.Id">
                         <i class="fa fa-volume-up"></i>
                     </a>
                 }
@@ -66,7 +66,7 @@
                     @formatDetails.DisplayText
                 </a>
             </li>
-            <li>$@Model.RetailPrice.ToString("F2")</li>
+            <li data-testid="product-card-price-@Model.Id">$@Model.RetailPrice.ToString("F2")</li>
         </ul>
 
         <div style="height: 22px; margin-bottom: 2px;">
@@ -76,7 +76,7 @@
                     @foreach (var feature in parsedFeatures)
                     {
                         @("(")
-                        <a href="~/shop?feaitem=@feature.Id" title="@feature.HoverText">@feature.DisplayText</a>
+                        <a href="~/shop?feaitem=@feature.Id" title="@feature.HoverText" data-testid="product-card-feature-@Model.Id-@feature.Id">@feature.DisplayText</a>
                         @(")")
                     }
                 </strong>
@@ -92,7 +92,7 @@
             {
                 <strong style="font-size: 0.85em; color: #555;">
                     RHYTHM:
-                    <a href="~/shop?rhythm=@Uri.EscapeDataString(Model.RhythmName)" class="grid-if" title="Show all on this rhythm">
+                    <a href="~/shop?rhythm=@Uri.EscapeDataString(Model.RhythmName)" class="grid-if" title="Show all on this rhythm" data-testid="product-card-rhythm-@Model.Id">
                         @truncatedRhythm
                     </a>
                 </strong>
@@ -102,7 +102,7 @@
                 <span>&nbsp;</span>
             }
         </div>
-        <div id="btn-container-@Model.Id" class="cart-action-wrapper">
+        <div id="btn-container-@Model.Id" class="cart-action-wrapper" data-testid="product-card-cart-@Model.Id">
             @if (isInCart)
             {
                 <a asp-page="/Cart" class="btn btn-in-cart">
@@ -121,7 +121,7 @@
         </div>
         @* Mapping: Label and Similar Items *@
         <ul class="bottom-list clearfix">
-            <li><a href="/shop?label=@Uri.EscapeDataString(Model.Label)">@Model.Label</a></li>
+            <li><a href="/shop?label=@Uri.EscapeDataString(Model.Label)" data-testid="product-card-label-@Model.Id">@Model.Label</a></li>
             <li><a href="/shop?sid=@Model.Id">Similar Items</a></li>
 
             @* VB logic: if year is within 6 years, show similar *@

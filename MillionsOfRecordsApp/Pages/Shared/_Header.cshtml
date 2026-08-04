@@ -52,13 +52,13 @@
                 @if (Context.Session.IsLoggedIn())
                 {
                     <li>
-                        <a asp-page="/MyAccount"><i class="fa fa-user-o"></i> Welcome, @storeName</a>
+                        <a asp-page="/MyAccount" data-testid="nav-account-link"><i class="fa fa-user-o"></i> Welcome, @storeName</a>
                     </li>
                 }
                 else
                 {
                     <li>
-                        <a asp-page="/SignIn"><i class="fa fa-user-o"></i> My Account</a>
+                        <a asp-page="/SignIn" data-testid="nav-account-link"><i class="fa fa-user-o"></i> My Account</a>
                     </li>
                 }
             </ul>
@@ -75,12 +75,12 @@
                 <div class="search">
                     <input type="search" id="headerSearch" class="form-control"
                            placeholder="Search for Anything! Artist, Album Title, Record Label, Genre, UPC, or our item#" />
-                    <button id="clearSearch" class="fa fa-times close-btn" style="display:none;"></button>
+                    <button id="clearSearch" class="fa fa-times close-btn" data-testid="nav-search-clear" style="display:none;"></button>
                 </div>
                 <button type="button">Search</button>
 
                 @* This div will be shown via JS when search > 2 chars *@
-                <div id="searchSuggestions" class="search-suggestions" style="display:none;">
+                <div id="searchSuggestions" class="search-suggestions" data-testid="nav-search-suggestions" style="display:none;">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
                             <a href="#albumsTab" aria-controls="albumsTab" role="tab" data-toggle="tab">Albums</a>
@@ -96,10 +96,10 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div id="albumsTab" role="tabpanel" class="tab-pane active"></div>
-                        <div id="artistsTab" role="tabpanel" class="tab-pane"></div>
-                        <div id="labelsTab" role="tabpanel" class="tab-pane"></div>
-                        <div id="genreTab" role="tabpanel" class="tab-pane"></div>
+                        <div id="albumsTab" role="tabpanel" class="tab-pane active" data-testid="nav-search-suggestions-albums"></div>
+                        <div id="artistsTab" role="tabpanel" class="tab-pane" data-testid="nav-search-suggestions-artists"></div>
+                        <div id="labelsTab" role="tabpanel" class="tab-pane" data-testid="nav-search-suggestions-labels"></div>
+                        <div id="genreTab" role="tabpanel" class="tab-pane" data-testid="nav-search-suggestions-genres"></div>
                     </div>
                 </div>
             </div>
@@ -116,9 +116,9 @@
                 }
             </ul>
 
-            <a class="cart-link" href="/cart">
+            <a class="cart-link" href="/cart" data-testid="nav-cart-link">
                 <img src="/assets/images/cart.png" alt="Cart" />
-                <span id="cartCount">@cartCount</span> Cart
+                <span id="cartCount" data-testid="nav-cart-count">@cartCount</span> Cart
             </a>
         </div>
 
@@ -136,18 +136,18 @@
             </ul>
         </nav>
 
-        <button class="mobile-toggle mobile-toggle--squeeze" type="button">
+        <button class="mobile-toggle mobile-toggle--squeeze" type="button" data-testid="nav-mobile-toggle">
             <span class="mobile-toggle-box">
                 <span class="mobile-toggle-inner"></span>
             </span>
         </button>
     </div>
-    <dialog id="contentPopup" class="content-popup">
+    <dialog id="contentPopup" class="content-popup" data-testid="nav-content-popup">
         <div class="popup-wrapper">
             <div class="header-content">
                 <div class="header-flex">
-                    <h3 id="popupTitle" class="popup-title">>Loading...</h3>
-                    <button type="button" class="close-popup" onclick="closeContentPopup()" aria-label="Close">
+                    <h3 id="popupTitle" class="popup-title" data-testid="nav-content-popup-title">>Loading...</h3>
+                    <button type="button" class="close-popup" onclick="closeContentPopup()" aria-label="Close" data-testid="nav-content-popup-close">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.01186 7.00933L12.27 2.75116C12.341 2.68501 12.398 2.60524 12.4375 2.51661C12.4769 2.42798 12.4982 2.3323 12.4999 2.23529C12.5016 2.13827 12.4838 2.0419 12.4474 1.95194C12.4111 1.86197 12.357 1.78024 12.2884 1.71163C12.2198 1.64302 12.138 1.58893 12.0481 1.55259C11.9581 1.51625 11.8617 1.4984 11.7647 1.50011C11.6677 1.50182 11.572 1.52306 11.4834 1.56255C11.3948 1.60204 11.315 1.65898 11.2488 1.72997L6.99067 5.98814L2.7325 1.72997C2.59553 1.60234 2.41437 1.53286 2.22718 1.53616C2.03999 1.53946 1.8614 1.61529 1.72901 1.74767C1.59663 1.88006 1.5208 2.05865 1.5175 2.24584C1.5142 2.43303 1.58368 2.61419 1.71131 2.75116L5.96948 7.00933L1.71131 11.2675C1.576 11.403 1.5 11.5866 1.5 11.7781C1.5 11.9696 1.576 12.1532 1.71131 12.2887C1.84679 12.424 2.03043 12.5 2.2219 12.5C2.41338 12.5 2.59702 12.424 2.7325 12.2887L6.99067 8.03052L11.2488 12.2887C11.3843 12.424 11.568 12.5 11.7594 12.5C11.9509 12.5 12.1346 12.424 12.27 12.2887C12.4053 12.1532 12.4813 11.9696 12.4813 11.7781C12.4813 11.5866 12.4053 11.403 12.27 11.2675L8.01186 7.00933Z" fill="currentColor"></path>
                         </svg>
@@ -156,10 +156,10 @@
             </div>
 
             <div id="popupMainContent" class="popup-main-content">
-                <div id="popupLoader" class="loading-view popup-loading" style="display: none;">
+                <div id="popupLoader" class="loading-view popup-loading" style="display: none;" data-testid="nav-content-popup-loader">
                     <div class="scale-loader"><div></div><div></div><div></div></div>
                 </div>
-                <div id="popupDataContainer"></div>
+                <div id="popupDataContainer" data-testid="nav-content-popup-body"></div>
             </div>
         </div>
     </dialog>
