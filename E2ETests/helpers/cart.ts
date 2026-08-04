@@ -12,8 +12,8 @@ export async function addToCartFromShop(page: Page, itemId: number): Promise<voi
   await container.waitFor({ state: 'visible' });
   await container.getByRole('button', { name: /add to cart|add/i }).click();
 
-  // Toast confirms the item was added ("Album Added to Cart")
-  await page.locator('.toast-message').filter({ hasText: 'successfully been added' }).first().waitFor({ timeout: 10_000 });
+  // Toast confirms the item was added ("...has been successfully added to your cart.")
+  await page.locator('.toast-message').filter({ hasText: /successfully added/ }).first().waitFor({ timeout: 10_000 });
 }
 
 /**
