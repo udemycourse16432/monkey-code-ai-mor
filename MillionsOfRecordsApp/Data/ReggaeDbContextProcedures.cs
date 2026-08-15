@@ -264,6 +264,26 @@ namespace MillionsOfRecordsApp.Data
             return _;
         }
 
+        public virtual async Task<List<spCheckForInsertKirbyItemDataResult>> spCheckForInsertKirbyItemDataAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spCheckForInsertKirbyItemDataResult>("EXEC @returnValue = [dbo].[spCheckForInsertKirbyItemData]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<List<spCheckForLPor12InchInCartResult>> spCheckForLPor12InchInCartAsync(string cartName, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
@@ -432,6 +452,273 @@ namespace MillionsOfRecordsApp.Data
                 parameterreturnValue,
             };
             var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spDeleteCartItem] @CartName = @CartName, @ItemID = @ItemID", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_CartsResult>> spDownload_CartsAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_CartsResult>("EXEC @returnValue = [dbo].[spDownload_Carts]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_Carts_DeletesResult>> spDownload_Carts_DeletesAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_Carts_DeletesResult>("EXEC @returnValue = [dbo].[spDownload_Carts_Deletes]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_CustomerEmailChangesResult>> spDownload_CustomerEmailChangesAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_CustomerEmailChangesResult>("EXEC @returnValue = [dbo].[spDownload_CustomerEmailChanges]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_CustomersResult>> spDownload_CustomersAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_CustomersResult>("EXEC @returnValue = [dbo].[spDownload_Customers]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_DeleteBackordersInStockNowResult>> spDownload_DeleteBackordersInStockNowAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_DeleteBackordersInStockNowResult>("EXEC @returnValue = [dbo].[spDownload_DeleteBackordersInStockNow]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_Enter7InchResult>> spDownload_Enter7InchAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_Enter7InchResult>("EXEC @returnValue = [dbo].[spDownload_Enter7Inch]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_EnterStockResult>> spDownload_EnterStockAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_EnterStockResult>("EXEC @returnValue = [dbo].[spDownload_EnterStock]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_OrderCorrectionNotesResult>> spDownload_OrderCorrectionNotesAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_OrderCorrectionNotesResult>("EXEC @returnValue = [dbo].[spDownload_OrderCorrectionNotes]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_OrderItemsResult>> spDownload_OrderItemsAsync(string orderNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "OrderNumber",
+                    Size = 40,
+                    Value = orderNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_OrderItemsResult>("EXEC @returnValue = [dbo].[spDownload_OrderItems] @OrderNumber = @OrderNumber", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_OrdersResult>> spDownload_OrdersAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_OrdersResult>("EXEC @returnValue = [dbo].[spDownload_Orders]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_PayFlowRequestsResult>> spDownload_PayFlowRequestsAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_PayFlowRequestsResult>("EXEC @returnValue = [dbo].[spDownload_PayFlowRequests]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_PayPalIPNsReceivedResult>> spDownload_PayPalIPNsReceivedAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_PayPalIPNsReceivedResult>("EXEC @returnValue = [dbo].[spDownload_PayPalIPNsReceived]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spDownload_SignInLogResult>> spDownload_SignInLogAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_SignInLogResult>("EXEC @returnValue = [dbo].[spDownload_SignInLog]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
@@ -763,6 +1050,33 @@ namespace MillionsOfRecordsApp.Data
                 parameterreturnValue,
             };
             var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spDownloadOK_SignInLog] @Counter = @Counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spForgotPasswordResult>> spForgotPasswordAsync(string logInEmail, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "LogInEmail",
+                    Size = 200,
+                    Value = logInEmail ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spForgotPasswordResult>("EXEC @returnValue = [dbo].[spForgotPassword] @LogInEmail = @LogInEmail", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
@@ -1157,6 +1471,73 @@ namespace MillionsOfRecordsApp.Data
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<spGetInventoryItemResult>("EXEC @returnValue = [dbo].[spGetInventoryItem] @ID = @ID", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spGetKirbysCutThisMonthResult>> spGetKirbysCutThisMonthAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spGetKirbysCutThisMonthResult>("EXEC @returnValue = [dbo].[spGetKirbysCutThisMonth]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spGetKirbysCutThisOrderResult>> spGetKirbysCutThisOrderAsync(string orderNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "OrderNumber",
+                    Size = 30,
+                    Value = orderNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spGetKirbysCutThisOrderResult>("EXEC @returnValue = [dbo].[spGetKirbysCutThisOrder] @OrderNumber = @OrderNumber", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spGetKirbysCutTodayResult>> spGetKirbysCutTodayAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spGetKirbysCutTodayResult>("EXEC @returnValue = [dbo].[spGetKirbysCutToday]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
@@ -1654,6 +2035,33 @@ namespace MillionsOfRecordsApp.Data
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<spGetWeightOfProductResult>("EXEC @returnValue = [dbo].[spGetWeightOfProduct] @CartName = @CartName", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spHTTPDownloadDataOrderItemsResult>> spHTTPDownloadDataOrderItemsAsync(string orderNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "OrderNumber",
+                    Size = 40,
+                    Value = orderNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spHTTPDownloadDataOrderItemsResult>("EXEC @returnValue = [dbo].[spHTTPDownloadDataOrderItems] @OrderNumber = @OrderNumber", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
@@ -2316,6 +2724,26 @@ namespace MillionsOfRecordsApp.Data
             return _;
         }
 
+        public virtual async Task<List<spKirbyItemDataResult>> spKirbyItemDataAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spKirbyItemDataResult>("EXEC @returnValue = [dbo].[spKirbyItemData]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<int> spOrderedQueriesAsync(string cartName1, string cartName2, int? customerServerCounter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
@@ -2834,6 +3262,7081 @@ namespace MillionsOfRecordsApp.Data
             return _;
         }
 
+        public virtual async Task<int> spSync_BackordersInStockNowAsync(int? counter, int? customerID, int? backorderInventoryID, int? backorderQuantity, DateTime? dateOrdered, string pONumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerID",
+                    Value = customerID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "BackorderInventoryID",
+                    Value = backorderInventoryID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "BackorderQuantity",
+                    Value = backorderQuantity ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DateOrdered",
+                    Value = dateOrdered ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallDateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PONumber",
+                    Size = 100,
+                    Value = pONumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_BackordersInStockNow] @counter = @counter, @CustomerID = @CustomerID, @BackorderInventoryID = @BackorderInventoryID, @BackorderQuantity = @BackorderQuantity, @DateOrdered = @DateOrdered, @PONumber = @PONumber", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_BackordersInStockNow_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_BackordersInStockNow_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_CountryListAsync(int? counter, string countryText, string country, string stateProvince, string sortOrderText, string city, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CountryText",
+                    Size = 200,
+                    Value = countryText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Country",
+                    Size = 200,
+                    Value = country ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "StateProvince",
+                    Size = 200,
+                    Value = stateProvince ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SortOrderText",
+                    Size = 200,
+                    Value = sortOrderText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "City",
+                    Size = 200,
+                    Value = city ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_CountryList] @counter = @counter, @CountryText = @CountryText, @Country = @Country, @StateProvince = @StateProvince, @SortOrderText = @SortOrderText, @City = @City", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_CountryList_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_CountryList_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_EmailFooterAsync(int? counter, string footer, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "footer",
+                    Size = -1,
+                    Value = footer ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_EmailFooter] @counter = @counter, @footer = @footer", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_EmailFooter_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_EmailFooter_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spSync_EmailsFromTheWebServerResult>> spSync_EmailsFromTheWebServerAsync(int? iD, string description, string pageUsed, string notes, string subject1, string descriptionOfCodeAfterSubject1, string subject2, string body1, string descriptionOfCodeAfterBody1, string body2, string descriptionOfCodeAfterBody2, string body3, string descriptionOfCodeAfterBody3, string body4, string descriptionOfCodeAfterBody4, string body5, string descriptionOfCodeAfterBody5, string body6, string customFooter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ID",
+                    Value = iD ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Description",
+                    Size = 510,
+                    Value = description ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PageUsed",
+                    Size = 100,
+                    Value = pageUsed ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Notes",
+                    Size = -1,
+                    Value = notes ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Subject1",
+                    Size = 510,
+                    Value = subject1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DescriptionOfCodeAfterSubject1",
+                    Size = 510,
+                    Value = descriptionOfCodeAfterSubject1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Subject2",
+                    Size = 510,
+                    Value = subject2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Body1",
+                    Size = -1,
+                    Value = body1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DescriptionOfCodeAfterBody1",
+                    Size = 510,
+                    Value = descriptionOfCodeAfterBody1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Body2",
+                    Size = -1,
+                    Value = body2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DescriptionOfCodeAfterBody2",
+                    Size = 510,
+                    Value = descriptionOfCodeAfterBody2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Body3",
+                    Size = -1,
+                    Value = body3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DescriptionOfCodeAfterBody3",
+                    Size = 510,
+                    Value = descriptionOfCodeAfterBody3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Body4",
+                    Size = -1,
+                    Value = body4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DescriptionOfCodeAfterBody4",
+                    Size = 510,
+                    Value = descriptionOfCodeAfterBody4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Body5",
+                    Size = -1,
+                    Value = body5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DescriptionOfCodeAfterBody5",
+                    Size = 510,
+                    Value = descriptionOfCodeAfterBody5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Body6",
+                    Size = -1,
+                    Value = body6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomFooter",
+                    Size = 510,
+                    Value = customFooter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spSync_EmailsFromTheWebServerResult>("EXEC @returnValue = [dbo].[spSync_EmailsFromTheWebServer] @ID = @ID, @Description = @Description, @PageUsed = @PageUsed, @Notes = @Notes, @Subject1 = @Subject1, @DescriptionOfCodeAfterSubject1 = @DescriptionOfCodeAfterSubject1, @Subject2 = @Subject2, @Body1 = @Body1, @DescriptionOfCodeAfterBody1 = @DescriptionOfCodeAfterBody1, @Body2 = @Body2, @DescriptionOfCodeAfterBody2 = @DescriptionOfCodeAfterBody2, @Body3 = @Body3, @DescriptionOfCodeAfterBody3 = @DescriptionOfCodeAfterBody3, @Body4 = @Body4, @DescriptionOfCodeAfterBody4 = @DescriptionOfCodeAfterBody4, @Body5 = @Body5, @DescriptionOfCodeAfterBody5 = @DescriptionOfCodeAfterBody5, @Body6 = @Body6, @CustomFooter = @CustomFooter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spSync_EmailsFromTheWebServer_DeletesResult>> spSync_EmailsFromTheWebServer_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spSync_EmailsFromTheWebServer_DeletesResult>("EXEC @returnValue = [dbo].[spSync_EmailsFromTheWebServer_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spSync_InventoryResult>> spSync_InventoryAsync(int? iD, string artistTitle, string label, decimal? retailPrice, int? inventory, string format, DateTime? inStockDate, string rhythmName, string yearFrom, string yearTo, decimal? storePrice, DateTime? backInStockDate, string produceGroup, string musicianGroup, string tracksGroup, string catalog, int? formatOrder, decimal? exportPrice, string webEssential, string webReviewHTML, string cutout, decimal? weightInGrams, int? numberOfTracks, string deleted, decimal? cost, string mP3FileCompleted, string usedItem, string conditionJacket, string conditionVinylOrCD, string conditionNotes, int? mP3SoundGroup, DateTime? dateAdded, string genre1, string genre2, string genre3, string genre4, string genre5, string genre6, string genre7, string genre8, string genre9, string uPC, string itemDetailsWeb, string itemDetailsWebProductDetails, decimal? sale_RetailPrice, DateTime? sale_RetailEndDate, string sale_RetailFootnoteText, string sale_RetailItemDetailsText, decimal? sale_WholesalePrice, DateTime? sale_WholesaleEndDate, string sale_WholesaleFootnoteText, string sale_WholesaleItemDetailsText, string itemFootnoteText, int? supplierID, DateTime? streetDate, string showOnWebsite, string conditionText, string kirbyItem, decimal? kirbysCut, decimal? kirbyCost, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ID",
+                    Value = iD ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ArtistTitle",
+                    Size = 700,
+                    Value = artistTitle ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Label",
+                    Size = 240,
+                    Value = label ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "RetailPrice",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = retailPrice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Inventory",
+                    Value = inventory ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Format",
+                    Size = 14,
+                    Value = format ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InStockDate",
+                    Value = inStockDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "RhythmName",
+                    Size = 800,
+                    Value = rhythmName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "YearFrom",
+                    Size = 60,
+                    Value = yearFrom ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "YearTo",
+                    Size = 60,
+                    Value = yearTo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "StorePrice",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = storePrice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "BackInStockDate",
+                    Value = backInStockDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProduceGroup",
+                    Size = -1,
+                    Value = produceGroup ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MusicianGroup",
+                    Size = -1,
+                    Value = musicianGroup ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TracksGroup",
+                    Size = -1,
+                    Value = tracksGroup ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Catalog",
+                    Size = 60,
+                    Value = catalog ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FormatOrder",
+                    Value = formatOrder ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ExportPrice",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = exportPrice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebEssential",
+                    Size = 2,
+                    Value = webEssential ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebReviewHTML",
+                    Size = -1,
+                    Value = webReviewHTML ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cutout",
+                    Size = 2,
+                    Value = cutout ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInGrams",
+                    Precision = 18,
+                    Scale = 2,
+                    Value = weightInGrams ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "NumberOfTracks",
+                    Value = numberOfTracks ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Deleted",
+                    Size = 2,
+                    Value = deleted ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MP3FileCompleted",
+                    Size = 2,
+                    Value = mP3FileCompleted ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "UsedItem",
+                    Size = 2,
+                    Value = usedItem ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ConditionJacket",
+                    Size = 6,
+                    Value = conditionJacket ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ConditionVinylOrCD",
+                    Size = 6,
+                    Value = conditionVinylOrCD ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ConditionNotes",
+                    Size = -1,
+                    Value = conditionNotes ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MP3SoundGroup",
+                    Value = mP3SoundGroup ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DateAdded",
+                    Value = dateAdded ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre1",
+                    Size = 60,
+                    Value = genre1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre2",
+                    Size = 60,
+                    Value = genre2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre3",
+                    Size = 60,
+                    Value = genre3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre4",
+                    Size = 60,
+                    Value = genre4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre5",
+                    Size = 60,
+                    Value = genre5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre6",
+                    Size = 60,
+                    Value = genre6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre7",
+                    Size = 60,
+                    Value = genre7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre8",
+                    Size = 60,
+                    Value = genre8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Genre9",
+                    Size = 60,
+                    Value = genre9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "UPC",
+                    Size = 100,
+                    Value = uPC ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemDetailsWeb",
+                    Size = 200,
+                    Value = itemDetailsWeb ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemDetailsWebProductDetails",
+                    Size = 510,
+                    Value = itemDetailsWebProductDetails ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_RetailPrice",
+                    Precision = 5,
+                    Scale = 2,
+                    Value = sale_RetailPrice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_RetailEndDate",
+                    Value = sale_RetailEndDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_RetailFootnoteText",
+                    Size = 510,
+                    Value = sale_RetailFootnoteText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_RetailItemDetailsText",
+                    Size = 510,
+                    Value = sale_RetailItemDetailsText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_WholesalePrice",
+                    Precision = 5,
+                    Scale = 2,
+                    Value = sale_WholesalePrice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_WholesaleEndDate",
+                    Value = sale_WholesaleEndDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_WholesaleFootnoteText",
+                    Size = 510,
+                    Value = sale_WholesaleFootnoteText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Sale_WholesaleItemDetailsText",
+                    Size = 510,
+                    Value = sale_WholesaleItemDetailsText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFootnoteText",
+                    Size = 510,
+                    Value = itemFootnoteText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID",
+                    Value = supplierID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "StreetDate",
+                    Value = streetDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShowOnWebsite",
+                    Size = 2,
+                    Value = showOnWebsite ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ConditionText",
+                    Size = -1,
+                    Value = conditionText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem",
+                    Size = 2,
+                    Value = kirbyItem ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spSync_InventoryResult>("EXEC @returnValue = [dbo].[spSync_Inventory] @ID = @ID, @ArtistTitle = @ArtistTitle, @Label = @Label, @RetailPrice = @RetailPrice, @Inventory = @Inventory, @Format = @Format, @InStockDate = @InStockDate, @RhythmName = @RhythmName, @YearFrom = @YearFrom, @YearTo = @YearTo, @StorePrice = @StorePrice, @BackInStockDate = @BackInStockDate, @ProduceGroup = @ProduceGroup, @MusicianGroup = @MusicianGroup, @TracksGroup = @TracksGroup, @Catalog = @Catalog, @FormatOrder = @FormatOrder, @ExportPrice = @ExportPrice, @WebEssential = @WebEssential, @WebReviewHTML = @WebReviewHTML, @Cutout = @Cutout, @WeightInGrams = @WeightInGrams, @NumberOfTracks = @NumberOfTracks, @Deleted = @Deleted, @Cost = @Cost, @MP3FileCompleted = @MP3FileCompleted, @UsedItem = @UsedItem, @ConditionJacket = @ConditionJacket, @ConditionVinylOrCD = @ConditionVinylOrCD, @ConditionNotes = @ConditionNotes, @MP3SoundGroup = @MP3SoundGroup, @DateAdded = @DateAdded, @Genre1 = @Genre1, @Genre2 = @Genre2, @Genre3 = @Genre3, @Genre4 = @Genre4, @Genre5 = @Genre5, @Genre6 = @Genre6, @Genre7 = @Genre7, @Genre8 = @Genre8, @Genre9 = @Genre9, @UPC = @UPC, @ItemDetailsWeb = @ItemDetailsWeb, @ItemDetailsWebProductDetails = @ItemDetailsWebProductDetails, @Sale_RetailPrice = @Sale_RetailPrice, @Sale_RetailEndDate = @Sale_RetailEndDate, @Sale_RetailFootnoteText = @Sale_RetailFootnoteText, @Sale_RetailItemDetailsText = @Sale_RetailItemDetailsText, @Sale_WholesalePrice = @Sale_WholesalePrice, @Sale_WholesaleEndDate = @Sale_WholesaleEndDate, @Sale_WholesaleFootnoteText = @Sale_WholesaleFootnoteText, @Sale_WholesaleItemDetailsText = @Sale_WholesaleItemDetailsText, @ItemFootnoteText = @ItemFootnoteText, @SupplierID = @SupplierID, @StreetDate = @StreetDate, @ShowOnWebsite = @ShowOnWebsite, @ConditionText = @ConditionText, @KirbyItem = @KirbyItem, @KirbysCut = @KirbysCut, @KirbyCost = @KirbyCost", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_Inventory_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_Inventory_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_InventoryItemFeatureIndexAsync(int? counter, int? inventoryItemFeatureID, string descriptionForInternalUse, string formatText, string formatForInternalUse, string itemFeatureWebGalleryText, int? itemFeatureWebGalleryTextDisplaySequence, string itemFeatureHoverOverText, string itemFeatureWebProductDetailsPageText, int? itemFeatureWebProductDetailsPageTextDisplaySequence, string itemFeatureWebProductDetailsPageHyperlinkText, string itemFeaturesOrderAndInvoicePagesText, int? itemFeaturesOrderAndInvoicePagesTextDisplaySequence, string itemFeatureExcelFileText, int? itemFeatureExcelFileTextDisplaySequence, int? eBrecordsInventoryItemFeatureID, string hint, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID",
+                    Value = inventoryItemFeatureID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DescriptionForInternalUse",
+                    Size = 510,
+                    Value = descriptionForInternalUse ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FormatText",
+                    Size = 50,
+                    Value = formatText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FormatForInternalUse",
+                    Size = 20,
+                    Value = formatForInternalUse ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureWebGalleryText",
+                    Size = 200,
+                    Value = itemFeatureWebGalleryText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureWebGalleryTextDisplaySequence",
+                    Value = itemFeatureWebGalleryTextDisplaySequence ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureHoverOverText",
+                    Size = 510,
+                    Value = itemFeatureHoverOverText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureWebProductDetailsPageText",
+                    Size = 510,
+                    Value = itemFeatureWebProductDetailsPageText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureWebProductDetailsPageTextDisplaySequence",
+                    Value = itemFeatureWebProductDetailsPageTextDisplaySequence ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureWebProductDetailsPageHyperlinkText",
+                    Size = -1,
+                    Value = itemFeatureWebProductDetailsPageHyperlinkText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeaturesOrderAndInvoicePagesText",
+                    Size = 510,
+                    Value = itemFeaturesOrderAndInvoicePagesText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeaturesOrderAndInvoicePagesTextDisplaySequence",
+                    Value = itemFeaturesOrderAndInvoicePagesTextDisplaySequence ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureExcelFileText",
+                    Size = 510,
+                    Value = itemFeatureExcelFileText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemFeatureExcelFileTextDisplaySequence",
+                    Value = itemFeatureExcelFileTextDisplaySequence ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "EBrecordsInventoryItemFeatureID",
+                    Value = eBrecordsInventoryItemFeatureID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Hint",
+                    Size = 510,
+                    Value = hint ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_InventoryItemFeatureIndex] @Counter = @Counter, @InventoryItemFeatureID = @InventoryItemFeatureID, @DescriptionForInternalUse = @DescriptionForInternalUse, @FormatText = @FormatText, @FormatForInternalUse = @FormatForInternalUse, @ItemFeatureWebGalleryText = @ItemFeatureWebGalleryText, @ItemFeatureWebGalleryTextDisplaySequence = @ItemFeatureWebGalleryTextDisplaySequence, @ItemFeatureHoverOverText = @ItemFeatureHoverOverText, @ItemFeatureWebProductDetailsPageText = @ItemFeatureWebProductDetailsPageText, @ItemFeatureWebProductDetailsPageTextDisplaySequence = @ItemFeatureWebProductDetailsPageTextDisplaySequence, @ItemFeatureWebProductDetailsPageHyperlinkText = @ItemFeatureWebProductDetailsPageHyperlinkText, @ItemFeaturesOrderAndInvoicePagesText = @ItemFeaturesOrderAndInvoicePagesText, @ItemFeaturesOrderAndInvoicePagesTextDisplaySequence = @ItemFeaturesOrderAndInvoicePagesTextDisplaySequence, @ItemFeatureExcelFileText = @ItemFeatureExcelFileText, @ItemFeatureExcelFileTextDisplaySequence = @ItemFeatureExcelFileTextDisplaySequence, @EBrecordsInventoryItemFeatureID = @EBrecordsInventoryItemFeatureID, @Hint = @Hint", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_InventoryItemFeatureIndex_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_InventoryItemFeatureIndex_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spSync_InventoryItemFeaturesResult>> spSync_InventoryItemFeaturesAsync(int? iD0, int? inventoryItemFeatureID0, int? itemID0, int? iD1, int? inventoryItemFeatureID1, int? itemID1, int? iD2, int? inventoryItemFeatureID2, int? itemID2, int? iD3, int? inventoryItemFeatureID3, int? itemID3, int? iD4, int? inventoryItemFeatureID4, int? itemID4, int? iD5, int? inventoryItemFeatureID5, int? itemID5, int? iD6, int? inventoryItemFeatureID6, int? itemID6, int? iD7, int? inventoryItemFeatureID7, int? itemID7, int? iD8, int? inventoryItemFeatureID8, int? itemID8, int? iD9, int? inventoryItemFeatureID9, int? itemID9, int? iD10, int? inventoryItemFeatureID10, int? itemID10, int? iD11, int? inventoryItemFeatureID11, int? itemID11, int? iD12, int? inventoryItemFeatureID12, int? itemID12, int? iD13, int? inventoryItemFeatureID13, int? itemID13, int? iD14, int? inventoryItemFeatureID14, int? itemID14, int? iD15, int? inventoryItemFeatureID15, int? itemID15, int? iD16, int? inventoryItemFeatureID16, int? itemID16, int? iD17, int? inventoryItemFeatureID17, int? itemID17, int? iD18, int? inventoryItemFeatureID18, int? itemID18, int? iD19, int? inventoryItemFeatureID19, int? itemID19, int? iD20, int? inventoryItemFeatureID20, int? itemID20, int? iD21, int? inventoryItemFeatureID21, int? itemID21, int? iD22, int? inventoryItemFeatureID22, int? itemID22, int? iD23, int? inventoryItemFeatureID23, int? itemID23, int? iD24, int? inventoryItemFeatureID24, int? itemID24, int? iD25, int? inventoryItemFeatureID25, int? itemID25, int? iD26, int? inventoryItemFeatureID26, int? itemID26, int? iD27, int? inventoryItemFeatureID27, int? itemID27, int? iD28, int? inventoryItemFeatureID28, int? itemID28, int? iD29, int? inventoryItemFeatureID29, int? itemID29, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ID0",
+                    Value = iD0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID0",
+                    Value = inventoryItemFeatureID0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID0",
+                    Value = itemID0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID1",
+                    Value = iD1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID1",
+                    Value = inventoryItemFeatureID1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID1",
+                    Value = itemID1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID2",
+                    Value = iD2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID2",
+                    Value = inventoryItemFeatureID2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID2",
+                    Value = itemID2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID3",
+                    Value = iD3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID3",
+                    Value = inventoryItemFeatureID3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID3",
+                    Value = itemID3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID4",
+                    Value = iD4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID4",
+                    Value = inventoryItemFeatureID4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID4",
+                    Value = itemID4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID5",
+                    Value = iD5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID5",
+                    Value = inventoryItemFeatureID5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID5",
+                    Value = itemID5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID6",
+                    Value = iD6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID6",
+                    Value = inventoryItemFeatureID6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID6",
+                    Value = itemID6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID7",
+                    Value = iD7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID7",
+                    Value = inventoryItemFeatureID7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID7",
+                    Value = itemID7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID8",
+                    Value = iD8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID8",
+                    Value = inventoryItemFeatureID8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID8",
+                    Value = itemID8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID9",
+                    Value = iD9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID9",
+                    Value = inventoryItemFeatureID9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID9",
+                    Value = itemID9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID10",
+                    Value = iD10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID10",
+                    Value = inventoryItemFeatureID10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID10",
+                    Value = itemID10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID11",
+                    Value = iD11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID11",
+                    Value = inventoryItemFeatureID11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID11",
+                    Value = itemID11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID12",
+                    Value = iD12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID12",
+                    Value = inventoryItemFeatureID12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID12",
+                    Value = itemID12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID13",
+                    Value = iD13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID13",
+                    Value = inventoryItemFeatureID13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID13",
+                    Value = itemID13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID14",
+                    Value = iD14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID14",
+                    Value = inventoryItemFeatureID14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID14",
+                    Value = itemID14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID15",
+                    Value = iD15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID15",
+                    Value = inventoryItemFeatureID15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID15",
+                    Value = itemID15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID16",
+                    Value = iD16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID16",
+                    Value = inventoryItemFeatureID16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID16",
+                    Value = itemID16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID17",
+                    Value = iD17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID17",
+                    Value = inventoryItemFeatureID17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID17",
+                    Value = itemID17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID18",
+                    Value = iD18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID18",
+                    Value = inventoryItemFeatureID18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID18",
+                    Value = itemID18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID19",
+                    Value = iD19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID19",
+                    Value = inventoryItemFeatureID19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID19",
+                    Value = itemID19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID20",
+                    Value = iD20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID20",
+                    Value = inventoryItemFeatureID20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID20",
+                    Value = itemID20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID21",
+                    Value = iD21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID21",
+                    Value = inventoryItemFeatureID21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID21",
+                    Value = itemID21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID22",
+                    Value = iD22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID22",
+                    Value = inventoryItemFeatureID22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID22",
+                    Value = itemID22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID23",
+                    Value = iD23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID23",
+                    Value = inventoryItemFeatureID23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID23",
+                    Value = itemID23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID24",
+                    Value = iD24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID24",
+                    Value = inventoryItemFeatureID24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID24",
+                    Value = itemID24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID25",
+                    Value = iD25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID25",
+                    Value = inventoryItemFeatureID25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID25",
+                    Value = itemID25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID26",
+                    Value = iD26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID26",
+                    Value = inventoryItemFeatureID26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID26",
+                    Value = itemID26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID27",
+                    Value = iD27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID27",
+                    Value = inventoryItemFeatureID27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID27",
+                    Value = itemID27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID28",
+                    Value = iD28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID28",
+                    Value = inventoryItemFeatureID28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID28",
+                    Value = itemID28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID29",
+                    Value = iD29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InventoryItemFeatureID29",
+                    Value = inventoryItemFeatureID29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID29",
+                    Value = itemID29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spSync_InventoryItemFeaturesResult>("EXEC @returnValue = [dbo].[spSync_InventoryItemFeatures] @ID0 = @ID0, @InventoryItemFeatureID0 = @InventoryItemFeatureID0, @ItemID0 = @ItemID0, @ID1 = @ID1, @InventoryItemFeatureID1 = @InventoryItemFeatureID1, @ItemID1 = @ItemID1, @ID2 = @ID2, @InventoryItemFeatureID2 = @InventoryItemFeatureID2, @ItemID2 = @ItemID2, @ID3 = @ID3, @InventoryItemFeatureID3 = @InventoryItemFeatureID3, @ItemID3 = @ItemID3, @ID4 = @ID4, @InventoryItemFeatureID4 = @InventoryItemFeatureID4, @ItemID4 = @ItemID4, @ID5 = @ID5, @InventoryItemFeatureID5 = @InventoryItemFeatureID5, @ItemID5 = @ItemID5, @ID6 = @ID6, @InventoryItemFeatureID6 = @InventoryItemFeatureID6, @ItemID6 = @ItemID6, @ID7 = @ID7, @InventoryItemFeatureID7 = @InventoryItemFeatureID7, @ItemID7 = @ItemID7, @ID8 = @ID8, @InventoryItemFeatureID8 = @InventoryItemFeatureID8, @ItemID8 = @ItemID8, @ID9 = @ID9, @InventoryItemFeatureID9 = @InventoryItemFeatureID9, @ItemID9 = @ItemID9, @ID10 = @ID10, @InventoryItemFeatureID10 = @InventoryItemFeatureID10, @ItemID10 = @ItemID10, @ID11 = @ID11, @InventoryItemFeatureID11 = @InventoryItemFeatureID11, @ItemID11 = @ItemID11, @ID12 = @ID12, @InventoryItemFeatureID12 = @InventoryItemFeatureID12, @ItemID12 = @ItemID12, @ID13 = @ID13, @InventoryItemFeatureID13 = @InventoryItemFeatureID13, @ItemID13 = @ItemID13, @ID14 = @ID14, @InventoryItemFeatureID14 = @InventoryItemFeatureID14, @ItemID14 = @ItemID14, @ID15 = @ID15, @InventoryItemFeatureID15 = @InventoryItemFeatureID15, @ItemID15 = @ItemID15, @ID16 = @ID16, @InventoryItemFeatureID16 = @InventoryItemFeatureID16, @ItemID16 = @ItemID16, @ID17 = @ID17, @InventoryItemFeatureID17 = @InventoryItemFeatureID17, @ItemID17 = @ItemID17, @ID18 = @ID18, @InventoryItemFeatureID18 = @InventoryItemFeatureID18, @ItemID18 = @ItemID18, @ID19 = @ID19, @InventoryItemFeatureID19 = @InventoryItemFeatureID19, @ItemID19 = @ItemID19, @ID20 = @ID20, @InventoryItemFeatureID20 = @InventoryItemFeatureID20, @ItemID20 = @ItemID20, @ID21 = @ID21, @InventoryItemFeatureID21 = @InventoryItemFeatureID21, @ItemID21 = @ItemID21, @ID22 = @ID22, @InventoryItemFeatureID22 = @InventoryItemFeatureID22, @ItemID22 = @ItemID22, @ID23 = @ID23, @InventoryItemFeatureID23 = @InventoryItemFeatureID23, @ItemID23 = @ItemID23, @ID24 = @ID24, @InventoryItemFeatureID24 = @InventoryItemFeatureID24, @ItemID24 = @ItemID24, @ID25 = @ID25, @InventoryItemFeatureID25 = @InventoryItemFeatureID25, @ItemID25 = @ItemID25, @ID26 = @ID26, @InventoryItemFeatureID26 = @InventoryItemFeatureID26, @ItemID26 = @ItemID26, @ID27 = @ID27, @InventoryItemFeatureID27 = @InventoryItemFeatureID27, @ItemID27 = @ItemID27, @ID28 = @ID28, @InventoryItemFeatureID28 = @InventoryItemFeatureID28, @ItemID28 = @ItemID28, @ID29 = @ID29, @InventoryItemFeatureID29 = @InventoryItemFeatureID29, @ItemID29 = @ItemID29", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_InventoryItemFeatures_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_InventoryItemFeatures_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_InvoicesUploadAsync(int? counter, int? custID, DateTime? invoiceDate, int? invoiceNumber, DateTime? shipDate, string trackingNumber, string shippingCompany, string shippingServiceName, decimal? invoiceTotal, string webOrderNumbers, int? customerServerCounter, string pDFFileName, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustID",
+                    Value = custID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate",
+                    Value = invoiceDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceNumber",
+                    Value = invoiceNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShipDate",
+                    Value = shipDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TrackingNumber",
+                    Size = -1,
+                    Value = trackingNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingCompany",
+                    Size = 80,
+                    Value = shippingCompany ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingServiceName",
+                    Size = 100,
+                    Value = shippingServiceName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceTotal",
+                    Precision = 8,
+                    Scale = 2,
+                    Value = invoiceTotal ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebOrderNumbers",
+                    Size = -1,
+                    Value = webOrderNumbers ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerServerCounter",
+                    Value = customerServerCounter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PDFFileName",
+                    Size = 110,
+                    Value = pDFFileName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_InvoicesUpload] @counter = @counter, @CustID = @CustID, @InvoiceDate = @InvoiceDate, @InvoiceNumber = @InvoiceNumber, @ShipDate = @ShipDate, @TrackingNumber = @TrackingNumber, @ShippingCompany = @ShippingCompany, @ShippingServiceName = @ShippingServiceName, @InvoiceTotal = @InvoiceTotal, @WebOrderNumbers = @WebOrderNumbers, @CustomerServerCounter = @CustomerServerCounter, @PDFFileName = @PDFFileName", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_InvoicesUpload_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_InvoicesUpload_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_IsINTERNETREGGAEMaintenanceOpenChangeValueAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_IsINTERNETREGGAEMaintenanceOpenChangeValue]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spSync_IsINTERNETREGGAEMaintenanceOpenGetValueResult>> spSync_IsINTERNETREGGAEMaintenanceOpenGetValueAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spSync_IsINTERNETREGGAEMaintenanceOpenGetValueResult>("EXEC @returnValue = [dbo].[spSync_IsINTERNETREGGAEMaintenanceOpenGetValue]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_IsINTERNETREGGAEMaintenanceOpenUpdateFieldAsync(string randomNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "RandomNumber",
+                    Size = 100,
+                    Value = randomNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_IsINTERNETREGGAEMaintenanceOpenUpdateField] @RandomNumber = @RandomNumber", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_ResidentialAsync(int? customerServerCounter, string fedExResidential, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "CustomerServerCounter",
+                    Value = customerServerCounter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedExResidential",
+                    Size = 2,
+                    Value = fedExResidential ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_Residential] @CustomerServerCounter = @CustomerServerCounter, @FedExResidential = @FedExResidential", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<spSync_SoldItemsResult>> spSync_SoldItemsAsync(int? iD0, DateTime? invoiceDate0, int? itemID0, short? quantity0, string salesChannel0, string kirbyItem0, decimal? kirbysCut0, int? supplierID0, decimal? cost0, short? falseSale0, decimal? kirbyCost0, int? iD1, DateTime? invoiceDate1, int? itemID1, short? quantity1, string salesChannel1, string kirbyItem1, decimal? kirbysCut1, int? supplierID1, decimal? cost1, short? falseSale1, decimal? kirbyCost1, int? iD2, DateTime? invoiceDate2, int? itemID2, short? quantity2, string salesChannel2, string kirbyItem2, decimal? kirbysCut2, int? supplierID2, decimal? cost2, short? falseSale2, decimal? kirbyCost2, int? iD3, DateTime? invoiceDate3, int? itemID3, short? quantity3, string salesChannel3, string kirbyItem3, decimal? kirbysCut3, int? supplierID3, decimal? cost3, short? falseSale3, decimal? kirbyCost3, int? iD4, DateTime? invoiceDate4, int? itemID4, short? quantity4, string salesChannel4, string kirbyItem4, decimal? kirbysCut4, int? supplierID4, decimal? cost4, short? falseSale4, decimal? kirbyCost4, int? iD5, DateTime? invoiceDate5, int? itemID5, short? quantity5, string salesChannel5, string kirbyItem5, decimal? kirbysCut5, int? supplierID5, decimal? cost5, short? falseSale5, decimal? kirbyCost5, int? iD6, DateTime? invoiceDate6, int? itemID6, short? quantity6, string salesChannel6, string kirbyItem6, decimal? kirbysCut6, int? supplierID6, decimal? cost6, short? falseSale6, decimal? kirbyCost6, int? iD7, DateTime? invoiceDate7, int? itemID7, short? quantity7, string salesChannel7, string kirbyItem7, decimal? kirbysCut7, int? supplierID7, decimal? cost7, short? falseSale7, decimal? kirbyCost7, int? iD8, DateTime? invoiceDate8, int? itemID8, short? quantity8, string salesChannel8, string kirbyItem8, decimal? kirbysCut8, int? supplierID8, decimal? cost8, short? falseSale8, decimal? kirbyCost8, int? iD9, DateTime? invoiceDate9, int? itemID9, short? quantity9, string salesChannel9, string kirbyItem9, decimal? kirbysCut9, int? supplierID9, decimal? cost9, short? falseSale9, decimal? kirbyCost9, int? iD10, DateTime? invoiceDate10, int? itemID10, short? quantity10, string salesChannel10, string kirbyItem10, decimal? kirbysCut10, int? supplierID10, decimal? cost10, short? falseSale10, decimal? kirbyCost10, int? iD11, DateTime? invoiceDate11, int? itemID11, short? quantity11, string salesChannel11, string kirbyItem11, decimal? kirbysCut11, int? supplierID11, decimal? cost11, short? falseSale11, decimal? kirbyCost11, int? iD12, DateTime? invoiceDate12, int? itemID12, short? quantity12, string salesChannel12, string kirbyItem12, decimal? kirbysCut12, int? supplierID12, decimal? cost12, short? falseSale12, decimal? kirbyCost12, int? iD13, DateTime? invoiceDate13, int? itemID13, short? quantity13, string salesChannel13, string kirbyItem13, decimal? kirbysCut13, int? supplierID13, decimal? cost13, short? falseSale13, decimal? kirbyCost13, int? iD14, DateTime? invoiceDate14, int? itemID14, short? quantity14, string salesChannel14, string kirbyItem14, decimal? kirbysCut14, int? supplierID14, decimal? cost14, short? falseSale14, decimal? kirbyCost14, int? iD15, DateTime? invoiceDate15, int? itemID15, short? quantity15, string salesChannel15, string kirbyItem15, decimal? kirbysCut15, int? supplierID15, decimal? cost15, short? falseSale15, decimal? kirbyCost15, int? iD16, DateTime? invoiceDate16, int? itemID16, short? quantity16, string salesChannel16, string kirbyItem16, decimal? kirbysCut16, int? supplierID16, decimal? cost16, short? falseSale16, decimal? kirbyCost16, int? iD17, DateTime? invoiceDate17, int? itemID17, short? quantity17, string salesChannel17, string kirbyItem17, decimal? kirbysCut17, int? supplierID17, decimal? cost17, short? falseSale17, decimal? kirbyCost17, int? iD18, DateTime? invoiceDate18, int? itemID18, short? quantity18, string salesChannel18, string kirbyItem18, decimal? kirbysCut18, int? supplierID18, decimal? cost18, short? falseSale18, decimal? kirbyCost18, int? iD19, DateTime? invoiceDate19, int? itemID19, short? quantity19, string salesChannel19, string kirbyItem19, decimal? kirbysCut19, int? supplierID19, decimal? cost19, short? falseSale19, decimal? kirbyCost19, int? iD20, DateTime? invoiceDate20, int? itemID20, short? quantity20, string salesChannel20, string kirbyItem20, decimal? kirbysCut20, int? supplierID20, decimal? cost20, short? falseSale20, decimal? kirbyCost20, int? iD21, DateTime? invoiceDate21, int? itemID21, short? quantity21, string salesChannel21, string kirbyItem21, decimal? kirbysCut21, int? supplierID21, decimal? cost21, short? falseSale21, decimal? kirbyCost21, int? iD22, DateTime? invoiceDate22, int? itemID22, short? quantity22, string salesChannel22, string kirbyItem22, decimal? kirbysCut22, int? supplierID22, decimal? cost22, short? falseSale22, decimal? kirbyCost22, int? iD23, DateTime? invoiceDate23, int? itemID23, short? quantity23, string salesChannel23, string kirbyItem23, decimal? kirbysCut23, int? supplierID23, decimal? cost23, short? falseSale23, decimal? kirbyCost23, int? iD24, DateTime? invoiceDate24, int? itemID24, short? quantity24, string salesChannel24, string kirbyItem24, decimal? kirbysCut24, int? supplierID24, decimal? cost24, short? falseSale24, decimal? kirbyCost24, int? iD25, DateTime? invoiceDate25, int? itemID25, short? quantity25, string salesChannel25, string kirbyItem25, decimal? kirbysCut25, int? supplierID25, decimal? cost25, short? falseSale25, decimal? kirbyCost25, int? iD26, DateTime? invoiceDate26, int? itemID26, short? quantity26, string salesChannel26, string kirbyItem26, decimal? kirbysCut26, int? supplierID26, decimal? cost26, short? falseSale26, decimal? kirbyCost26, int? iD27, DateTime? invoiceDate27, int? itemID27, short? quantity27, string salesChannel27, string kirbyItem27, decimal? kirbysCut27, int? supplierID27, decimal? cost27, short? falseSale27, decimal? kirbyCost27, int? iD28, DateTime? invoiceDate28, int? itemID28, short? quantity28, string salesChannel28, string kirbyItem28, decimal? kirbysCut28, int? supplierID28, decimal? cost28, short? falseSale28, decimal? kirbyCost28, int? iD29, DateTime? invoiceDate29, int? itemID29, short? quantity29, string salesChannel29, string kirbyItem29, decimal? kirbysCut29, int? supplierID29, decimal? cost29, short? falseSale29, decimal? kirbyCost29, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ID0",
+                    Value = iD0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate0",
+                    Value = invoiceDate0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID0",
+                    Value = itemID0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity0",
+                    Value = quantity0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel0",
+                    Size = 30,
+                    Value = salesChannel0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem0",
+                    Size = 2,
+                    Value = kirbyItem0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut0",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID0",
+                    Value = supplierID0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost0",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale0",
+                    Value = falseSale0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost0",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost0 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID1",
+                    Value = iD1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate1",
+                    Value = invoiceDate1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID1",
+                    Value = itemID1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity1",
+                    Value = quantity1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel1",
+                    Size = 30,
+                    Value = salesChannel1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem1",
+                    Size = 2,
+                    Value = kirbyItem1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut1",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID1",
+                    Value = supplierID1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost1",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale1",
+                    Value = falseSale1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost1",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID2",
+                    Value = iD2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate2",
+                    Value = invoiceDate2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID2",
+                    Value = itemID2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity2",
+                    Value = quantity2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel2",
+                    Size = 30,
+                    Value = salesChannel2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem2",
+                    Size = 2,
+                    Value = kirbyItem2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut2",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID2",
+                    Value = supplierID2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost2",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale2",
+                    Value = falseSale2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost2",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID3",
+                    Value = iD3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate3",
+                    Value = invoiceDate3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID3",
+                    Value = itemID3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity3",
+                    Value = quantity3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel3",
+                    Size = 30,
+                    Value = salesChannel3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem3",
+                    Size = 2,
+                    Value = kirbyItem3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut3",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID3",
+                    Value = supplierID3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost3",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale3",
+                    Value = falseSale3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost3",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID4",
+                    Value = iD4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate4",
+                    Value = invoiceDate4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID4",
+                    Value = itemID4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity4",
+                    Value = quantity4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel4",
+                    Size = 30,
+                    Value = salesChannel4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem4",
+                    Size = 2,
+                    Value = kirbyItem4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut4",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID4",
+                    Value = supplierID4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost4",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale4",
+                    Value = falseSale4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost4",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID5",
+                    Value = iD5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate5",
+                    Value = invoiceDate5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID5",
+                    Value = itemID5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity5",
+                    Value = quantity5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel5",
+                    Size = 30,
+                    Value = salesChannel5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem5",
+                    Size = 2,
+                    Value = kirbyItem5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut5",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID5",
+                    Value = supplierID5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost5",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale5",
+                    Value = falseSale5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost5",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID6",
+                    Value = iD6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate6",
+                    Value = invoiceDate6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID6",
+                    Value = itemID6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity6",
+                    Value = quantity6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel6",
+                    Size = 30,
+                    Value = salesChannel6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem6",
+                    Size = 2,
+                    Value = kirbyItem6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut6",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID6",
+                    Value = supplierID6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost6",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale6",
+                    Value = falseSale6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost6",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID7",
+                    Value = iD7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate7",
+                    Value = invoiceDate7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID7",
+                    Value = itemID7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity7",
+                    Value = quantity7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel7",
+                    Size = 30,
+                    Value = salesChannel7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem7",
+                    Size = 2,
+                    Value = kirbyItem7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut7",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID7",
+                    Value = supplierID7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost7",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale7",
+                    Value = falseSale7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost7",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID8",
+                    Value = iD8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate8",
+                    Value = invoiceDate8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID8",
+                    Value = itemID8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity8",
+                    Value = quantity8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel8",
+                    Size = 30,
+                    Value = salesChannel8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem8",
+                    Size = 2,
+                    Value = kirbyItem8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut8",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID8",
+                    Value = supplierID8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost8",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale8",
+                    Value = falseSale8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost8",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID9",
+                    Value = iD9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate9",
+                    Value = invoiceDate9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID9",
+                    Value = itemID9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity9",
+                    Value = quantity9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel9",
+                    Size = 30,
+                    Value = salesChannel9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem9",
+                    Size = 2,
+                    Value = kirbyItem9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut9",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID9",
+                    Value = supplierID9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost9",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale9",
+                    Value = falseSale9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost9",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID10",
+                    Value = iD10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate10",
+                    Value = invoiceDate10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID10",
+                    Value = itemID10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity10",
+                    Value = quantity10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel10",
+                    Size = 30,
+                    Value = salesChannel10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem10",
+                    Size = 2,
+                    Value = kirbyItem10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut10",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID10",
+                    Value = supplierID10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost10",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale10",
+                    Value = falseSale10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost10",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID11",
+                    Value = iD11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate11",
+                    Value = invoiceDate11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID11",
+                    Value = itemID11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity11",
+                    Value = quantity11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel11",
+                    Size = 30,
+                    Value = salesChannel11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem11",
+                    Size = 2,
+                    Value = kirbyItem11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut11",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID11",
+                    Value = supplierID11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost11",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale11",
+                    Value = falseSale11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost11",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID12",
+                    Value = iD12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate12",
+                    Value = invoiceDate12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID12",
+                    Value = itemID12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity12",
+                    Value = quantity12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel12",
+                    Size = 30,
+                    Value = salesChannel12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem12",
+                    Size = 2,
+                    Value = kirbyItem12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut12",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID12",
+                    Value = supplierID12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost12",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale12",
+                    Value = falseSale12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost12",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID13",
+                    Value = iD13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate13",
+                    Value = invoiceDate13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID13",
+                    Value = itemID13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity13",
+                    Value = quantity13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel13",
+                    Size = 30,
+                    Value = salesChannel13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem13",
+                    Size = 2,
+                    Value = kirbyItem13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut13",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID13",
+                    Value = supplierID13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost13",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale13",
+                    Value = falseSale13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost13",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID14",
+                    Value = iD14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate14",
+                    Value = invoiceDate14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID14",
+                    Value = itemID14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity14",
+                    Value = quantity14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel14",
+                    Size = 30,
+                    Value = salesChannel14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem14",
+                    Size = 2,
+                    Value = kirbyItem14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut14",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID14",
+                    Value = supplierID14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost14",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale14",
+                    Value = falseSale14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost14",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID15",
+                    Value = iD15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate15",
+                    Value = invoiceDate15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID15",
+                    Value = itemID15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity15",
+                    Value = quantity15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel15",
+                    Size = 30,
+                    Value = salesChannel15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem15",
+                    Size = 2,
+                    Value = kirbyItem15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut15",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID15",
+                    Value = supplierID15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost15",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale15",
+                    Value = falseSale15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost15",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID16",
+                    Value = iD16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate16",
+                    Value = invoiceDate16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID16",
+                    Value = itemID16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity16",
+                    Value = quantity16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel16",
+                    Size = 30,
+                    Value = salesChannel16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem16",
+                    Size = 2,
+                    Value = kirbyItem16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut16",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID16",
+                    Value = supplierID16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost16",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale16",
+                    Value = falseSale16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost16",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID17",
+                    Value = iD17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate17",
+                    Value = invoiceDate17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID17",
+                    Value = itemID17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity17",
+                    Value = quantity17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel17",
+                    Size = 30,
+                    Value = salesChannel17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem17",
+                    Size = 2,
+                    Value = kirbyItem17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut17",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID17",
+                    Value = supplierID17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost17",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale17",
+                    Value = falseSale17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost17",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID18",
+                    Value = iD18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate18",
+                    Value = invoiceDate18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID18",
+                    Value = itemID18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity18",
+                    Value = quantity18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel18",
+                    Size = 30,
+                    Value = salesChannel18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem18",
+                    Size = 2,
+                    Value = kirbyItem18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut18",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID18",
+                    Value = supplierID18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost18",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale18",
+                    Value = falseSale18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost18",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost18 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID19",
+                    Value = iD19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate19",
+                    Value = invoiceDate19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID19",
+                    Value = itemID19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity19",
+                    Value = quantity19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel19",
+                    Size = 30,
+                    Value = salesChannel19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem19",
+                    Size = 2,
+                    Value = kirbyItem19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut19",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID19",
+                    Value = supplierID19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost19",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale19",
+                    Value = falseSale19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost19",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost19 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID20",
+                    Value = iD20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate20",
+                    Value = invoiceDate20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID20",
+                    Value = itemID20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity20",
+                    Value = quantity20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel20",
+                    Size = 30,
+                    Value = salesChannel20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem20",
+                    Size = 2,
+                    Value = kirbyItem20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut20",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID20",
+                    Value = supplierID20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost20",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale20",
+                    Value = falseSale20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost20",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost20 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID21",
+                    Value = iD21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate21",
+                    Value = invoiceDate21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID21",
+                    Value = itemID21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity21",
+                    Value = quantity21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel21",
+                    Size = 30,
+                    Value = salesChannel21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem21",
+                    Size = 2,
+                    Value = kirbyItem21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut21",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID21",
+                    Value = supplierID21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost21",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale21",
+                    Value = falseSale21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost21",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost21 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID22",
+                    Value = iD22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate22",
+                    Value = invoiceDate22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID22",
+                    Value = itemID22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity22",
+                    Value = quantity22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel22",
+                    Size = 30,
+                    Value = salesChannel22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem22",
+                    Size = 2,
+                    Value = kirbyItem22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut22",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID22",
+                    Value = supplierID22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost22",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale22",
+                    Value = falseSale22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost22",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost22 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID23",
+                    Value = iD23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate23",
+                    Value = invoiceDate23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID23",
+                    Value = itemID23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity23",
+                    Value = quantity23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel23",
+                    Size = 30,
+                    Value = salesChannel23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem23",
+                    Size = 2,
+                    Value = kirbyItem23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut23",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID23",
+                    Value = supplierID23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost23",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale23",
+                    Value = falseSale23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost23",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost23 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID24",
+                    Value = iD24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate24",
+                    Value = invoiceDate24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID24",
+                    Value = itemID24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity24",
+                    Value = quantity24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel24",
+                    Size = 30,
+                    Value = salesChannel24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem24",
+                    Size = 2,
+                    Value = kirbyItem24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut24",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID24",
+                    Value = supplierID24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost24",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale24",
+                    Value = falseSale24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost24",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost24 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID25",
+                    Value = iD25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate25",
+                    Value = invoiceDate25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID25",
+                    Value = itemID25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity25",
+                    Value = quantity25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel25",
+                    Size = 30,
+                    Value = salesChannel25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem25",
+                    Size = 2,
+                    Value = kirbyItem25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut25",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID25",
+                    Value = supplierID25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost25",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale25",
+                    Value = falseSale25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost25",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost25 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID26",
+                    Value = iD26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate26",
+                    Value = invoiceDate26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID26",
+                    Value = itemID26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity26",
+                    Value = quantity26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel26",
+                    Size = 30,
+                    Value = salesChannel26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem26",
+                    Size = 2,
+                    Value = kirbyItem26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut26",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID26",
+                    Value = supplierID26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost26",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale26",
+                    Value = falseSale26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost26",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost26 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID27",
+                    Value = iD27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate27",
+                    Value = invoiceDate27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID27",
+                    Value = itemID27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity27",
+                    Value = quantity27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel27",
+                    Size = 30,
+                    Value = salesChannel27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem27",
+                    Size = 2,
+                    Value = kirbyItem27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut27",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID27",
+                    Value = supplierID27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost27",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale27",
+                    Value = falseSale27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost27",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost27 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID28",
+                    Value = iD28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate28",
+                    Value = invoiceDate28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID28",
+                    Value = itemID28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity28",
+                    Value = quantity28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel28",
+                    Size = 30,
+                    Value = salesChannel28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem28",
+                    Size = 2,
+                    Value = kirbyItem28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut28",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID28",
+                    Value = supplierID28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost28",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale28",
+                    Value = falseSale28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost28",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost28 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ID29",
+                    Value = iD29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceDate29",
+                    Value = invoiceDate29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemID29",
+                    Value = itemID29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Quantity29",
+                    Value = quantity29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SalesChannel29",
+                    Size = 30,
+                    Value = salesChannel29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyItem29",
+                    Size = 2,
+                    Value = kirbyItem29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbysCut29",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbysCut29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SupplierID29",
+                    Value = supplierID29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Cost29",
+                    Precision = 10,
+                    Scale = 4,
+                    Value = cost29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallMoney,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FalseSale29",
+                    Value = falseSale29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KirbyCost29",
+                    Precision = 6,
+                    Scale = 2,
+                    Value = kirbyCost29 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spSync_SoldItemsResult>("EXEC @returnValue = [dbo].[spSync_SoldItems] @ID0 = @ID0, @InvoiceDate0 = @InvoiceDate0, @ItemID0 = @ItemID0, @Quantity0 = @Quantity0, @SalesChannel0 = @SalesChannel0, @KirbyItem0 = @KirbyItem0, @KirbysCut0 = @KirbysCut0, @SupplierID0 = @SupplierID0, @Cost0 = @Cost0, @FalseSale0 = @FalseSale0, @KirbyCost0 = @KirbyCost0, @ID1 = @ID1, @InvoiceDate1 = @InvoiceDate1, @ItemID1 = @ItemID1, @Quantity1 = @Quantity1, @SalesChannel1 = @SalesChannel1, @KirbyItem1 = @KirbyItem1, @KirbysCut1 = @KirbysCut1, @SupplierID1 = @SupplierID1, @Cost1 = @Cost1, @FalseSale1 = @FalseSale1, @KirbyCost1 = @KirbyCost1, @ID2 = @ID2, @InvoiceDate2 = @InvoiceDate2, @ItemID2 = @ItemID2, @Quantity2 = @Quantity2, @SalesChannel2 = @SalesChannel2, @KirbyItem2 = @KirbyItem2, @KirbysCut2 = @KirbysCut2, @SupplierID2 = @SupplierID2, @Cost2 = @Cost2, @FalseSale2 = @FalseSale2, @KirbyCost2 = @KirbyCost2, @ID3 = @ID3, @InvoiceDate3 = @InvoiceDate3, @ItemID3 = @ItemID3, @Quantity3 = @Quantity3, @SalesChannel3 = @SalesChannel3, @KirbyItem3 = @KirbyItem3, @KirbysCut3 = @KirbysCut3, @SupplierID3 = @SupplierID3, @Cost3 = @Cost3, @FalseSale3 = @FalseSale3, @KirbyCost3 = @KirbyCost3, @ID4 = @ID4, @InvoiceDate4 = @InvoiceDate4, @ItemID4 = @ItemID4, @Quantity4 = @Quantity4, @SalesChannel4 = @SalesChannel4, @KirbyItem4 = @KirbyItem4, @KirbysCut4 = @KirbysCut4, @SupplierID4 = @SupplierID4, @Cost4 = @Cost4, @FalseSale4 = @FalseSale4, @KirbyCost4 = @KirbyCost4, @ID5 = @ID5, @InvoiceDate5 = @InvoiceDate5, @ItemID5 = @ItemID5, @Quantity5 = @Quantity5, @SalesChannel5 = @SalesChannel5, @KirbyItem5 = @KirbyItem5, @KirbysCut5 = @KirbysCut5, @SupplierID5 = @SupplierID5, @Cost5 = @Cost5, @FalseSale5 = @FalseSale5, @KirbyCost5 = @KirbyCost5, @ID6 = @ID6, @InvoiceDate6 = @InvoiceDate6, @ItemID6 = @ItemID6, @Quantity6 = @Quantity6, @SalesChannel6 = @SalesChannel6, @KirbyItem6 = @KirbyItem6, @KirbysCut6 = @KirbysCut6, @SupplierID6 = @SupplierID6, @Cost6 = @Cost6, @FalseSale6 = @FalseSale6, @KirbyCost6 = @KirbyCost6, @ID7 = @ID7, @InvoiceDate7 = @InvoiceDate7, @ItemID7 = @ItemID7, @Quantity7 = @Quantity7, @SalesChannel7 = @SalesChannel7, @KirbyItem7 = @KirbyItem7, @KirbysCut7 = @KirbysCut7, @SupplierID7 = @SupplierID7, @Cost7 = @Cost7, @FalseSale7 = @FalseSale7, @KirbyCost7 = @KirbyCost7, @ID8 = @ID8, @InvoiceDate8 = @InvoiceDate8, @ItemID8 = @ItemID8, @Quantity8 = @Quantity8, @SalesChannel8 = @SalesChannel8, @KirbyItem8 = @KirbyItem8, @KirbysCut8 = @KirbysCut8, @SupplierID8 = @SupplierID8, @Cost8 = @Cost8, @FalseSale8 = @FalseSale8, @KirbyCost8 = @KirbyCost8, @ID9 = @ID9, @InvoiceDate9 = @InvoiceDate9, @ItemID9 = @ItemID9, @Quantity9 = @Quantity9, @SalesChannel9 = @SalesChannel9, @KirbyItem9 = @KirbyItem9, @KirbysCut9 = @KirbysCut9, @SupplierID9 = @SupplierID9, @Cost9 = @Cost9, @FalseSale9 = @FalseSale9, @KirbyCost9 = @KirbyCost9, @ID10 = @ID10, @InvoiceDate10 = @InvoiceDate10, @ItemID10 = @ItemID10, @Quantity10 = @Quantity10, @SalesChannel10 = @SalesChannel10, @KirbyItem10 = @KirbyItem10, @KirbysCut10 = @KirbysCut10, @SupplierID10 = @SupplierID10, @Cost10 = @Cost10, @FalseSale10 = @FalseSale10, @KirbyCost10 = @KirbyCost10, @ID11 = @ID11, @InvoiceDate11 = @InvoiceDate11, @ItemID11 = @ItemID11, @Quantity11 = @Quantity11, @SalesChannel11 = @SalesChannel11, @KirbyItem11 = @KirbyItem11, @KirbysCut11 = @KirbysCut11, @SupplierID11 = @SupplierID11, @Cost11 = @Cost11, @FalseSale11 = @FalseSale11, @KirbyCost11 = @KirbyCost11, @ID12 = @ID12, @InvoiceDate12 = @InvoiceDate12, @ItemID12 = @ItemID12, @Quantity12 = @Quantity12, @SalesChannel12 = @SalesChannel12, @KirbyItem12 = @KirbyItem12, @KirbysCut12 = @KirbysCut12, @SupplierID12 = @SupplierID12, @Cost12 = @Cost12, @FalseSale12 = @FalseSale12, @KirbyCost12 = @KirbyCost12, @ID13 = @ID13, @InvoiceDate13 = @InvoiceDate13, @ItemID13 = @ItemID13, @Quantity13 = @Quantity13, @SalesChannel13 = @SalesChannel13, @KirbyItem13 = @KirbyItem13, @KirbysCut13 = @KirbysCut13, @SupplierID13 = @SupplierID13, @Cost13 = @Cost13, @FalseSale13 = @FalseSale13, @KirbyCost13 = @KirbyCost13, @ID14 = @ID14, @InvoiceDate14 = @InvoiceDate14, @ItemID14 = @ItemID14, @Quantity14 = @Quantity14, @SalesChannel14 = @SalesChannel14, @KirbyItem14 = @KirbyItem14, @KirbysCut14 = @KirbysCut14, @SupplierID14 = @SupplierID14, @Cost14 = @Cost14, @FalseSale14 = @FalseSale14, @KirbyCost14 = @KirbyCost14, @ID15 = @ID15, @InvoiceDate15 = @InvoiceDate15, @ItemID15 = @ItemID15, @Quantity15 = @Quantity15, @SalesChannel15 = @SalesChannel15, @KirbyItem15 = @KirbyItem15, @KirbysCut15 = @KirbysCut15, @SupplierID15 = @SupplierID15, @Cost15 = @Cost15, @FalseSale15 = @FalseSale15, @KirbyCost15 = @KirbyCost15, @ID16 = @ID16, @InvoiceDate16 = @InvoiceDate16, @ItemID16 = @ItemID16, @Quantity16 = @Quantity16, @SalesChannel16 = @SalesChannel16, @KirbyItem16 = @KirbyItem16, @KirbysCut16 = @KirbysCut16, @SupplierID16 = @SupplierID16, @Cost16 = @Cost16, @FalseSale16 = @FalseSale16, @KirbyCost16 = @KirbyCost16, @ID17 = @ID17, @InvoiceDate17 = @InvoiceDate17, @ItemID17 = @ItemID17, @Quantity17 = @Quantity17, @SalesChannel17 = @SalesChannel17, @KirbyItem17 = @KirbyItem17, @KirbysCut17 = @KirbysCut17, @SupplierID17 = @SupplierID17, @Cost17 = @Cost17, @FalseSale17 = @FalseSale17, @KirbyCost17 = @KirbyCost17, @ID18 = @ID18, @InvoiceDate18 = @InvoiceDate18, @ItemID18 = @ItemID18, @Quantity18 = @Quantity18, @SalesChannel18 = @SalesChannel18, @KirbyItem18 = @KirbyItem18, @KirbysCut18 = @KirbysCut18, @SupplierID18 = @SupplierID18, @Cost18 = @Cost18, @FalseSale18 = @FalseSale18, @KirbyCost18 = @KirbyCost18, @ID19 = @ID19, @InvoiceDate19 = @InvoiceDate19, @ItemID19 = @ItemID19, @Quantity19 = @Quantity19, @SalesChannel19 = @SalesChannel19, @KirbyItem19 = @KirbyItem19, @KirbysCut19 = @KirbysCut19, @SupplierID19 = @SupplierID19, @Cost19 = @Cost19, @FalseSale19 = @FalseSale19, @KirbyCost19 = @KirbyCost19, @ID20 = @ID20, @InvoiceDate20 = @InvoiceDate20, @ItemID20 = @ItemID20, @Quantity20 = @Quantity20, @SalesChannel20 = @SalesChannel20, @KirbyItem20 = @KirbyItem20, @KirbysCut20 = @KirbysCut20, @SupplierID20 = @SupplierID20, @Cost20 = @Cost20, @FalseSale20 = @FalseSale20, @KirbyCost20 = @KirbyCost20, @ID21 = @ID21, @InvoiceDate21 = @InvoiceDate21, @ItemID21 = @ItemID21, @Quantity21 = @Quantity21, @SalesChannel21 = @SalesChannel21, @KirbyItem21 = @KirbyItem21, @KirbysCut21 = @KirbysCut21, @SupplierID21 = @SupplierID21, @Cost21 = @Cost21, @FalseSale21 = @FalseSale21, @KirbyCost21 = @KirbyCost21, @ID22 = @ID22, @InvoiceDate22 = @InvoiceDate22, @ItemID22 = @ItemID22, @Quantity22 = @Quantity22, @SalesChannel22 = @SalesChannel22, @KirbyItem22 = @KirbyItem22, @KirbysCut22 = @KirbysCut22, @SupplierID22 = @SupplierID22, @Cost22 = @Cost22, @FalseSale22 = @FalseSale22, @KirbyCost22 = @KirbyCost22, @ID23 = @ID23, @InvoiceDate23 = @InvoiceDate23, @ItemID23 = @ItemID23, @Quantity23 = @Quantity23, @SalesChannel23 = @SalesChannel23, @KirbyItem23 = @KirbyItem23, @KirbysCut23 = @KirbysCut23, @SupplierID23 = @SupplierID23, @Cost23 = @Cost23, @FalseSale23 = @FalseSale23, @KirbyCost23 = @KirbyCost23, @ID24 = @ID24, @InvoiceDate24 = @InvoiceDate24, @ItemID24 = @ItemID24, @Quantity24 = @Quantity24, @SalesChannel24 = @SalesChannel24, @KirbyItem24 = @KirbyItem24, @KirbysCut24 = @KirbysCut24, @SupplierID24 = @SupplierID24, @Cost24 = @Cost24, @FalseSale24 = @FalseSale24, @KirbyCost24 = @KirbyCost24, @ID25 = @ID25, @InvoiceDate25 = @InvoiceDate25, @ItemID25 = @ItemID25, @Quantity25 = @Quantity25, @SalesChannel25 = @SalesChannel25, @KirbyItem25 = @KirbyItem25, @KirbysCut25 = @KirbysCut25, @SupplierID25 = @SupplierID25, @Cost25 = @Cost25, @FalseSale25 = @FalseSale25, @KirbyCost25 = @KirbyCost25, @ID26 = @ID26, @InvoiceDate26 = @InvoiceDate26, @ItemID26 = @ItemID26, @Quantity26 = @Quantity26, @SalesChannel26 = @SalesChannel26, @KirbyItem26 = @KirbyItem26, @KirbysCut26 = @KirbysCut26, @SupplierID26 = @SupplierID26, @Cost26 = @Cost26, @FalseSale26 = @FalseSale26, @KirbyCost26 = @KirbyCost26, @ID27 = @ID27, @InvoiceDate27 = @InvoiceDate27, @ItemID27 = @ItemID27, @Quantity27 = @Quantity27, @SalesChannel27 = @SalesChannel27, @KirbyItem27 = @KirbyItem27, @KirbysCut27 = @KirbysCut27, @SupplierID27 = @SupplierID27, @Cost27 = @Cost27, @FalseSale27 = @FalseSale27, @KirbyCost27 = @KirbyCost27, @ID28 = @ID28, @InvoiceDate28 = @InvoiceDate28, @ItemID28 = @ItemID28, @Quantity28 = @Quantity28, @SalesChannel28 = @SalesChannel28, @KirbyItem28 = @KirbyItem28, @KirbysCut28 = @KirbysCut28, @SupplierID28 = @SupplierID28, @Cost28 = @Cost28, @FalseSale28 = @FalseSale28, @KirbyCost28 = @KirbyCost28, @ID29 = @ID29, @InvoiceDate29 = @InvoiceDate29, @ItemID29 = @ItemID29, @Quantity29 = @Quantity29, @SalesChannel29 = @SalesChannel29, @KirbyItem29 = @KirbyItem29, @KirbysCut29 = @KirbysCut29, @SupplierID29 = @SupplierID29, @Cost29 = @Cost29, @FalseSale29 = @FalseSale29, @KirbyCost29 = @KirbyCost29", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_SoldItems_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_SoldItems_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_TermsOfSaleAdditionsAndRemovalsAsync(int? counter, int? type, int? custID, string addOrRemove, DateTime? dateTime, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Type",
+                    Value = type ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustID",
+                    Value = custID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AddOrRemove",
+                    Size = 16,
+                    Value = addOrRemove ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DateTime",
+                    Value = dateTime ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_TermsOfSaleAdditionsAndRemovals] @counter = @counter, @Type = @Type, @CustID = @CustID, @AddOrRemove = @AddOrRemove, @DateTime = @DateTime", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_TermsOfSaleAdditionsAndRemovals_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_TermsOfSaleAdditionsAndRemovals_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_TermsOfSaleTypesAsync(int? counter, int? type, string textOnInvoice, string textOnWebsitePaymentButton, int? daysUntilDue, string retailUSA, string retailInternational, string wholesaleUSA, string wholesaleInternational, int? termsDays, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Type",
+                    Value = type ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TextOnInvoice",
+                    Size = 200,
+                    Value = textOnInvoice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TextOnWebsitePaymentButton",
+                    Size = 200,
+                    Value = textOnWebsitePaymentButton ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DaysUntilDue",
+                    Value = daysUntilDue ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "RetailUSA",
+                    Size = 1,
+                    Value = retailUSA ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Char,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "RetailInternational",
+                    Size = 1,
+                    Value = retailInternational ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Char,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WholesaleUSA",
+                    Size = 1,
+                    Value = wholesaleUSA ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Char,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WholesaleInternational",
+                    Size = 1,
+                    Value = wholesaleInternational ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Char,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TermsDays",
+                    Value = termsDays ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_TermsOfSaleTypes] @counter = @counter, @Type = @Type, @TextOnInvoice = @TextOnInvoice, @TextOnWebsitePaymentButton = @TextOnWebsitePaymentButton, @DaysUntilDue = @DaysUntilDue, @RetailUSA = @RetailUSA, @RetailInternational = @RetailInternational, @WholesaleUSA = @WholesaleUSA, @WholesaleInternational = @WholesaleInternational, @TermsDays = @TermsDays", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_TermsOfSaleTypes_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_TermsOfSaleTypes_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebCountryShippingZonesTAsync(int? iD, string country, string fedExInternationalPriorityZone, string airParcelPostZone, string airSmallPacketZone, string ernieShippingZone, string letterPostRateGroup, string globalExpressZone, string fedExInternationalEconomyZone, string fedexExportRatesThatWeChargeCustomersZone, string europeanUnionCountry, int? airSmallPacketWeightLimit, decimal? retailMinimumShippingCharge, double? retailPercentShippingCharge, string fedExCountryCode, string postalCodeRequired, string stateProvinceRequired, string stateProvinceWord, string addressUpperCase, string addressCityLine1, string addressCityLine2, string cityRequired, string islandRequired, string islandWord, string cityWord, string postalCodeWord, string postalCodeFormat, string fedExFranceIPDZone, double? dutyShippingCostPercent, string economySurfaceParcelPostZone, string webUSMailWholesaleAllowed, string fedexPhoneNumber, int? airParcelPostWeightLimit, int? globalExpressWeightLimit, string allowFedexInternationalPriorityForRetail, string automaticUSMailInsurance, decimal? dHLFlatRate, string dHLInternationalExpressZone, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ID",
+                    Value = iD ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Country",
+                    Size = 200,
+                    Value = country ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedExInternationalPriorityZone",
+                    Size = 30,
+                    Value = fedExInternationalPriorityZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AirParcelPostZone",
+                    Size = 30,
+                    Value = airParcelPostZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AirSmallPacketZone",
+                    Size = 30,
+                    Value = airSmallPacketZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ErnieShippingZone",
+                    Size = 10,
+                    Value = ernieShippingZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "LetterPostRateGroup",
+                    Size = 100,
+                    Value = letterPostRateGroup ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "GlobalExpressZone",
+                    Size = 100,
+                    Value = globalExpressZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedExInternationalEconomyZone",
+                    Size = 30,
+                    Value = fedExInternationalEconomyZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedexExportRatesThatWeChargeCustomersZone",
+                    Size = 30,
+                    Value = fedexExportRatesThatWeChargeCustomersZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "EuropeanUnionCountry",
+                    Size = 2,
+                    Value = europeanUnionCountry ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AirSmallPacketWeightLimit",
+                    Value = airSmallPacketWeightLimit ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "RetailMinimumShippingCharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = retailMinimumShippingCharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "RetailPercentShippingCharge",
+                    Value = retailPercentShippingCharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedExCountryCode",
+                    Size = 4,
+                    Value = fedExCountryCode ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PostalCodeRequired",
+                    Size = 2,
+                    Value = postalCodeRequired ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "StateProvinceRequired",
+                    Size = 2,
+                    Value = stateProvinceRequired ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "StateProvinceWord",
+                    Size = 100,
+                    Value = stateProvinceWord ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AddressUpperCase",
+                    Size = 2,
+                    Value = addressUpperCase ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AddressCityLine1",
+                    Size = 100,
+                    Value = addressCityLine1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AddressCityLine2",
+                    Size = 100,
+                    Value = addressCityLine2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CityRequired",
+                    Size = 2,
+                    Value = cityRequired ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IslandRequired",
+                    Size = 2,
+                    Value = islandRequired ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IslandWord",
+                    Size = 100,
+                    Value = islandWord ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CityWord",
+                    Size = 100,
+                    Value = cityWord ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PostalCodeWord",
+                    Size = 100,
+                    Value = postalCodeWord ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PostalCodeFormat",
+                    Size = 100,
+                    Value = postalCodeFormat ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedExFranceIPDZone",
+                    Size = 100,
+                    Value = fedExFranceIPDZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DutyShippingCostPercent",
+                    Value = dutyShippingCostPercent ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "EconomySurfaceParcelPostZone",
+                    Size = 4,
+                    Value = economySurfaceParcelPostZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebUSMailWholesaleAllowed",
+                    Size = 2,
+                    Value = webUSMailWholesaleAllowed ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedexPhoneNumber",
+                    Size = 100,
+                    Value = fedexPhoneNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AirParcelPostWeightLimit",
+                    Value = airParcelPostWeightLimit ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "GlobalExpressWeightLimit",
+                    Value = globalExpressWeightLimit ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AllowFedexInternationalPriorityForRetail",
+                    Size = 100,
+                    Value = allowFedexInternationalPriorityForRetail ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AutomaticUSMailInsurance",
+                    Size = 100,
+                    Value = automaticUSMailInsurance ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DHLFlatRate",
+                    Precision = 8,
+                    Scale = 2,
+                    Value = dHLFlatRate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DHLInternationalExpressZone",
+                    Size = 4,
+                    Value = dHLInternationalExpressZone ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebCountryShippingZonesT] @ID = @ID, @Country = @Country, @FedExInternationalPriorityZone = @FedExInternationalPriorityZone, @AirParcelPostZone = @AirParcelPostZone, @AirSmallPacketZone = @AirSmallPacketZone, @ErnieShippingZone = @ErnieShippingZone, @LetterPostRateGroup = @LetterPostRateGroup, @GlobalExpressZone = @GlobalExpressZone, @FedExInternationalEconomyZone = @FedExInternationalEconomyZone, @FedexExportRatesThatWeChargeCustomersZone = @FedexExportRatesThatWeChargeCustomersZone, @EuropeanUnionCountry = @EuropeanUnionCountry, @AirSmallPacketWeightLimit = @AirSmallPacketWeightLimit, @RetailMinimumShippingCharge = @RetailMinimumShippingCharge, @RetailPercentShippingCharge = @RetailPercentShippingCharge, @FedExCountryCode = @FedExCountryCode, @PostalCodeRequired = @PostalCodeRequired, @StateProvinceRequired = @StateProvinceRequired, @StateProvinceWord = @StateProvinceWord, @AddressUpperCase = @AddressUpperCase, @AddressCityLine1 = @AddressCityLine1, @AddressCityLine2 = @AddressCityLine2, @CityRequired = @CityRequired, @IslandRequired = @IslandRequired, @IslandWord = @IslandWord, @CityWord = @CityWord, @PostalCodeWord = @PostalCodeWord, @PostalCodeFormat = @PostalCodeFormat, @FedExFranceIPDZone = @FedExFranceIPDZone, @DutyShippingCostPercent = @DutyShippingCostPercent, @EconomySurfaceParcelPostZone = @EconomySurfaceParcelPostZone, @WebUSMailWholesaleAllowed = @WebUSMailWholesaleAllowed, @FedexPhoneNumber = @FedexPhoneNumber, @AirParcelPostWeightLimit = @AirParcelPostWeightLimit, @GlobalExpressWeightLimit = @GlobalExpressWeightLimit, @AllowFedexInternationalPriorityForRetail = @AllowFedexInternationalPriorityForRetail, @AutomaticUSMailInsurance = @AutomaticUSMailInsurance, @DHLFlatRate = @DHLFlatRate, @DHLInternationalExpressZone = @DHLInternationalExpressZone", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebCountryShippingZonesT_DeletesAsync(int? iD, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ID",
+                    Value = iD ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebCountryShippingZonesT_Deletes] @ID = @ID", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebCountryStateProvincesListAsync(int? counter, string country, string stateProvince, string stateProvinceAbbreviation, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Country",
+                    Size = 200,
+                    Value = country ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "StateProvince",
+                    Size = 200,
+                    Value = stateProvince ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "StateProvinceAbbreviation",
+                    Size = 100,
+                    Value = stateProvinceAbbreviation ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebCountryStateProvincesList] @counter = @counter, @Country = @Country, @StateProvince = @StateProvince, @StateProvinceAbbreviation = @StateProvinceAbbreviation", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebCountryStateProvincesList_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebCountryStateProvincesList_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebHowFoundUsAsync(int? counter, string howFoundUs, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "HowFoundUs",
+                    Size = 200,
+                    Value = howFoundUs ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebHowFoundUs] @counter = @counter, @HowFoundUs = @HowFoundUs", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebHowFoundUs_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebHowFoundUs_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_AirParcelPostAsync(int? counter, double? weightInPounds, decimal? zone1, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, decimal? zone9, decimal? zone10, decimal? zone11, decimal? zone12, decimal? zone13, decimal? zone14, decimal? zone15, decimal? zone16, decimal? zone17, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone1",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone9",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone10",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone10 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone11",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone11 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone12",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone12 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone13",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone13 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone14",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone14 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone15",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone15 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone16",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone16 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone17",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone17 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_AirParcelPost] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone1 = @Zone1, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8, @Zone9 = @Zone9, @Zone10 = @Zone10, @Zone11 = @Zone11, @Zone12 = @Zone12, @Zone13 = @Zone13, @Zone14 = @Zone14, @Zone15 = @Zone15, @Zone16 = @Zone16, @Zone17 = @Zone17", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_AirParcelPost_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_AirParcelPost_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_AirSmallPacketAsync(int? counter, double? weightInPounds, decimal? zone1, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, decimal? zone9, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone1",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone9",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone9 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_AirSmallPacket] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone1 = @Zone1, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8, @Zone9 = @Zone9", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_AirSmallPacket_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_AirSmallPacket_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_DefaultShippingChargesExportPriceAsync(int? counter, string shippingMethod, decimal? amountPerPoundSurcharge, double? percentOfPurchaseValueSurcharge, decimal? flatAmountSurcharge, double? shippingCostSurcharge, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingMethod",
+                    Size = 100,
+                    Value = shippingMethod ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AmountPerPoundSurcharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = amountPerPoundSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PercentOfPurchaseValueSurcharge",
+                    Value = percentOfPurchaseValueSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FlatAmountSurcharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = flatAmountSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingCostSurcharge",
+                    Value = shippingCostSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_DefaultShippingChargesExportPrice] @counter = @counter, @ShippingMethod = @ShippingMethod, @AmountPerPoundSurcharge = @AmountPerPoundSurcharge, @PercentOfPurchaseValueSurcharge = @PercentOfPurchaseValueSurcharge, @FlatAmountSurcharge = @FlatAmountSurcharge, @ShippingCostSurcharge = @ShippingCostSurcharge", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_DefaultShippingChargesExportPrice_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_DefaultShippingChargesExportPrice_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_DefaultShippingChargesRetailPriceAsync(int? counter, string shippingMethod, decimal? amountPerPoundSurcharge, double? percentOfPurchaseValueSurcharge, decimal? flatAmountSurcharge, double? shippingCostSurcharge, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingMethod",
+                    Size = 100,
+                    Value = shippingMethod ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AmountPerPoundSurcharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = amountPerPoundSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PercentOfPurchaseValueSurcharge",
+                    Value = percentOfPurchaseValueSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FlatAmountSurcharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = flatAmountSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingCostSurcharge",
+                    Value = shippingCostSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_DefaultShippingChargesRetailPrice] @counter = @counter, @ShippingMethod = @ShippingMethod, @AmountPerPoundSurcharge = @AmountPerPoundSurcharge, @PercentOfPurchaseValueSurcharge = @PercentOfPurchaseValueSurcharge, @FlatAmountSurcharge = @FlatAmountSurcharge, @ShippingCostSurcharge = @ShippingCostSurcharge", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_DefaultShippingChargesRetailPrice_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_DefaultShippingChargesRetailPrice_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_DefaultShippingChargesStorePriceAsync(int? counter, string shippingMethod, decimal? amountPerPoundSurcharge, double? percentOfPurchaseValueSurcharge, decimal? flatAmountSurcharge, double? shippingCostSurcharge, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingMethod",
+                    Size = 100,
+                    Value = shippingMethod ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AmountPerPoundSurcharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = amountPerPoundSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PercentOfPurchaseValueSurcharge",
+                    Value = percentOfPurchaseValueSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FlatAmountSurcharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = flatAmountSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingCostSurcharge",
+                    Value = shippingCostSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_DefaultShippingChargesStorePrice] @counter = @counter, @ShippingMethod = @ShippingMethod, @AmountPerPoundSurcharge = @AmountPerPoundSurcharge, @PercentOfPurchaseValueSurcharge = @PercentOfPurchaseValueSurcharge, @FlatAmountSurcharge = @FlatAmountSurcharge, @ShippingCostSurcharge = @ShippingCostSurcharge", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_DefaultShippingChargesStorePrice_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_DefaultShippingChargesStorePrice_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexDomestic2DayAsync(int? counter, double? weightInPounds, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexDomestic2Day] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexDomestic2Day_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexDomestic2Day_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedExDomesticExpressSaverAsync(int? counter, double? weightInPounds, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedExDomesticExpressSaver] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedExDomesticExpressSaver_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedExDomesticExpressSaver_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedExDomesticStandardOvernightAsync(int? counter, double? weightInPounds, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedExDomesticStandardOvernight] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedExDomesticStandardOvernight_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedExDomesticStandardOvernight_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexGroundAsync(int? counter, double? weightInPounds, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexGround] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexGround_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexGround_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexInternationalEconomyAsync(int? counter, double? weightInPounds, decimal? zoneA, decimal? zoneB, decimal? zoneC, decimal? zoneD, decimal? zoneE, decimal? zoneF, decimal? zoneG, decimal? zoneH, decimal? zoneI, decimal? zoneJ, decimal? zoneK, decimal? zoneL, decimal? zoneM, decimal? zoneN, decimal? zoneO, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneA",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneA ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneB",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneB ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneC",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneC ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneD",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneD ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneE",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneF",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneF ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneG",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneG ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneH",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneH ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneI",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneI ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneJ",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneJ ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneK",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneK ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneL",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneL ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneM",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneM ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneN",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneN ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneO",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneO ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexInternationalEconomy] @counter = @counter, @WeightInPounds = @WeightInPounds, @ZoneA = @ZoneA, @ZoneB = @ZoneB, @ZoneC = @ZoneC, @ZoneD = @ZoneD, @ZoneE = @ZoneE, @ZoneF = @ZoneF, @ZoneG = @ZoneG, @ZoneH = @ZoneH, @ZoneI = @ZoneI, @ZoneJ = @ZoneJ, @ZoneK = @ZoneK, @ZoneL = @ZoneL, @ZoneM = @ZoneM, @ZoneN = @ZoneN, @ZoneO = @ZoneO", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexInternationalEconomy_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexInternationalEconomy_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexInternationalPriorityAsync(int? counter, double? weightInPounds, decimal? zoneA, decimal? zoneB, decimal? zoneC, decimal? zoneD, decimal? zoneE, decimal? zoneF, decimal? zoneG, decimal? zoneH, decimal? zoneI, decimal? zoneJ, decimal? zoneK, decimal? zoneL, decimal? zoneM, decimal? zoneN, decimal? zoneO, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneA",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneA ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneB",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneB ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneC",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneC ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneD",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneD ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneE",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneF",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneF ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneG",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneG ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneH",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneH ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneI",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneI ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneJ",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneJ ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneK",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneK ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneL",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneL ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneM",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneM ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneN",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneN ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ZoneO",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zoneO ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexInternationalPriority] @counter = @counter, @WeightInPounds = @WeightInPounds, @ZoneA = @ZoneA, @ZoneB = @ZoneB, @ZoneC = @ZoneC, @ZoneD = @ZoneD, @ZoneE = @ZoneE, @ZoneF = @ZoneF, @ZoneG = @ZoneG, @ZoneH = @ZoneH, @ZoneI = @ZoneI, @ZoneJ = @ZoneJ, @ZoneK = @ZoneK, @ZoneL = @ZoneL, @ZoneM = @ZoneM, @ZoneN = @ZoneN, @ZoneO = @ZoneO", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FedexInternationalPriority_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FedexInternationalPriority_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_FirstClassAsync(int? counter, double? weightInPounds, decimal? zone1, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone1",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_FirstClass] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone1 = @Zone1, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_FirstClass_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_FirstClass_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_MediaMailAsync(int? counter, double? weightInPounds, decimal? zone1, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone1",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_MediaMail] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone1 = @Zone1, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_MediaMail_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_MediaMail_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_Packaging_Weight_1Async(int? counter, int? itemWeight, int? packagingWeight, string packageDescription, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemWeight",
+                    Value = itemWeight ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PackagingWeight",
+                    Value = packagingWeight ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PackageDescription",
+                    Size = 100,
+                    Value = packageDescription ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_Packaging_Weight_1] @counter = @counter, @ItemWeight = @ItemWeight, @PackagingWeight = @PackagingWeight, @PackageDescription = @PackageDescription", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_Packaging_Weight_1_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_Packaging_Weight_1_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_Packaging_Weight_2Async(int? counter, int? itemWeight, int? packagingWeight, string packageDescription, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ItemWeight",
+                    Value = itemWeight ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PackagingWeight",
+                    Value = packagingWeight ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PackageDescription",
+                    Size = 100,
+                    Value = packageDescription ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_Packaging_Weight_2] @counter = @counter, @ItemWeight = @ItemWeight, @PackagingWeight = @PackagingWeight, @PackageDescription = @PackageDescription", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_Packaging_Weight_2_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_Packaging_Weight_2_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_webSHIPX_PriorityMailAsync(int? counter, double? weightInPounds, decimal? zone1, decimal? zone2, decimal? zone3, decimal? zone4, decimal? zone5, decimal? zone6, decimal? zone7, decimal? zone8, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WeightInPounds",
+                    Value = weightInPounds ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone1",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone2",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone3",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone4",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone5",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone5 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone6",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone6 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone7",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone7 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Zone8",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = zone8 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_webSHIPX_PriorityMail] @counter = @counter, @WeightInPounds = @WeightInPounds, @Zone1 = @Zone1, @Zone2 = @Zone2, @Zone3 = @Zone3, @Zone4 = @Zone4, @Zone5 = @Zone5, @Zone6 = @Zone6, @Zone7 = @Zone7, @Zone8 = @Zone8", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_PriorityMail_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_PriorityMail_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_ShippingHolidaysOutboundAsync(int? counter, DateTime? date, string fedexAirHoliday, string fedexGroundHoliday, string uSPSHoliday, string workHoliday, string uPSGroundHoliday, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Date",
+                    Value = date ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedexAirHoliday",
+                    Size = 2,
+                    Value = fedexAirHoliday ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedexGroundHoliday",
+                    Size = 2,
+                    Value = fedexGroundHoliday ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "USPSHoliday",
+                    Size = 2,
+                    Value = uSPSHoliday ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WorkHoliday",
+                    Size = 2,
+                    Value = workHoliday ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "UPSGroundHoliday",
+                    Size = 2,
+                    Value = uPSGroundHoliday ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_ShippingHolidaysOutbound] @counter = @counter, @Date = @Date, @FedexAirHoliday = @FedexAirHoliday, @FedexGroundHoliday = @FedexGroundHoliday, @USPSHoliday = @USPSHoliday, @WorkHoliday = @WorkHoliday, @UPSGroundHoliday = @UPSGroundHoliday", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_ShippingHolidaysOutbound_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_ShippingHolidaysOutbound_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_ShippingMethodsAsync(int? counter, string shippingMethodCode, string domestic, string international, string uSPossessions, DateTime? pickUpTime, string shipViaService, string shippingViaCompany, string shippingCostTableName, string pOBoxOK, string cODOK, double? fuelSurcharge, double? ourDutyCostPercent, int? maxWeightOfShipment, int? maxWeightOfBox, int? shipmentFlatRateWeight, decimal? cODCharge, decimal? residentialDeliveryCharge, string militaryAddressOK, string deliveryDateGuaranteed, string eUCountries, string numberOfBoxesMatters, int? minimumWeightOfShipment, string holidayColumnName, decimal? saturdayDeliveryCharge, int? webShippingCutoffMinutes, int? officeShippingCutoffMinutes, string pullSheetText, string hawaii, string alaska, string description1, string description2, string description3, string description4, string trackingWord, string websiteTrackingDescription1, string websiteTrackingDescription2, string websiteTrackingDescription3, string websiteTrackingDescription4, decimal? lPor12InchSurcharge, decimal? customFlatShippingChargeSpendThreshold, decimal? customFlatShippingCharge, string fedExAPIServiceEnumeration, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingMethodCode",
+                    Size = 100,
+                    Value = shippingMethodCode ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Domestic",
+                    Size = 2,
+                    Value = domestic ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "International",
+                    Size = 2,
+                    Value = international ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "USPossessions",
+                    Size = 2,
+                    Value = uSPossessions ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PickUpTime",
+                    Value = pickUpTime ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShipViaService",
+                    Size = 100,
+                    Value = shipViaService ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingViaCompany",
+                    Size = 100,
+                    Value = shippingViaCompany ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShippingCostTableName",
+                    Size = 160,
+                    Value = shippingCostTableName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "POBoxOK",
+                    Size = 2,
+                    Value = pOBoxOK ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CODOK",
+                    Size = 2,
+                    Value = cODOK ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FuelSurcharge",
+                    Value = fuelSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "OurDutyCostPercent",
+                    Value = ourDutyCostPercent ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Float,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MaxWeightOfShipment",
+                    Value = maxWeightOfShipment ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MaxWeightOfBox",
+                    Value = maxWeightOfBox ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ShipmentFlatRateWeight",
+                    Value = shipmentFlatRateWeight ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CODCharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = cODCharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ResidentialDeliveryCharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = residentialDeliveryCharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MilitaryAddressOK",
+                    Size = 2,
+                    Value = militaryAddressOK ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DeliveryDateGuaranteed",
+                    Size = 2,
+                    Value = deliveryDateGuaranteed ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "EUCountries",
+                    Size = 2,
+                    Value = eUCountries ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "NumberOfBoxesMatters",
+                    Size = 2,
+                    Value = numberOfBoxesMatters ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MinimumWeightOfShipment",
+                    Value = minimumWeightOfShipment ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "HolidayColumnName",
+                    Size = 100,
+                    Value = holidayColumnName ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SaturdayDeliveryCharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = saturdayDeliveryCharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebShippingCutoffMinutes",
+                    Value = webShippingCutoffMinutes ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "OfficeShippingCutoffMinutes",
+                    Value = officeShippingCutoffMinutes ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PullSheetText",
+                    Size = 100,
+                    Value = pullSheetText ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Hawaii",
+                    Size = 2,
+                    Value = hawaii ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Alaska",
+                    Size = 2,
+                    Value = alaska ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Description1",
+                    Size = -1,
+                    Value = description1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Description2",
+                    Size = -1,
+                    Value = description2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Description3",
+                    Size = -1,
+                    Value = description3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Description4",
+                    Size = -1,
+                    Value = description4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "TrackingWord",
+                    Size = -1,
+                    Value = trackingWord ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebsiteTrackingDescription1",
+                    Size = -1,
+                    Value = websiteTrackingDescription1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebsiteTrackingDescription2",
+                    Size = -1,
+                    Value = websiteTrackingDescription2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebsiteTrackingDescription3",
+                    Size = -1,
+                    Value = websiteTrackingDescription3 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebsiteTrackingDescription4",
+                    Size = -1,
+                    Value = websiteTrackingDescription4 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "LPor12InchSurcharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = lPor12InchSurcharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomFlatShippingChargeSpendThreshold",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = customFlatShippingChargeSpendThreshold ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomFlatShippingCharge",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = customFlatShippingCharge ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FedExAPIServiceEnumeration",
+                    Size = 100,
+                    Value = fedExAPIServiceEnumeration ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_ShippingMethods] @counter = @counter, @ShippingMethodCode = @ShippingMethodCode, @Domestic = @Domestic, @International = @International, @USPossessions = @USPossessions, @PickUpTime = @PickUpTime, @ShipViaService = @ShipViaService, @ShippingViaCompany = @ShippingViaCompany, @ShippingCostTableName = @ShippingCostTableName, @POBoxOK = @POBoxOK, @CODOK = @CODOK, @FuelSurcharge = @FuelSurcharge, @OurDutyCostPercent = @OurDutyCostPercent, @MaxWeightOfShipment = @MaxWeightOfShipment, @MaxWeightOfBox = @MaxWeightOfBox, @ShipmentFlatRateWeight = @ShipmentFlatRateWeight, @CODCharge = @CODCharge, @ResidentialDeliveryCharge = @ResidentialDeliveryCharge, @MilitaryAddressOK = @MilitaryAddressOK, @DeliveryDateGuaranteed = @DeliveryDateGuaranteed, @EUCountries = @EUCountries, @NumberOfBoxesMatters = @NumberOfBoxesMatters, @MinimumWeightOfShipment = @MinimumWeightOfShipment, @HolidayColumnName = @HolidayColumnName, @SaturdayDeliveryCharge = @SaturdayDeliveryCharge, @WebShippingCutoffMinutes = @WebShippingCutoffMinutes, @OfficeShippingCutoffMinutes = @OfficeShippingCutoffMinutes, @PullSheetText = @PullSheetText, @Hawaii = @Hawaii, @Alaska = @Alaska, @Description1 = @Description1, @Description2 = @Description2, @Description3 = @Description3, @Description4 = @Description4, @TrackingWord = @TrackingWord, @WebsiteTrackingDescription1 = @WebsiteTrackingDescription1, @WebsiteTrackingDescription2 = @WebsiteTrackingDescription2, @WebsiteTrackingDescription3 = @WebsiteTrackingDescription3, @WebsiteTrackingDescription4 = @WebsiteTrackingDescription4, @LPor12InchSurcharge = @LPor12InchSurcharge, @CustomFlatShippingChargeSpendThreshold = @CustomFlatShippingChargeSpendThreshold, @CustomFlatShippingCharge = @CustomFlatShippingCharge, @FedExAPIServiceEnumeration = @FedExAPIServiceEnumeration", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spSync_WebSHIPX_ShippingMethods_DeletesAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spSync_WebSHIPX_ShippingMethods_Deletes] @counter = @counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<int> spUpdateCartQuantityInCustomersTableAsync(int? customerServerCounter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
@@ -3127,6 +10630,39 @@ namespace MillionsOfRecordsApp.Data
                 parameterreturnValue,
             };
             var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spUpdateEmailedOrderConfirmation] @OrderNumber = @OrderNumber", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spUpdateInvoiceNumberFieldAsync(string orderNumber, int? invoiceNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "OrderNumber",
+                    Size = 30,
+                    Value = orderNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "InvoiceNumber",
+                    Value = invoiceNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spUpdateInvoiceNumberField] @OrderNumber = @OrderNumber, @InvoiceNumber = @InvoiceNumber", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

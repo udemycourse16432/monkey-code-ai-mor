@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
@@ -76,7 +77,6 @@ namespace MillionsOfRecordsApp
                     return true;
                 };
 
-
             }).AddEntityFramework(); // This tracks your SQL queries automatically!
 
             builder.Services.AddDbContext<ReggaeDbContext>(options =>
@@ -140,7 +140,68 @@ namespace MillionsOfRecordsApp
 
             app.MapControllers();
 
+            // --- AUTO-START LOCAL SMTP TOOL IN DEVELOPMENT ---
+            if (app.Environment.IsDevelopment())
+            {
+                EnsureSmtp4DevIsRunning();
+            }
+
             app.Run();
+        }
+
+        private static void EnsureSmtp4DevIsRunning()
+        {
+            try
+            {
+                // 1. Check if smtp4dev process is already running
+                var runningProcesses = Process.GetProcessesByName("smtp4dev");
+                if (runningProcesses.Length > 0)
+                {
+                    return;
+                }
+
+                // 2. Attempt to launch smtp4dev via dotnet tool runner
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "dotnet",
+                    Arguments = "tool run smtp4dev",
+                    UseShellExecute = false, // Set to false so we can modify EnvironmentVariables
+                    CreateNoWindow = false
+                };
+
+                // Remove Visual Studio's injected hosting assemblies to prevent "Microsoft.WebTools.ApiEndpointDiscovery" errors
+                startInfo.EnvironmentVariables.Remove("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES");
+
+                var process = Process.Start(startInfo);
+
+                // Wait up to 1 second to see if the process exited immediately with an error (e.g., tool not found)
+                if (process != null && process.WaitForExit(1000) && process.ExitCode != 0)
+                {
+                    ShowSmtp4DevMissingWarning();
+                }
+            }
+            catch
+            {
+                ShowSmtp4DevMissingWarning();
+            }
+        }
+
+        private static void ShowSmtp4DevMissingWarning()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine();
+            Console.WriteLine("==========================================================================================");
+            Console.WriteLine("[DEV WARNING] Could not auto-start local SMTP server (smtp4dev).");
+            Console.WriteLine("If smtp4dev is not installed on your machine, run one of the following commands:");
+            Console.WriteLine();
+            Console.WriteLine("  1. Restore as local repository tool (preferred):");
+            Console.WriteLine("     dotnet tool restore");
+            Console.WriteLine();
+            Console.WriteLine("  2. Install as global tool:");
+            Console.WriteLine("     dotnet tool install -g Rnwood.Smtp4dev");
+            Console.WriteLine("==========================================================================================");
+            Console.WriteLine();
+            Console.ResetColor();
         }
     }
 }

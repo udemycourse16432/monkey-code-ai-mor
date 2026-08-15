@@ -20,6 +20,8 @@ public partial class ReggaeDbContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<DatabaseVariable> DatabaseVariables { get; set; }
+
     public virtual DbSet<Inventory> Inventories { get; set; }
 
     public virtual DbSet<InventoryItemFeature> InventoryItemFeatures { get; set; }

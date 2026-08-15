@@ -1,3 +1,6 @@
+# Run this command if you are on Windows and have downloaded the project from the internet. It will unblock all files in the project directory so that you can build and run the project without security warnings.
+Get-ChildItem -Recurse | Unblock-File
+
 # Architectural Review & Recommendations: MillionsOfRecordsApp
 
 ## 1. Executive Summary

@@ -31,6 +31,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[DatabaseVariables]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Inventory]",
          "ObjectType": 0
       },
@@ -75,6 +79,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[spCheckForInsertKirbyItemData]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[spCheckForLPor12InchInCart]",
          "ObjectType": 1
       },
@@ -96,6 +104,58 @@
       },
       {
          "Name": "[dbo].[spDeleteCartItem]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_Carts_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_Carts]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_CustomerEmailChanges]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_Customers]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_DeleteBackordersInStockNow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_Enter7Inch]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_EnterStock]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_OrderCorrectionNotes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_OrderItems]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_Orders]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_PayFlowRequests]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_PayPalIPNsReceived]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spDownload_SignInLog]",
          "ObjectType": 1
       },
       {
@@ -144,6 +204,10 @@
       },
       {
          "Name": "[dbo].[spDownloadOK_SignInLog]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spForgotPassword]",
          "ObjectType": 1
       },
       {
@@ -204,6 +268,18 @@
       },
       {
          "Name": "[dbo].[spGetInventoryItem]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetKirbysCutThisMonth]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetKirbysCutThisOrder]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spGetKirbysCutToday]",
          "ObjectType": 1
       },
       {
@@ -279,6 +355,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[spHTTPDownloadDataOrderItems]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[spInsertCustomer]",
          "ObjectType": 1
       },
@@ -319,6 +399,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[spKirbyItemData]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[spOrderedQueries]",
          "ObjectType": 1
       },
@@ -332,6 +416,278 @@
       },
       {
          "Name": "[dbo].[spSeeIfOrderNumberExists]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_BackordersInStockNow_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_BackordersInStockNow]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_CountryList_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_CountryList]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_EmailFooter_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_EmailFooter]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_EmailsFromTheWebServer_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_EmailsFromTheWebServer]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_Inventory_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_Inventory]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_InventoryItemFeatureIndex_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_InventoryItemFeatureIndex]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_InventoryItemFeatures_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_InventoryItemFeatures]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_InvoicesUpload_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_InvoicesUpload]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_IsINTERNETREGGAEMaintenanceOpenChangeValue]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_IsINTERNETREGGAEMaintenanceOpenGetValue]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_IsINTERNETREGGAEMaintenanceOpenUpdateField]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_Residential]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_SoldItems_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_SoldItems]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_TermsOfSaleAdditionsAndRemovals_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_TermsOfSaleAdditionsAndRemovals]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_TermsOfSaleTypes_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_TermsOfSaleTypes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebCountryShippingZonesT_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebCountryShippingZonesT]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebCountryStateProvincesList_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebCountryStateProvincesList]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebHowFoundUs_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebHowFoundUs]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_AirParcelPost_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_AirParcelPost]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_AirSmallPacket_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_AirSmallPacket]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_DefaultShippingChargesExportPrice_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_DefaultShippingChargesExportPrice]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_DefaultShippingChargesRetailPrice_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_DefaultShippingChargesRetailPrice]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_DefaultShippingChargesStorePrice_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_DefaultShippingChargesStorePrice]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexDomestic2Day_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexDomestic2Day]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedExDomesticExpressSaver_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedExDomesticExpressSaver]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedExDomesticStandardOvernight_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedExDomesticStandardOvernight]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexGround_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexGround]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexInternationalEconomy_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexInternationalEconomy]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexInternationalPriority_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FedexInternationalPriority]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_FirstClass_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_FirstClass]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_MediaMail_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_MediaMail]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_Packaging_Weight_1_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_Packaging_Weight_1]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_Packaging_Weight_2_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_Packaging_Weight_2]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_PriorityMail_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_webSHIPX_PriorityMail]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_ShippingHolidaysOutbound_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_ShippingHolidaysOutbound]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_ShippingMethods_Deletes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spSync_WebSHIPX_ShippingMethods]",
          "ObjectType": 1
       },
       {
@@ -352,6 +708,10 @@
       },
       {
          "Name": "[dbo].[spUpdateEmailedOrderConfirmation]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[spUpdateInvoiceNumberField]",
          "ObjectType": 1
       },
       {

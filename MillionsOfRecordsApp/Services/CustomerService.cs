@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MillionsOfRecordsApp.Data;
+using MillionsOfRecordsApp.Models;
 
 namespace MillionsOfRecordsApp.Services
 {
@@ -15,6 +16,10 @@ namespace MillionsOfRecordsApp.Services
         public Task<bool> CheckLogInEmailExists(string email)
         {
             return _context.Customers.AnyAsync(x => x.LogInEmail == email);
+        }
+        public Task<Customer?> GetCustomerByEmailAsync(string email)
+        {
+            return _context.Customers.FirstOrDefaultAsync(x => x.LogInEmail == email);
         }
     }
 }

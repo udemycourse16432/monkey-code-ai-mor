@@ -3,6 +3,7 @@ using MillionsOfRecordsApp.Data;
 
 namespace MillionsOfRecordsApp.Controllers
 {
+
     // to test this page use the following URL: https://localhost:7244/HTTPDownloadDataOK.aspx?pw=a5b6c8ugjt76g4q0m![]f67w2-lx3eu7&counter=12345&table=SignInLog
     [ApiController]
     [Route("HTTPDownloadDataOK.aspx")] // Keeps backwards compatibility with legacy URL calls
@@ -19,17 +20,22 @@ namespace MillionsOfRecordsApp.Controllers
             _procedures = procedures;
             _logger = logger;
             // Fetch from appsettings / Environment Variables
-            _downloadDataPassword = configuration["LegacyApiSettings:DownloadDataPassword"] ?? string.Empty;
+            _downloadDataPassword = configuration["LegacyApiSettings:HTTPDownloadDataPassword"] ?? string.Empty;
         }
 
         [HttpGet]
         [HttpPost]
         public async Task<IActionResult> ProcessRequest(
-            [FromQuery] string? pw,
-            [FromQuery] string? counter,
-            [FromQuery] string? table,
-            [FromQuery] string? newcustomerid)
+            [FromForm] string? pw,
+            [FromForm] string? counter,
+            [FromForm] string? table,
+            [FromForm] string? newcustomerid)
         {
+            pw ??= Request.Query["PW"].ToString();
+            table ??= Request.Query["table"].ToString();
+            counter ??= Request.Query["counter"].ToString();
+            newcustomerid ??= Request.Query["newcustomerid"].ToString();
+
             // Compare with configured secret
             if (string.IsNullOrEmpty(pw) || pw != _downloadDataPassword)
             {

@@ -41,7 +41,7 @@
                         </button>
 
                         <p class="mt-3">
-                            Can't sign in? For a quick response, <a href="/contact">contact us</a> and we will reply with your email/password so you can sign in. Thank you. sf@1234gorecords.com, jane.doe@testmor.com
+                            Can't sign in? For a quick response, <a href="#" data-toggle="modal" data-target="#contactUsModal">contact us</a> and we will reply with your email/password so you can sign in. Thank you.
                         </p>
                     </form>
                 </div>
@@ -60,7 +60,130 @@
         </div>
     </div>
 </section>
+<!-- Contact Us Modal -->
+<div class="modal fade" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="contactUsModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="contactUsModalLabel">Contact Us</h4>
+            </div>
+            <div class="modal-body">
+                <p>Enter your contact information and your message for us, then click Submit.</p>
 
+                <div id="contactUsAlert" class="alert hidden" role="alert"></div>
+
+                <form id="contactUsForm">
+                    @Html.AntiForgeryToken()
+
+                    @* Honeypot field - visually hidden using inline style/bootstrap class *@
+                    <div style="display:none;" aria-hidden="true">
+                        <input asp-for="ContactForm.Website" tabindex="-1" autocomplete="off" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ContactForm.YourName">Your Name <span class="text-danger">*</span></label>
+                        <input asp-for="ContactForm.YourName" class="form-control" id="contactYourName" maxlength="100" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ContactForm.YourEmail">Your Email Address <span class="text-danger">*</span></label>
+                        <input asp-for="ContactForm.YourEmail" type="email" class="form-control" id="contactYourEmail" maxlength="100" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ContactForm.YourPhone">Your Phone (optional)</label>
+                        <input asp-for="ContactForm.YourPhone" type="tel" class="form-control" id="contactYourPhone" maxlength="30" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ContactForm.Message">Message <span class="text-danger">*</span></label>
+                        <textarea asp-for="ContactForm.Message" class="form-control" id="contactMessage" rows="4" maxlength="1000"></textarea>
+                        <span class="help-block text-right" style="margin-top: 4px; font-size: 12px; color: #737373;">
+                            Maximum 1,000 characters
+                        </span>
+                    </div>
+
+                    <button type="submit" id="btnContactSubmit" class="btn btn-primary btn-block">
+                        <i id="contactSpinner" class="fa fa-spinner fa-spin hidden"></i>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/signIn.css" asp-append-version="true" />
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var $modal = $('#contactUsModal');
+            var $form = $('#contactUsForm');
+            var $alertBox = $('#contactUsAlert');
+            var $spinner = $('#contactSpinner');
+            var $submitBtn = $('#btnContactSubmit');
+
+            // Helper function to reset the form and clear alert states
+            function resetContactForm() {
+                $form[0].reset();
+                $alertBox.addClass('hidden').removeClass('alert-success alert-danger').text('');
+                $spinner.addClass('hidden');
+                $submitBtn.prop('disabled', false);
+            }
+
+            // Bootstrap 3 Event: Fires immediately when the show instance method is called
+            $modal.on('show.bs.modal', function () {
+                resetContactForm();
+            });
+
+            // Form Submit Handler
+            $form.on('submit', async function (e) {
+                e.preventDefault();
+
+                $alertBox.addClass('hidden').removeClass('alert-success alert-danger');
+                $spinner.removeClass('hidden');
+                $submitBtn.prop('disabled', true);
+
+                var formData = new FormData(this);
+
+                try {
+                    const response = await fetch('?handler=ContactUs', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        }
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        $alertBox.addClass('alert-success').text(result.message).removeClass('hidden');
+                        $form[0].reset();
+                    } else {
+                        // Log full backend response to browser console for easy inspection
+                        console.error('Contact Us Submission Error:', result);
+
+                        var errorList = '<ul style="margin-bottom:0; padding-left:20px;">';
+                        $.each(result.errors, function (i, err) {
+                            errorList += '<li>' + err + '</li>';
+                        });
+                        errorList += '</ul>';
+
+                        $alertBox.addClass('alert-danger').html(errorList).removeClass('hidden');
+                    }
+                } catch (err) {
+                    console.error('Network / Request Error:', err);
+                    $alertBox.addClass('alert-danger').text('A network error occurred. Please check your internet connection and try again.').removeClass('hidden');
+                } finally {
+                    $spinner.addClass('hidden');
+                    $submitBtn.prop('disabled', false);
+                }
+            });
+        });
+    </script>
 }
