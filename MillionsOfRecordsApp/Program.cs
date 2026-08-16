@@ -86,6 +86,7 @@ namespace MillionsOfRecordsApp
             builder.Services.AddScoped<CustomerService>();
             builder.Services.AddScoped<ShippingService>();
             builder.Services.AddScoped<OrderService>();
+            builder.Services.AddScoped<TaxService>();
             builder.Services.AddScoped<CustomerAuthService>();
             builder.Services.AddScoped<ICustomerValidationService, CustomerValidationService>();
 

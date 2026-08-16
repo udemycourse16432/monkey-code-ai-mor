@@ -114,6 +114,10 @@
                                 <td colspan="2">Shipping</td>
                                 <td colspan="2" id="shipping-cost-display" data-value="@Model.ShippingCost">$@Model.ShippingCost</td>
                             </tr>
+                            <tr>
+                                <td colspan="2">Tax</td>
+                                <td colspan="2" id="tax-amount-display" data-value="@Model.TaxAmount">$@Model.TaxAmount.ToString("F2")</td>
+                            </tr>
                         </tbody>
                         <tfoot>
                             <tr>

@@ -178,10 +178,12 @@ function updateSummaryDisplay(newShippingPrice) {
     const shippingDisplay = document.querySelector('#shipping-cost-display'); // Add this ID to your HTML
     const totalDisplay = document.querySelector('#total-amount-display'); // Add this ID to your HTML
     const productsPriceDisplay = document.querySelector('#products-price-display');
+    const taxDisplay = document.querySelector('#tax-amount-display');
     const productPrice = parseFloat(productsPriceDisplay.dataset.value);
 
     const shipping = parseFloat(newShippingPrice);
-    const total = productPrice + shipping;
+    const tax = taxDisplay ? parseFloat(taxDisplay.dataset.value) : 0;
+    const total = productPrice + shipping + tax;
 
     if (shippingDisplay) shippingDisplay.innerText = `$${shipping.toFixed(2)}`;
     if (totalDisplay) totalDisplay.innerText = `$${total.toFixed(2)}`;

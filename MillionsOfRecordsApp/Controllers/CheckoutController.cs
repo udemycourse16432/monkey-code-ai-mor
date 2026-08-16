@@ -24,6 +24,7 @@ public class CheckoutController : ControllerBase
     private readonly OrderService _orderService;
     private readonly CartService _cartService;
     private readonly ShippingService _shippingService;
+    private readonly TaxService _taxService;
     private readonly ReggaeDbContext _context;
 
     private readonly Dictionary<string, CheckoutPaymentIntent> _paymentIntentMap;
@@ -31,13 +32,14 @@ public class CheckoutController : ControllerBase
     private readonly PaymentsController _paymentsController;
 
     public CheckoutController(Microsoft.Extensions.Configuration.IConfiguration config, IHttpClientFactory httpClientFactory, IReggaeDbContextProcedures procedures,
-        OrderService orderService, CartService cartService, ShippingService shippingService, ReggaeDbContext context)
+        OrderService orderService, CartService cartService, ShippingService shippingService, TaxService taxService, ReggaeDbContext context)
     {
         _config = config;
         _httpClientFactory = httpClientFactory;
         _orderService = orderService;
         _cartService = cartService;
         _shippingService = shippingService;
+        _taxService = taxService;
         _procedures = procedures;
         _context = context;
         _paymentIntentMap = new Dictionary<string, CheckoutPaymentIntent> {
@@ -89,7 +91,7 @@ public class CheckoutController : ControllerBase
         var customerDetails = spResults.First();
         return customerDetails;
     }
-    private async Task<(decimal ProductsPrice, decimal ShippingCost)> CalculateCheckoutTotals(string shippingCode, List<(Cart Cart, Inventory Inv)> cartResults)
+    private async Task<(decimal ProductsPrice, decimal ShippingCost, decimal TaxAmount)> CalculateCheckoutTotals(string shippingCode, List<(Cart Cart, Inventory Inv)> cartResults)
     {
         var customerDetails = await GetCustomerDetailsAsync();
 
@@ -108,7 +110,9 @@ public class CheckoutController : ControllerBase
         decimal shippingCost = shippingMethods.FirstOrDefault(x => x.Code == shippingCode)?.Price ?? 0m;
         //decimal shippingCost = await _shippingService.GetCostByCodeAsync(shippingCode, productsPrice, totalItems, customerDetails);
 
-        return (productsPrice, shippingCost);
+        decimal taxAmount = await _taxService.CalculateTaxAsync(customerDetails, productsPrice, shippingCost);
+
+        return (productsPrice, shippingCost, taxAmount);
     }
     public record CreateOrderRequest(string ShippingCode);
 
@@ -128,6 +132,7 @@ public class CheckoutController : ControllerBase
 
             // 3. If it failed, return the error data back to the client
             // This is equivalent to your old 'BadRequest(error)' logic
+            await UpdatePayFlowRequestAnswerAsync(order: null, isSuccess: false, failureMessage: "PayPal order creation returned a non-success status.");
             return StatusCode((int)result.StatusCode, new
             {
                 message = "PayPal Order Creation Failed",
@@ -136,6 +141,7 @@ public class CheckoutController : ControllerBase
         }
         catch (Exception ex)
         {
+            await UpdatePayFlowRequestAnswerAsync(order: null, isSuccess: false, failureMessage: ex.Message);
             Console.Error.WriteLine($"Failed to create order: {ex.Message}");
             return StatusCode(500, new { error = "Internal server error during order creation." });
         }
@@ -215,10 +221,11 @@ public class CheckoutController : ControllerBase
                         Description = $"Order {refId} from Millions of Records",
                         Amount = new AmountWithBreakdown {
                             CurrencyCode = "USD",
-                            MValue = (checkoutData.ProductsPrice + checkoutData.ShippingCost).ToString("F2"),
+                            MValue = (checkoutData.ProductsPrice + checkoutData.ShippingCost + checkoutData.TaxAmount).ToString("F2"),
                             Breakdown = new AmountBreakdown {
                               ItemTotal = new Money("USD", checkoutData.ProductsPrice.ToString("F2")),
-                              Shipping = new Money("USD", checkoutData.ShippingCost.ToString("F2"))
+                              Shipping = new Money("USD", checkoutData.ShippingCost.ToString("F2")),
+                              TaxTotal = new Money("USD", checkoutData.TaxAmount.ToString("F2"))
                             },
                         },
                         Shipping = new ShippingDetails {
@@ -240,6 +247,9 @@ public class CheckoutController : ControllerBase
             },
         };
 
+        // Persist a PayFlow request row before executing payment (legacy lifecycle parity).
+        await LogPayFlowRequestAsync(customerDetails, refId, checkoutData);
+
 #if DEBUG
         using (StackExchange.Profiling.MiniProfiler.Current?.CustomTiming("paypal", "POST /v2/checkout/orders"))
         {
@@ -250,6 +260,82 @@ public class CheckoutController : ControllerBase
         }
 #endif
     }
+    private async Task LogPayFlowRequestAsync(spGetCustomerDetailsByServerCounterResult customer, string webOrderNumber, (decimal ProductsPrice, decimal ShippingCost, decimal TaxAmount) checkoutData)
+    {
+        var counterOutput = new OutputParameter<int>();
+        var totals = checkoutData;
+
+        string cardLastFour = string.Empty;
+        string requestAcct = string.Empty;
+        string requestCvv2 = string.Empty;
+
+        string[] nameParts = string.IsNullOrWhiteSpace(customer.BillingFullName)
+            ? Array.Empty<string>()
+            : customer.BillingFullName.Split(new[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+        string firstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
+        string lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
+
+        await _procedures.spPayFlowRequests_InsertAsync(
+            encryptionKey: _config.GetValue<string>("PayFlow:EncryptionKey") ?? string.Empty,
+            status: "pending",
+            userAgent: Request.Headers["User-Agent"].ToString(),
+            request_TRXTYPE: "S",
+            request_TENDER: "C",
+            request_ACCT: requestAcct,
+            request_EXPDATE: string.Empty,
+            request_AMT: totals.ProductsPrice + totals.ShippingCost + totals.TaxAmount,
+            request_CVV2: requestCvv2,
+            request_BILLTOFIRSTNAME: firstName,
+            request_BILLTOLASTNAME: lastName,
+            request_BILLTOSTREET: customer.BillingStreetAddress1,
+            request_BILLTOSTREET2: customer.BillingStreetAddress2,
+            request_BILLTOCITY: customer.BillingCity,
+            request_BILLTOSTATE: customer.BillingStateProvince,
+            request_BILLTOZIP: customer.BillingPostalCode,
+            request_BILLTOCOUNTRY: customer.BillingCountry,
+            request_CUSTIP: HttpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty,
+            request_ORDERID: webOrderNumber,
+            request_COMMENT1: "PayPal REST v2",
+            request_COMMENT2: string.Empty,
+            webOrderNumber: webOrderNumber,
+            customerID: HttpContext.Session.GetCustomerServerCounter(),
+            rightFour: cardLastFour,
+            iV: _config.GetValue<string>("PayFlow:IV") ?? string.Empty,
+            counterOUTPUT: counterOutput);
+
+        HttpContext.Session.SetPayFlowRequestCounter(counterOutput.Value);
+    }
+
+    private async Task UpdatePayFlowRequestAnswerAsync(Order? order, bool isSuccess, string? failureMessage = null)
+    {
+        int counter = HttpContext.Session.GetPayFlowRequestCounter();
+        if (counter <= 0)
+        {
+            return;
+        }
+
+        HttpContext.Session.ClearPayFlowRequestCounter();
+
+        string responsePnref = order?.PurchaseUnits?.FirstOrDefault()?.Payments?.Captures?.FirstOrDefault()?.Id ?? string.Empty;
+        string responsePpref = order?.Id ?? string.Empty;
+        string responseRespmsg = isSuccess
+            ? (order?.PurchaseUnits?.FirstOrDefault()?.Payments?.Captures?.FirstOrDefault()?.Status?.ToString() ?? "COMPLETED")
+            : (failureMessage ?? "PayPal capture failed");
+        string responseCvv2Match = order?.PaymentSource?.Card?.LastDigits != null ? "Y" : "X";
+
+        await _procedures.spPayFlowRequests_Update_AnswerAsync(
+            status: isSuccess ? "COMPLETED" : "FAILED",
+            response_PNREF: responsePnref,
+            response_PPREF: responsePpref,
+            response_RESULT: isSuccess ? 0 : 1,
+            response_CVV2MATCH: responseCvv2Match,
+            response_RESPMSG: responseRespmsg,
+            response_DUPLICATE: 0,
+            response_PROCAVS: null,
+            vBNETPostType: "REST",
+            counter: counter);
+    }
+
     private static string SanitizePhoneNumber(string phone)
     {
         if (string.IsNullOrWhiteSpace(phone)) return string.Empty;
@@ -335,7 +421,10 @@ public class CheckoutController : ControllerBase
                 decimal? orderTotal = purchaseUnit.Amount.MValue != null ? decimal.Parse(purchaseUnit.Amount.MValue) : 0m;
                 decimal? creditCardAmountPaid = orderTotal; // Since we just captured the payment, the amount paid is equal to the order total
                 decimal? totalPrice = purchaseUnit.Amount.Breakdown.ItemTotal.MValue != null ? decimal.Parse(purchaseUnit.Amount.Breakdown.ItemTotal.MValue) : 0m;
+                decimal? tax = purchaseUnit.Amount.Breakdown.TaxTotal?.MValue != null ? decimal.Parse(purchaseUnit.Amount.Breakdown.TaxTotal.MValue) : 0m;
                 int? totalQuantity = purchaseUnit.Items?.Sum(x => int.Parse(x.Quantity)) ?? 0;
+
+                await UpdatePayFlowRequestAnswerAsync(result.Data, isSuccess: true);
                 
                 await _procedures.spRecordPurchaseAsync(
                     c.LogInEmail, 
@@ -386,7 +475,7 @@ public class CheckoutController : ControllerBase
                     ipAddress,
                     noOrderNotes,
                     shipping,
-                    0m, // Tax is 0 because we are not calculating tax in this example. You may want to implement tax calculation logic in the future and pass the calculated tax amount here instead of 0.
+                    tax,
                     totalPrice,
                     orderTotal,
                     totalQuantity,
@@ -411,6 +500,7 @@ public class CheckoutController : ControllerBase
 
             // 2. Failure Path (Descriptive Error)
             // This mimics your old 'BadRequest(errorBody)' logic
+            await UpdatePayFlowRequestAnswerAsync(order: null, isSuccess: false, failureMessage: "PayPal capture returned a non-success status.");
             return StatusCode((int)result.StatusCode, new
             {
                 message = "PayPal Capture Failed",
@@ -419,6 +509,7 @@ public class CheckoutController : ControllerBase
         }
         catch (Exception ex)
         {
+            await UpdatePayFlowRequestAnswerAsync(order: null, isSuccess: false, failureMessage: ex.Message);
             var paypalErrEx = ex as PaypalServerSdk.Standard.Exceptions.ErrorException;
             if (paypalErrEx != null)
             {

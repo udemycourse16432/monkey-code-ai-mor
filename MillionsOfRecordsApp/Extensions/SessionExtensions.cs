@@ -101,7 +101,15 @@ public static class SessionExtensions
     private static string KeyPostalCodeHelpShipping = "PostalCodeHelpShipping";
     private static string KeyShippingCartPostalCode = "ShippingCartPostalCode";
     private static string KeySelectedShippingCode = "SelectedShippingCode";
-    
+    private const string KeyPayFlowRequestCounter = "PayFlowRequestCounter";
+
+    public static int GetPayFlowRequestCounter(this ISession session)
+        => session.GetInt32(KeyPayFlowRequestCounter) ?? 0;
+    public static void SetPayFlowRequestCounter(this ISession session, int counter)
+        => session.SetInt32(KeyPayFlowRequestCounter, counter);
+    public static void ClearPayFlowRequestCounter(this ISession session)
+        => session.Remove(KeyPayFlowRequestCounter);
+
     public static string GetSearchId(this ISession session)
     {
         // Port as is: Replicating the legacy SearchID structure

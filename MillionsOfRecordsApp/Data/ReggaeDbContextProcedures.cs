@@ -1651,6 +1651,297 @@ namespace MillionsOfRecordsApp.Data
             return _;
         }
 
+        public virtual async Task<List<spPayFlowRequests_InsertResult>> spPayFlowRequests_InsertAsync(string encryptionKey, string status, string userAgent, string request_TRXTYPE, string request_TENDER, string request_ACCT, string request_EXPDATE, decimal? request_AMT, string request_CVV2, string request_BILLTOFIRSTNAME, string request_BILLTOLASTNAME, string request_BILLTOSTREET, string request_BILLTOSTREET2, string request_BILLTOCITY, string request_BILLTOSTATE, string request_BILLTOZIP, string request_BILLTOCOUNTRY, string request_CUSTIP, string request_ORDERID, string request_COMMENT1, string request_COMMENT2, string webOrderNumber, int? customerID, string rightFour, string iV, OutputParameter<int> counterOUTPUT, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterCounterOUTPUT = new SqlParameter
+            {
+                ParameterName = "CounterOUTPUT",
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = counterOUTPUT?._value ?? Convert.DBNull,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "EncryptionKey",
+                    Size = 100,
+                    Value = encryptionKey ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Status",
+                    Size = 20,
+                    Value = status ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "UserAgent",
+                    Size = 300,
+                    Value = userAgent ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_TRXTYPE",
+                    Size = 1,
+                    Value = request_TRXTYPE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_TENDER",
+                    Size = 1,
+                    Value = request_TENDER ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_ACCT",
+                    Size = 25,
+                    Value = request_ACCT ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_EXPDATE",
+                    Size = 6,
+                    Value = request_EXPDATE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_AMT",
+                    Precision = 9,
+                    Scale = 2,
+                    Value = request_AMT ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_CVV2",
+                    Size = 4,
+                    Value = request_CVV2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOFIRSTNAME",
+                    Size = 30,
+                    Value = request_BILLTOFIRSTNAME ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOLASTNAME",
+                    Size = 30,
+                    Value = request_BILLTOLASTNAME ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOSTREET",
+                    Size = 30,
+                    Value = request_BILLTOSTREET ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOSTREET2",
+                    Size = 30,
+                    Value = request_BILLTOSTREET2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOCITY",
+                    Size = 20,
+                    Value = request_BILLTOCITY ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOSTATE",
+                    Size = 2,
+                    Value = request_BILLTOSTATE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOZIP",
+                    Size = 9,
+                    Value = request_BILLTOZIP ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_BILLTOCOUNTRY",
+                    Size = 3,
+                    Value = request_BILLTOCOUNTRY ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_CUSTIP",
+                    Size = 20,
+                    Value = request_CUSTIP ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_ORDERID",
+                    Size = 100,
+                    Value = request_ORDERID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_COMMENT1",
+                    Size = 128,
+                    Value = request_COMMENT1 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Request_COMMENT2",
+                    Size = 128,
+                    Value = request_COMMENT2 ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WebOrderNumber",
+                    Size = 20,
+                    Value = webOrderNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CustomerID",
+                    Value = customerID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "RightFour",
+                    Size = 4,
+                    Value = rightFour ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IV",
+                    Size = 50,
+                    Value = iV ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterCounterOUTPUT,
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spPayFlowRequests_InsertResult>("EXEC @returnValue = [dbo].[spPayFlowRequests_Insert] @EncryptionKey = @EncryptionKey, @Status = @Status, @UserAgent = @UserAgent, @Request_TRXTYPE = @Request_TRXTYPE, @Request_TENDER = @Request_TENDER, @Request_ACCT = @Request_ACCT, @Request_EXPDATE = @Request_EXPDATE, @Request_AMT = @Request_AMT, @Request_CVV2 = @Request_CVV2, @Request_BILLTOFIRSTNAME = @Request_BILLTOFIRSTNAME, @Request_BILLTOLASTNAME = @Request_BILLTOLASTNAME, @Request_BILLTOSTREET = @Request_BILLTOSTREET, @Request_BILLTOSTREET2 = @Request_BILLTOSTREET2, @Request_BILLTOCITY = @Request_BILLTOCITY, @Request_BILLTOSTATE = @Request_BILLTOSTATE, @Request_BILLTOZIP = @Request_BILLTOZIP, @Request_BILLTOCOUNTRY = @Request_BILLTOCOUNTRY, @Request_CUSTIP = @Request_CUSTIP, @Request_ORDERID = @Request_ORDERID, @Request_COMMENT1 = @Request_COMMENT1, @Request_COMMENT2 = @Request_COMMENT2, @WebOrderNumber = @WebOrderNumber, @CustomerID = @CustomerID, @RightFour = @RightFour, @IV = @IV, @CounterOUTPUT = @CounterOUTPUT OUTPUT", sqlParameters, cancellationToken);
+
+            counterOUTPUT?.SetValue(parameterCounterOUTPUT.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> spPayFlowRequests_Update_AnswerAsync(string status, string response_PNREF, string response_PPREF, int? response_RESULT, string response_CVV2MATCH, string response_RESPMSG, short? response_DUPLICATE, string response_PROCAVS, string vBNETPostType, int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Status",
+                    Size = 50,
+                    Value = status ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Response_PNREF",
+                    Size = 20,
+                    Value = response_PNREF ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Response_PPREF",
+                    Size = 25,
+                    Value = response_PPREF ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Response_RESULT",
+                    Value = response_RESULT ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Response_CVV2MATCH",
+                    Size = 1,
+                    Value = response_CVV2MATCH ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Response_RESPMSG",
+                    Size = -1,
+                    Value = response_RESPMSG ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Response_DUPLICATE",
+                    Value = response_DUPLICATE ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.SmallInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Response_PROCAVS",
+                    Size = 10,
+                    Value = response_PROCAVS ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "VBNETPostType",
+                    Size = 10,
+                    Value = vBNETPostType ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Counter",
+                    Value = counter ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spPayFlowRequests_Update_Answer] @Status = @Status, @Response_PNREF = @Response_PNREF, @Response_PPREF = @Response_PPREF, @Response_RESULT = @Response_RESULT, @Response_CVV2MATCH = @Response_CVV2MATCH, @Response_RESPMSG = @Response_RESPMSG, @Response_DUPLICATE = @Response_DUPLICATE, @Response_PROCAVS = @Response_PROCAVS, @VBNETPostType = @VBNETPostType, @Counter = @Counter", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<List<spGetPendingCustomerOrdersResult>> spGetPendingCustomerOrdersAsync(int? customerServerCounter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter

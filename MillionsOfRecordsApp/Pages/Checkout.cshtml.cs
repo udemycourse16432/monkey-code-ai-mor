@@ -13,12 +13,14 @@ namespace MillionsOfRecordsApp.Pages
         private readonly IConfiguration _config;
         private readonly ShippingService _shippingService;
         private readonly OrderService _orderService;
-        public CheckoutModel(ReggaeDbContext context, IReggaeDbContextProcedures procedures, ShippingService shippingService, CartService cartService, IConfiguration config, OrderService orderService) :
+        private readonly TaxService _taxService;
+        public CheckoutModel(ReggaeDbContext context, IReggaeDbContextProcedures procedures, ShippingService shippingService, CartService cartService, IConfiguration config, OrderService orderService, TaxService taxService) :
             base(context, cartService, procedures)
         {
             _shippingService = shippingService;
             _config = config;
             _orderService = orderService;
+            _taxService = taxService;
         }
         public List<ShippingMethodDto> ShippingMethods { get; set; } = new();
 
@@ -44,7 +46,8 @@ namespace MillionsOfRecordsApp.Pages
         public string BillingCountry { get; set; } = "";
         public decimal ProductsPrice { get; set; }
         public decimal ShippingCost { get; set; }
-        public decimal TotalAmount => ProductsPrice + ShippingCost;
+        public decimal TaxAmount { get; set; }
+        public decimal TotalAmount => ProductsPrice + ShippingCost + TaxAmount;
         public string SearchId { get; set; } = string.Empty;
         public List<CartItemDto> CartItems { get; set; } = new();
 
@@ -99,6 +102,7 @@ namespace MillionsOfRecordsApp.Pages
                     ShippingMethods = await _shippingService.CalculateShippingOptionsAsync(customerDetails, ProductsPrice, totalCartItems, HttpContext.Session.GetTotalWeightGrams());
                     SelectedShippingCode = ShippingMethods.FirstOrDefault()?.Code ?? "";
                     ShippingCost = await _shippingService.FindZoneAndCalculateShippingChargeAsync(ProductsPrice, totalCartItems);
+                    TaxAmount = await _taxService.CalculateTaxAsync(customerDetails, ProductsPrice, ShippingCost);
                     var imgBase = _config["Appsettings:ImagesPath"] ?? "https://cdn.millionsofrecords.com/inventory_images/";
                     CartItems = cartResults.Select(r => new CartItemDto
                     {
