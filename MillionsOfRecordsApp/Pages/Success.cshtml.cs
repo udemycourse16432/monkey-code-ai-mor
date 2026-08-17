@@ -87,6 +87,14 @@ public class SuccessModel : MillionsBasePageModel
             return RedirectToPage("YourOrders");
         }
         spGetOrdersRowResult orderRow = ordersRowResults.First();
+
+        // Security: the order must belong to the currently logged-in customer.
+        // Prevent IDOR - enumeration of other customers' order confirmations.
+        if (orderRow.CustomerServerCounter != HttpContext.Session.GetCustomerServerCounter())
+        {
+            return RedirectToPage("YourOrders");
+        }
+
         List<spGetWebSHIPX_ShippingMethodsRowResult> shippingMethods = await _procedures.spGetWebSHIPX_ShippingMethodsRowAsync(orderRow.ShippingMethod);
 
         // 'Shipping Method and Payment Method
