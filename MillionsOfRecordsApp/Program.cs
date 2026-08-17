@@ -14,6 +14,15 @@ namespace MillionsOfRecordsApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // --- USER SECRETS (DEVELOPMENT ONLY) ---
+            // Keeps PayPal credentials (and any other secrets) out of source control.
+            // Store local secrets with: dotnet user-secrets set "PayPal:ClientId" "..." etc.
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Configuration.AddUserSecrets<Program>();
+            }
+
             // --- FORWARDED HEADERS CONFIGURATION ---
             // This is required when the app is deployed behind a proxy (IIS, Nginx, Cloudflare, Azure).
             // It ensures context.Connection.RemoteIpAddress returns the user's real IP, 
@@ -33,6 +42,7 @@ namespace MillionsOfRecordsApp
                 //SessionInitMiddleware runs and saves that IP into "RemHost" session variable.
             });
             builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.Configure<PayPalOptions>(builder.Configuration.GetSection("PayPal"));
             builder.Services.AddTransient<IEmailService, EmailService>();
 
             // --- 1. REGISTER SERVICES ---
@@ -92,6 +102,8 @@ namespace MillionsOfRecordsApp
 
             var app = builder.Build();
 
+            ValidatePayPalConfiguration(app);
+
             app.UseForwardedHeaders();
 
             // --- CONFIGURE MIME TYPES FOR FONTS & REACT ASSETS ---
@@ -148,6 +160,31 @@ namespace MillionsOfRecordsApp
             }
 
             app.Run();
+        }
+
+        private static void ValidatePayPalConfiguration(WebApplication app)
+        {
+            var payPal = app.Configuration.GetSection("PayPal").Get<PayPalOptions>()
+                ?? new PayPalOptions();
+
+            if (string.IsNullOrWhiteSpace(payPal.ClientId) || string.IsNullOrWhiteSpace(payPal.Secret))
+            {
+                if (app.Environment.IsDevelopment())
+                {
+                    throw new InvalidOperationException(
+                        "PayPal credentials are not configured for local development. " +
+                        "Set them via .NET user secrets (they must NOT live in appsettings.json or source control):\n" +
+                        "  dotnet user-secrets init\n" +
+                        "  dotnet user-secrets set \"PayPal:ClientId\" \"<your-sandbox-client-id>\"\n" +
+                        "  dotnet user-secrets set \"PayPal:Secret\" \"<your-sandbox-secret>\"");
+                }
+
+                throw new InvalidOperationException(
+                    "PayPal credentials are not configured for production. " +
+                    "Set the PayPal__ClientId and PayPal__Secret environment variables " +
+                    "(or an environment-specific configuration source on the EC2/IIS host). " +
+                    "Do not commit secrets to appsettings.json or source control.");
+            }
         }
 
         private static void EnsureSmtp4DevIsRunning()

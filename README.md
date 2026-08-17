@@ -50,6 +50,29 @@ The app listens on the configured URLs; when running behind a reverse proxy make
 - Sessions: configured with cookie name `.MillionsOfRecords.Session` and 30 minute idle timeout
 - Forwarded headers: `X-Forwarded-For` and `X-Forwarded-Proto` are enabled in the app to support proxy deployments
 
+## PayPal configuration
+
+PayPal credentials (`PayPal:ClientId` and `PayPal:Secret`) are **never stored in source control**. The app validates them at startup and fails fast with environment-specific instructions if they are missing.
+
+### Local development (user secrets)
+
+Run these from the `MillionsOfRecordsApp` directory:
+
+   dotnet user-secrets init
+   dotnet user-secrets set "PayPal:ClientId" "<your-sandbox-client-id>"
+   dotnet user-secrets set "PayPal:Secret" "<your-sandbox-secret>"
+
+The non-secret PayPal settings (BaseUrl, ScriptUrl, ScripUrlAlt) stay in `appsettings.json` under the `PayPal` section.
+
+### Production (EC2 / IIS)
+
+Set environment variables (or an environment-specific configuration source on the host):
+
+   PayPal__ClientId=<your-live-or-sandbox-client-id>
+   PayPal__Secret=<your-live-or-sandbox-secret>
+
+Do not put real credentials in `appsettings.json` or any file committed to the repository.
+
 ## Project structure (important folders)
 
 - `Pages/` - Razor Pages and page models (UI)
