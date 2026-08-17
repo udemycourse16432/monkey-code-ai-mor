@@ -1,5 +1,14 @@
 ﻿async function initPayPal() {
     try {
+        // Anti-forgery token issued by the Checkout page; required on the
+        // [ValidateAntiForgeryToken] endpoints in CheckoutController.
+        function antiforgeryHeaders() {
+            return {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": window.AppConfig?.ANTIFORGERY_TOKEN || "",
+            };
+        }
+
         const paypalButtons = window.paypal.Buttons({
             style: {
                 shape: "rect",
@@ -39,9 +48,7 @@
                     const selectedShipping = selectedShippingInput ? selectedShippingInput.value : "MM";
                     const response = await fetch("/api/checkout/create-order", {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
+                        headers: antiforgeryHeaders(),
                         body: JSON.stringify({ shippingCode: selectedShipping }),
                     });
 
@@ -67,9 +74,7 @@
                         `/api/checkout/capture-order/${data.orderID}`,
                         {
                             method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
+                            headers: antiforgeryHeaders(),
                         }
                     );
 
@@ -95,29 +100,26 @@
                     } else if (!orderData.purchaseUnits) {
                         throw new Error(JSON.stringify(orderData));
                     } else {
-                        // (3) Successful transaction -> Show confirmation or thank you message
-                        // Or go to another URL:  actions.redirect('thank_you.html');
+                        // (3) Successful transaction -> redirect to the confirmation page.
                         const transaction =
                             orderData?.purchaseUnits?.[0]?.payments?.captures?.[0] ||
                             orderData?.purchaseUnits?.[0]?.payments
                                 ?.authorizations?.[0];
-                        resultMessage(
-                            `Transaction ${transaction.status}: ${transaction.id}<br>
-          <br>See console for all available details`
-                        );
                         console.log(
                             "Capture result",
                             orderData,
                             JSON.stringify(orderData, null, 2)
                         );
-                        alert(`Transaction ${transaction.status}: ${transaction.id}`);
 
-                        window.location.href = `/checkout/success?orderNumber=${transaction.customId}`;
+                        // customId is the server-generated order number (InvoiceId);
+                        // fall back to the PayPal order id if it is absent.
+                        const orderNumber = transaction?.customId || orderData?.id;
+                        window.location.href = `/checkout/success?orderNumber=${encodeURIComponent(orderNumber || "")}`;
                     }
                 } catch (error) {
                     console.error(error);
                     resultMessage(
-                        `Sorry, your transaction could not be processed...<br><br>${error}`
+                        `Sorry, your transaction could not be processed. ${error?.message || String(error)}`
                     );
                 }
             },
@@ -127,10 +129,11 @@
         paypalButtons.render("#paypal-button-container");
 
 
-        // Example function to show a result to the user. Your site's UI library can be used instead.
+        // Display a result to the user. textContent (not innerHTML) prevents
+        // XSS from any HTML embedded in PayPal error/description values.
         function resultMessage(message) {
             const container = document.querySelector("#result-message");
-            container.innerHTML = message;
+            container.textContent = message;
         }
     } catch (error) {
         console.error("SDK Init Failed", error);

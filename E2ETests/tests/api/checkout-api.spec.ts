@@ -9,17 +9,20 @@ import { hasTestUser, hasItemId } from '../../fixtures/extended-test';
  *   POST /api/checkout/create-order          -> PayPal Orders/Create, returns PayPal Order
  *   POST /api/checkout/capture-order/{id}    -> PayPal Orders/Capture + spRecordPurchase
  *
- * Both endpoints rely on a logged-in session (customer server counter) and a
- * populated cart. PayPal sandbox credentials are required for a true order id.
+ * Both endpoints rely on a logged-in session (customer server counter), a
+ * populated cart, and an anti-forgery token (the Checkout page issues
+ * `window.AppConfig.ANTIFORGERY_TOKEN` paired with the antiforgery cookie).
+ * PayPal sandbox credentials are required for a true order id.
  */
 test.describe('Checkout API - create-order', () => {
   test('fails gracefully without a logged-in customer session', async ({ request }) => {
+    // The [ValidateAntiForgeryToken] filter rejects the token-less POST with a
+    // 400 before any session logic runs, so an unauthenticated request cannot
+    // reach the PayPal API.
     const res = await request.post('/api/checkout/create-order', {
       data: { shippingCode: 'MM' },
     });
-    // No customer details in session -> spGetCustomerDetailsByServerCounter is
-    // empty and First() throws -> mapped to a 5xx error response.
-    expect([400, 500]).toContain(res.status());
+    expect(res.status()).toBe(400);
   });
 
   test('returns a PayPal order id for a signed-in user with a cart', async ({ page, request, envConfig, testData }) => {
@@ -33,12 +36,19 @@ test.describe('Checkout API - create-order', () => {
     });
     await signInViaUi(page, envConfig.userEmail, envConfig.userPassword);
 
+    // The Checkout page issues the anti-forgery token + cookie required by
+    // the [ValidateAntiForgeryToken] endpoints.
+    await page.goto('/checkout');
+    const antiforgeryToken = await page.evaluate(() =>
+      (window as any).AppConfig?.ANTIFORGERY_TOKEN,
+    );
+
     const cookies = await page.context().cookies();
     const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join('; ');
 
     const res = await request.post('/api/checkout/create-order', {
       data: { shippingCode: 'MM' },
-      headers: { Cookie: cookieHeader },
+      headers: { Cookie: cookieHeader, RequestVerificationToken: antiforgeryToken },
     });
 
     expect(res.ok()).toBeTruthy();
@@ -55,11 +65,18 @@ test.describe('Checkout API - capture-order', () => {
 
     await page.goto('/');
     await signInViaUi(page, envConfig.userEmail, envConfig.userPassword);
+
+    // The Checkout page issues the anti-forgery token + cookie required by
+    // the [ValidateAntiForgeryToken] endpoints.
+    await page.goto('/checkout');
+    const antiforgeryToken = await page.evaluate(() =>
+      (window as any).AppConfig?.ANTIFORGERY_TOKEN,
+    );
     const cookies = await page.context().cookies();
     const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join('; ');
 
     const res = await request.post('/api/checkout/capture-order/INVALID-ORDER-ID', {
-      headers: { Cookie: cookieHeader },
+      headers: { Cookie: cookieHeader, RequestVerificationToken: antiforgeryToken },
     });
 
     // PayPal returns a 4xx (UNPROCESSABLE_ENTITY etc.); the controller mirrors it.

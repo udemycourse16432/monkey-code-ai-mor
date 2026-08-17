@@ -1,5 +1,6 @@
 ﻿@page "/checkout"
 @model MillionsOfRecordsApp.Pages.CheckoutModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @{
     ViewData["Title"] = "Checkout";
     string paypalClientId = Configuration.GetValue<string>("PayPal:ClientId") ?? throw new ApplicationException("PayPal:ClientId configuration missing!");
@@ -7,6 +8,7 @@
     string buyerCountryAbbr = "US";
     string currency = "USD";
     string scriptUrl = $"{paypalUrl}?client-id={paypalClientId}&buyer-country={buyerCountryAbbr}&currency={currency}&components=buttons&enable-funding=card&disable-funding=paylater,venmo&intent=capture";
+    var antiforgeryToken = Antiforgery.GetAndStoreTokens(HttpContext).RequestToken;
 }
 
 <section class="checkout">
@@ -142,7 +144,13 @@
     <link rel="stylesheet" href="~/css/pages/checkout.css" asp-append-version="true" />
 }
 @section Scripts {
-   
+    <script>
+        // Anti-forgery token paired with the .AspNetCore.Antiforgery cookie set on
+        // this page. Sent as the RequestVerificationToken header on POSTs that are
+        // decorated with [ValidateAntiForgeryToken].
+        window.AppConfig = window.AppConfig || {};
+        window.AppConfig.ANTIFORGERY_TOKEN = "@antiforgeryToken";
+    </script>
 
     <script id="paypal-sdk" 
         src="@scriptUrl" 

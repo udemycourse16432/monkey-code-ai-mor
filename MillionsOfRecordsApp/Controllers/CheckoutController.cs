@@ -117,6 +117,7 @@ public class CheckoutController : ControllerBase
     public record CreateOrderRequest(string ShippingCode);
 
     [HttpPost("create-order")]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest req)
     {
         try
@@ -382,6 +383,7 @@ public class CheckoutController : ControllerBase
     }
 
     [HttpPost("capture-order/{orderId}")]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> CaptureOrder(string orderId)
     {
         try
@@ -408,11 +410,13 @@ public class CheckoutController : ControllerBase
                 string poNumber = null;
                 string yesPrintedInvoice = "y";
                 string noHowFoundUs = "-";
-                string remHost = Request.Headers["X-Forwarded-For"].FirstOrDefault() ?? HttpContext.Connection.RemoteIpAddress?.ToString() ?? null;
+                // SECURITY: Only use the IP resolved by UseForwardedHeaders from a configured
+                // trusted proxy. Never read X-Forwarded-For directly - it is spoofable by any client.
+                string remHost = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
                 string sessionId = HttpContext.Session.Id;
                 string selectedShippingMethod = HttpContext.Session.GetSelectedShippingCode() ?? "Not Selected";
                 string orderedStatus = "ordered";
-                var ipAddress = remHost ?? "Unknown";
+                string ipAddress = remHost;
                 string noOrderNotes = ""; // TODO: You can implement logic to generate order notes based on the order details and pass that here instead of an empty string.
                 
                 var purchaseUnit = result.Data.PurchaseUnits.First();

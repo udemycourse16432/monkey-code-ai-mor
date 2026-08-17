@@ -48,7 +48,27 @@ The app listens on the configured URLs; when running behind a reverse proxy make
 
 - Connection string: `ConnectionStrings:ReggaeDbContextConnection` (SQL Server)
 - Sessions: configured with cookie name `.MillionsOfRecords.Session` and 30 minute idle timeout
-- Forwarded headers: `X-Forwarded-For` and `X-Forwarded-Proto` are enabled in the app to support proxy deployments
+- Forwarded headers: `X-Forwarded-For` and `X-Forwarded-Proto` are processed, but **only when the direct connection comes from a trusted proxy** (see `ForwardedHeaders` config below). Client-spoofed headers are ignored.
+- CSRF protection: the checkout API (`/api/checkout/*`) is guarded by `[ValidateAntiForgeryToken]`; the checkout page issues a token that `checkout.js` sends as the `RequestVerificationToken` header.
+- Client IP: `HttpContext.Connection.RemoteIpAddress` is used everywhere (never the raw `X-Forwarded-For` header).
+
+## Forwarded headers / proxy trust
+
+The app trusts forwarded headers only from proxies explicitly listed under the `ForwardedHeaders` configuration section:
+
+```json
+"ForwardedHeaders": {
+  "KnownNetworks": [],
+  "KnownProxies": []
+}
+```
+
+- `KnownProxies` — single proxy IPs (e.g. `["173.245.48.0", "2a06:98c0:3600::103"]`).
+- `KnownNetworks` — CIDR subnets, e.g. Cloudflare's ranges:
+  `[{"Prefix": "173.245.48.0", "PrefixLength": 20}]`.
+- When both lists are empty the framework defaults apply (loopback only), so spoofed `X-Forwarded-For` values from the public internet are ignored.
+
+Do **not** blanket-trust forwarded headers by clearing these lists, or any client can forge their IP address and bypass IP-based security checks.
 
 ## PayPal configuration
 
@@ -94,7 +114,7 @@ If the project relies on stored procedures or a pre-existing schema, ensure your
 
 ## Running behind a proxy / deployment notes
 
-- Forwarded headers are enabled in `Program.cs` for `X-Forwarded-For` and `X-Forwarded-Proto`.
+- Forwarded headers are enabled in `Program.cs` for `X-Forwarded-For` and `X-Forwarded-Proto`, but only trusted from proxies listed in the `ForwardedHeaders` configuration section (see above). Empty lists fall back to loopback-only trust.
 - Static files have additional content types registered for web fonts and manifest files.
 - HSTS and exception handling are configured for non-development environments.
 

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Net;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
@@ -24,22 +25,53 @@ namespace MillionsOfRecordsApp
             }
 
             // --- FORWARDED HEADERS CONFIGURATION ---
-            // This is required when the app is deployed behind a proxy (IIS, Nginx, Cloudflare, Azure).
-            // It ensures context.Connection.RemoteIpAddress returns the user's real IP, 
-            // and context.Request.Scheme correctly detects HTTPS.
+            // Required when the app is deployed behind a proxy (IIS, Nginx, Cloudflare, Azure).
+            // It ensures context.Connection.RemoteIpAddress returns the user's real IP and
+            // context.Request.Scheme correctly detects HTTPS.
+            //
+            // SECURITY: X-Forwarded-For / X-Forwarded-Proto are only honored when the direct
+            // connection comes from a proxy explicitly listed under the "ForwardedHeaders"
+            // configuration section (KnownProxies = single IPs, KnownNetworks = CIDR subnets).
+            // An empty list keeps the framework defaults (loopback only), so client-spoofed
+            // headers are ignored. Never blanket-trust these headers by clearing the lists.
             builder.Services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-                // Note: Clear these only if you trust the headers coming from your network infrastructure.
-                // This is often necessary for cloud environments like Azure App Service or Cloudflare.
-                options.KnownIPNetworks.Clear();
-                options.KnownProxies.Clear();
 
-                //Summary of the Flow
-                //When a user visits millionsofrecords.com:
-                //Cloudflare / IIS adds a header: X-Forwarded-For: 203.0.113.195.
-                //UseForwardedHeaders reads that and sets context.Connection.RemoteIpAddress = 203.0.113.195.
-                //SessionInitMiddleware runs and saves that IP into "RemHost" session variable.
+                var fwd = builder.Configuration.GetSection("ForwardedHeaders");
+
+                var knownProxies = fwd.GetSection("KnownProxies").Get<IReadOnlyList<string>>();
+                if (knownProxies is { Count: > 0 })
+                {
+                    options.KnownProxies.Clear();
+                    foreach (var value in knownProxies)
+                    {
+                        if (IPAddress.TryParse(value, out var ip))
+                        {
+                            options.KnownProxies.Add(ip);
+                        }
+                    }
+                }
+
+                var knownNetworks = fwd.GetSection("KnownNetworks").GetChildren().ToList();
+                if (knownNetworks.Count > 0)
+                {
+                    options.KnownIPNetworks.Clear();
+                    foreach (var entry in knownNetworks)
+                    {
+                        if (IPAddress.TryParse(entry["Prefix"], out var prefix) &&
+                            int.TryParse(entry["PrefixLength"], out var prefixLength))
+                        {
+                            options.KnownIPNetworks.Add(new System.Net.IPNetwork(prefix, prefixLength));
+                        }
+                    }
+                }
+
+                // Summary of the flow:
+                // When a user visits millionsofrecords.com:
+                // Cloudflare / IIS adds X-Forwarded-For: 203.0.113.195.
+                // UseForwardedHeaders (only for trusted proxies) sets
+                // context.Connection.RemoteIpAddress = 203.0.113.195.
             });
             builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
             builder.Services.Configure<PayPalOptions>(builder.Configuration.GetSection("PayPal"));
