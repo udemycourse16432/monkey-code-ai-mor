@@ -171,15 +171,27 @@ CREATE NONCLUSTERED INDEX [IX_Inventory]
 
 
 GO
-CREATE NONCLUSTERED INDEX [IX_OPT1]
-    ON [dbo].[Inventory]([Format] ASC, [UsedItem] ASC, [ShowOnWebsite] ASC, [ID] ASC, [Inventory] ASC)
-    INCLUDE([ArtistTitle], [SalesLast30Days]);
+-- Covering indexes for the "top N per format" queries used by the home page and shop
+-- (ORDER BY SalesLast30Days DESC / InStockDate DESC / BackInStockDate DESC with
+--  WHERE Format = ... AND ShowOnWebsite = 'y' AND Deleted = 'n' AND Inventory > 0).
+-- The trailing key columns mirror each ORDER BY so SQL Server can scan the index in
+-- order and stop after TOP N without sorting the whole format partition. UsedItem and
+-- Inventory are available (key or INCLUDE) so the residual predicates need no row lookup.
+CREATE NONCLUSTERED INDEX [IX_OPT_BestSellers]
+    ON [dbo].[Inventory]([Format] ASC, [ShowOnWebsite] ASC, [Deleted] ASC, [SalesLast30Days] DESC, [Inventory] DESC, [ID] DESC)
+    INCLUDE([UsedItem]);
 
 
 GO
-CREATE NONCLUSTERED INDEX [IX_OPT2]
-    ON [dbo].[Inventory]([Format] ASC, [UsedItem] ASC, [ShowOnWebsite] ASC, [ID] ASC, [Inventory] ASC)
-    INCLUDE([RhythmName], [YearFrom], [YearTo], [SalesLast30Days], [Genre1], [Genre2], [Genre3], [Genre4], [Genre5], [Genre6], [Genre7], [Genre8], [Genre9]);
+CREATE NONCLUSTERED INDEX [IX_OPT_NewReleases]
+    ON [dbo].[Inventory]([Format] ASC, [ShowOnWebsite] ASC, [Deleted] ASC, [InStockDate] DESC, [ID] DESC)
+    INCLUDE([UsedItem], [Inventory]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_OPT_BackInStock]
+    ON [dbo].[Inventory]([Format] ASC, [ShowOnWebsite] ASC, [Deleted] ASC, [BackInStockDate] DESC, [ID] DESC)
+    INCLUDE([UsedItem], [Inventory]);
 
 
 GO
