@@ -1,6 +1,7 @@
 ﻿using MillionsOfRecordsApp.Models.Shared;
 using System.Data;
 using System.Data.Common;
+using System.Globalization;
 
 namespace MillionsOfRecordsApp.Extensions;
 
@@ -102,6 +103,32 @@ public static class SessionExtensions
     private static string KeyShippingCartPostalCode = "ShippingCartPostalCode";
     private static string KeySelectedShippingCode = "SelectedShippingCode";
     private const string KeyPayFlowRequestCounter = "PayFlowRequestCounter";
+    private const string KeyExpectedCheckoutTotal = "ExpectedCheckoutTotal";
+    private const string KeyCheckoutOrderNumber = "CheckoutOrderNumber";
+    private const string KeyOrderCaptured = "OrderCaptured";
+
+    // The total (products + shipping + tax) computed server-side when the PayPal
+    // order was created. Compared against the captured amount before the purchase
+    // is recorded (anti-tampering / anti-fraud check).
+    public static decimal GetExpectedCheckoutTotal(this ISession session)
+        => decimal.TryParse(session.GetString(KeyExpectedCheckoutTotal), NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0m;
+    public static void SetExpectedCheckoutTotal(this ISession session, decimal total)
+        => session.SetString(KeyExpectedCheckoutTotal, total.ToString(CultureInfo.InvariantCulture));
+    public static void ClearExpectedCheckoutTotal(this ISession session)
+        => session.Remove(KeyExpectedCheckoutTotal);
+
+    // The generated web order number (refId / InvoiceId) for the current checkout.
+    public static string GetCheckoutOrderNumber(this ISession session)
+        => session.GetString(KeyCheckoutOrderNumber) ?? "";
+    public static void SetCheckoutOrderNumber(this ISession session, string? orderNumber)
+        => session.SetString(KeyCheckoutOrderNumber, orderNumber ?? "");
+
+    // Set once the capture has been verified and the purchase recorded, so a
+    // double-click / timeout retry can short-circuit instead of capturing twice.
+    public static bool GetOrderCaptured(this ISession session)
+        => session.GetString(KeyOrderCaptured) == "true";
+    public static void SetOrderCaptured(this ISession session, bool captured)
+        => session.SetString(KeyOrderCaptured, captured ? "true" : "");
 
     public static int GetPayFlowRequestCounter(this ISession session)
         => session.GetInt32(KeyPayFlowRequestCounter) ?? 0;

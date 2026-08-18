@@ -3500,6 +3500,77 @@ namespace MillionsOfRecordsApp.Data
             return _;
         }
 
+        public virtual async Task<int> spUpdatePayPalPaymentInfoAsync(string orderNumber, string paypalTransactionID, string payPalPaymentStatus, string payPalEmail, decimal? payPalAmountPaid, decimal? paypalAmountDue, string payPalPendingReason, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "OrderNumber",
+                    Size = 30,
+                    Value = orderNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PaypalTransactionID",
+                    Size = 100,
+                    Value = paypalTransactionID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PayPalPaymentStatus",
+                    Size = 100,
+                    Value = payPalPaymentStatus ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PayPalEmail",
+                    Size = 200,
+                    Value = payPalEmail ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PayPalAmountPaid",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = payPalAmountPaid ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PaypalAmountDue",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = paypalAmountDue ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PayPalPendingReason",
+                    Size = 100,
+                    Value = payPalPendingReason ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[spUpdatePayPalPaymentInfo] @OrderNumber = @OrderNumber, @PaypalTransactionID = @PaypalTransactionID, @PayPalPaymentStatus = @PayPalPaymentStatus, @PayPalEmail = @PayPalEmail, @PayPalAmountPaid = @PayPalAmountPaid, @PaypalAmountDue = @PaypalAmountDue, @PayPalPendingReason = @PayPalPendingReason", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<List<spResidentialDeliveryResult>> spResidentialDeliveryAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter

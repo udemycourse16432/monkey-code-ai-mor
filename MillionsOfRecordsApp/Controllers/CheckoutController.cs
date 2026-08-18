@@ -161,6 +161,14 @@ public class CheckoutController : ControllerBase
         string refId = await _orderService.GenerateUniqueOrderNumberAsync();
         var cleanedPhone = SanitizePhoneNumber(customerDetails.Phone);
 
+        // Persist the server-computed total and order number for the capture
+        // step: the captured amount is cross-checked against this expected
+        // total before the purchase is recorded (anti-tampering).
+        decimal expectedTotal = checkoutData.ProductsPrice + checkoutData.ShippingCost + checkoutData.TaxAmount;
+        HttpContext.Session.SetCheckoutOrderNumber(refId);
+        HttpContext.Session.SetExpectedCheckoutTotal(expectedTotal);
+        HttpContext.Session.SetOrderCaptured(false);
+
         var items = new List<ItemRequest>();
         foreach (var cart in cartResults)
         {
@@ -231,15 +239,15 @@ public class CheckoutController : ControllerBase
                         },
                         Shipping = new ShippingDetails {
                             Type = FulfillmentType.Shipping,
-                            Name = new ShippingName(customerDetails.BillingFullName),
+                            Name = new ShippingName(customerDetails.FullName),
                             PhoneNumber = new PhoneNumberWithCountryCode("1", cleanedPhone),
                             Address = new Address {
-                                AddressLine1 = customerDetails.BillingStreetAddress1,
-                                AddressLine2 = customerDetails.BillingStreetAddress2,
-                                AdminArea1 = (await GetStateCode(customerDetails.BillingStateProvince)),
-                                AdminArea2 = customerDetails.BillingCity,
-                                PostalCode = customerDetails.BillingPostalCode,
-                                CountryCode = GetCountryCode(customerDetails.BillingCountry)
+                                AddressLine1 = customerDetails.StreetAddress1,
+                                AddressLine2 = customerDetails.StreetAddress2,
+                                AdminArea1 = (await GetStateCode(customerDetails.StateProvince)),
+                                AdminArea2 = customerDetails.City,
+                                PostalCode = customerDetails.PostalCode,
+                                CountryCode = GetCountryCode(customerDetails.Country)
                             }
                         },
                         Items = items,
@@ -395,6 +403,21 @@ public class CheckoutController : ControllerBase
             var customerResults = await _procedures.spGetCustomerDetailsByServerCounterAsync(customerServerCounter);
             spGetCustomerDetailsByServerCounterResult c = customerResults.FirstOrDefault() ?? throw new InvalidOperationException("cusomer server counter is null in the session. CRITICAL ERROR!!");
 
+            // C4: short-circuit a retry/double-click once the order has already
+            // been captured and recorded, instead of capturing/recording again.
+            string sessionOrderNumber = HttpContext.Session.GetCheckoutOrderNumber();
+            if (HttpContext.Session.GetOrderCaptured() ||
+                (!string.IsNullOrWhiteSpace(sessionOrderNumber) &&
+                 (await _procedures.spSeeIfOrderNumberExistsAsync(sessionOrderNumber)).Count > 0))
+            {
+                return Ok(new
+                {
+                    message = "This order has already been processed.",
+                    orderNumber = sessionOrderNumber,
+                    alreadyProcessed = true
+                });
+            }
+
             var result = await _CaptureOrder(orderId);
 
             // 1. Success Path (200-299)
@@ -420,13 +443,45 @@ public class CheckoutController : ControllerBase
                 string noOrderNotes = ""; // TODO: You can implement logic to generate order notes based on the order details and pass that here instead of an empty string.
                 
                 var purchaseUnit = result.Data.PurchaseUnits.First();
+                var capture = purchaseUnit.Payments?.Captures?.FirstOrDefault();
                 var orderNumber = purchaseUnit.InvoiceId ?? result.Data.Id; // Fallback to Order ID if Invoice ID is not set
-                decimal? shipping = purchaseUnit.Amount.Breakdown.Shipping.MValue != null ? decimal.Parse(purchaseUnit.Amount.Breakdown.Shipping.MValue) : 0m;
-                decimal? orderTotal = purchaseUnit.Amount.MValue != null ? decimal.Parse(purchaseUnit.Amount.MValue) : 0m;
+
+                // C2: parse PayPal decimal/int values culture-invariantly so a
+                // non-US server (e.g. comma decimal separator) cannot throw.
+                decimal? shipping = purchaseUnit.Amount?.Breakdown?.Shipping?.MValue is { } shippingValue
+                    ? decimal.Parse(shippingValue, NumberStyles.Any, CultureInfo.InvariantCulture)
+                    : 0m;
+                decimal? orderTotal = purchaseUnit.Amount?.MValue is { } orderTotalValue
+                    ? decimal.Parse(orderTotalValue, NumberStyles.Any, CultureInfo.InvariantCulture)
+                    : 0m;
                 decimal? creditCardAmountPaid = orderTotal; // Since we just captured the payment, the amount paid is equal to the order total
-                decimal? totalPrice = purchaseUnit.Amount.Breakdown.ItemTotal.MValue != null ? decimal.Parse(purchaseUnit.Amount.Breakdown.ItemTotal.MValue) : 0m;
-                decimal? tax = purchaseUnit.Amount.Breakdown.TaxTotal?.MValue != null ? decimal.Parse(purchaseUnit.Amount.Breakdown.TaxTotal.MValue) : 0m;
-                int? totalQuantity = purchaseUnit.Items?.Sum(x => int.Parse(x.Quantity)) ?? 0;
+                decimal? totalPrice = purchaseUnit.Amount?.Breakdown?.ItemTotal?.MValue is { } itemTotalValue
+                    ? decimal.Parse(itemTotalValue, NumberStyles.Any, CultureInfo.InvariantCulture)
+                    : 0m;
+                decimal? tax = purchaseUnit.Amount?.Breakdown?.TaxTotal?.MValue is { } taxValue
+                    ? decimal.Parse(taxValue, NumberStyles.Any, CultureInfo.InvariantCulture)
+                    : 0m;
+                int? totalQuantity = purchaseUnit.Items?.Sum(x => int.Parse(x.Quantity, CultureInfo.InvariantCulture)) ?? 0;
+
+                // C1: verify the captured amount matches the total the server
+                // computed at create time before recording the purchase. If it
+                // does not match, treat it as a mismatch/fraud attempt and do
+                // NOT mark the order as paid.
+                decimal expectedTotal = HttpContext.Session.GetExpectedCheckoutTotal();
+                decimal capturedTotal = orderTotal ?? 0m;
+                if (expectedTotal <= 0m || capturedTotal != expectedTotal)
+                {
+                    await UpdatePayFlowRequestAnswerAsync(result.Data, isSuccess: false,
+                        failureMessage: $"Captured amount {capturedTotal:F2} does not match expected total {expectedTotal:F2} for order {orderNumber}. Possible tampering.");
+                    Console.Error.WriteLine($"CHECKOUT AMOUNT MISMATCH: order {orderNumber}, expected {expectedTotal:F2}, captured {capturedTotal:F2}");
+                    return StatusCode(422, new
+                    {
+                        message = "Captured amount does not match the expected order total. The purchase was not recorded.",
+                        orderNumber,
+                        expectedTotal,
+                        capturedTotal
+                    });
+                }
 
                 await UpdatePayFlowRequestAnswerAsync(result.Data, isSuccess: true);
                 
@@ -498,6 +553,24 @@ public class CheckoutController : ControllerBase
                 var orderedQueriesCount = await _procedures.spOrderedQueriesAsync(activeCartName, guestCartName, customerServerCounter);
                 Console.WriteLine($"spOrderedQueriesAsync result count: {orderedQueriesCount}");
 
+                // C5: persist the PayPal capture details that spRecordPurchase does
+                // not write (transaction id, payment status, payer email, amounts).
+                string paypalStatus = capture?.Status?.ToString() ?? result.Data.Status?.ToString() ?? "COMPLETED";
+                string paypalPendingReason = capture?.StatusDetails?.Reason?.ToString() ?? string.Empty;
+                decimal? paypalAmountDue = paypalStatus.Equals("Pending", StringComparison.OrdinalIgnoreCase) ? orderTotal : 0m;
+                await _procedures.spUpdatePayPalPaymentInfoAsync(
+                    orderNumber: orderNumber,
+                    paypalTransactionID: capture?.Id ?? string.Empty,
+                    payPalPaymentStatus: paypalStatus,
+                    payPalEmail: result.Data.Payer?.EmailAddress ?? string.Empty,
+                    payPalAmountPaid: orderTotal,
+                    paypalAmountDue: paypalAmountDue,
+                    payPalPendingReason: paypalPendingReason);
+
+                // The capture is verified and the purchase recorded; mark it so a
+                // retry/double-click short-circuits instead of charging again.
+                HttpContext.Session.SetOrderCaptured(true);
+                HttpContext.Session.ClearExpectedCheckoutTotal();
 
                 return StatusCode((int)result.StatusCode, result.Data);
             }
@@ -541,8 +614,10 @@ public class CheckoutController : ControllerBase
         CaptureOrderInput captureOrderInput = new CaptureOrderInput
         {
             Id = orderID,
-            // Idempotency Key (Prevents double-charging if the user clicks twice)
-            PaypalRequestId = Guid.NewGuid().ToString(),
+            // Idempotency Key (Prevents double-charging if the user clicks twice).
+            // Must be deterministic per order so a timeout/retry reuses the same
+            // key and PayPal returns the original capture instead of charging again.
+            PaypalRequestId = $"{orderID}-capture",
             // Tells PayPal to return the full order object in the response
             Prefer = "return=representation"
         };

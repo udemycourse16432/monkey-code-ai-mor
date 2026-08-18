@@ -97,6 +97,11 @@
                         throw new Error(
                             `${errorDetail.description} (${orderData.debug_id})`
                         );
+                    } else if (orderData?.alreadyProcessed && orderData?.orderNumber) {
+                        // (3a) The capture was already processed on a previous
+                        // attempt (double-click / timeout retry) - go straight
+                        // to the confirmation page.
+                        window.location.href = `/checkout/success?orderNumber=${encodeURIComponent(orderData.orderNumber)}`;
                     } else if (!orderData.purchaseUnits) {
                         throw new Error(JSON.stringify(orderData));
                     } else {
