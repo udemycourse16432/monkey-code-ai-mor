@@ -1,35 +1,3 @@
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.RazorPages;
-//using MillionsOfRecordsApp.Data;
-//using MillionsOfRecordsApp.Pages.Base;
-//using MillionsOfRecordsApp.Services;
-
-//namespace MillionsOfRecordsApp.Pages
-//{
-//    public class SuccessModel : MillionsBasePageModel
-//    {
-//        public SuccessModel(ReggaeDbContext context, IReggaeDbContextProcedures procedures,  CartService cartService) :
-//            base(context, cartService, procedures)
-//        {
-//        }
-//        [BindProperty(Name = "orderNumber", SupportsGet = true)]
-//        public string OrderNumber { get; set; } = string.Empty;
-//        public string CustomerEmail { get; set; } = string.Empty;
-
-//        public void OnGet()
-//        {
-//            if (string.IsNullOrEmpty(OrderNumber))
-//            {
-//                OrderNumber = "PENDING";
-//            }
-//            // In a real app, you'd pull this from a database 
-//            // based on a TempData ID or Session variable.
-//            CustomerEmail = "customer@example.com";
-//        }
-//    }
-//}
-
-
 using Microsoft.AspNetCore.Mvc;
 using MillionsOfRecordsApp.Data;
 using MillionsOfRecordsApp.Extensions;
@@ -113,18 +81,6 @@ public class SuccessModel : MillionsBasePageModel
         {
             shippingMethodText = "UPSGround";
         }
-
-        ////'Terms Of Sale Text
-        //if(int.TryParse(orderRow.OrderProcessChoice, out int orderProcessChoice))
-        //{
-        //    List<spGetTermsOfSaleTypesRowResult> termsOfSaleTypesRowResults = await _procedures.spGetTermsOfSaleTypesRowAsync(orderProcessChoice);
-        //    if (termsOfSaleTypesRowResults.Count > 0)
-        //    {
-        //        spGetTermsOfSaleTypesRowResult termsOfSaleTypesRowResult = termsOfSaleTypesRowResults.First();
-        //        // Assuming you want to use TextOnInvoice for the receipt
-        //        string varPaymentMethodForReceipt = termsOfSaleTypesRowResult.TextOnInvoice;
-        //    }
-        //}
 
         //'Items spGetOrderItems
         List<spGetOrderItemsResult> orderItemsResults = await _procedures.spGetOrderItemsAsync(orderNumber);

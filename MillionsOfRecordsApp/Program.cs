@@ -129,6 +129,7 @@ namespace MillionsOfRecordsApp
             builder.Services.AddScoped<ShippingService>();
             builder.Services.AddScoped<OrderService>();
             builder.Services.AddScoped<TaxService>();
+            builder.Services.AddScoped<PayPalOrderRecordingService>();
             builder.Services.AddScoped<CustomerAuthService>();
             builder.Services.AddScoped<ICustomerValidationService, CustomerValidationService>();
 

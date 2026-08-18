@@ -19,39 +19,27 @@ namespace MillionsOfRecordsApp.Controllers;
 public class CheckoutController : ControllerBase
 {
     private readonly Microsoft.Extensions.Configuration.IConfiguration _config;
-    private readonly IHttpClientFactory _httpClientFactory;
     private readonly IReggaeDbContextProcedures _procedures;
     private readonly OrderService _orderService;
     private readonly CartService _cartService;
     private readonly ShippingService _shippingService;
     private readonly TaxService _taxService;
+    private readonly PayPalOrderRecordingService _orderRecordingService;
     private readonly ReggaeDbContext _context;
 
-    private readonly Dictionary<string, CheckoutPaymentIntent> _paymentIntentMap;
     private readonly OrdersController _ordersController;
-    private readonly PaymentsController _paymentsController;
 
-    public CheckoutController(Microsoft.Extensions.Configuration.IConfiguration config, IHttpClientFactory httpClientFactory, IReggaeDbContextProcedures procedures,
-        OrderService orderService, CartService cartService, ShippingService shippingService, TaxService taxService, ReggaeDbContext context)
+    public CheckoutController(Microsoft.Extensions.Configuration.IConfiguration config, IReggaeDbContextProcedures procedures,
+        OrderService orderService, CartService cartService, ShippingService shippingService, TaxService taxService, PayPalOrderRecordingService orderRecordingService, ReggaeDbContext context)
     {
         _config = config;
-        _httpClientFactory = httpClientFactory;
         _orderService = orderService;
         _cartService = cartService;
         _shippingService = shippingService;
         _taxService = taxService;
         _procedures = procedures;
+        _orderRecordingService = orderRecordingService;
         _context = context;
-        _paymentIntentMap = new Dictionary<string, CheckoutPaymentIntent> {
-            {
-                "CAPTURE",
-                CheckoutPaymentIntent.Capture
-            },
-            {
-                "AUTHORIZE",
-                CheckoutPaymentIntent.Authorize
-            }
-        };
         PaypalServerSdkClient client = new PaypalServerSdkClient.Builder()
           .Environment(PaypalServerSdk.Standard.Environment.Sandbox)
           .ClientCredentialsAuth(
@@ -66,7 +54,6 @@ public class CheckoutController : ControllerBase
           .Build();
 
         _ordersController = client.OrdersController;
-        _paymentsController = client.PaymentsController;
 
     }
 
@@ -160,6 +147,7 @@ public class CheckoutController : ControllerBase
         var customerDetails = await GetCustomerDetailsAsync();
         string refId = await _orderService.GenerateUniqueOrderNumberAsync();
         var cleanedPhone = SanitizePhoneNumber(customerDetails.Phone);
+        var payerName = SplitBillingName(customerDetails.BillingFullName);
 
         // Persist the server-computed total and order number for the capture
         // step: the captured amount is cross-checked against this expected
@@ -187,13 +175,15 @@ public class CheckoutController : ControllerBase
         {
             Body = new OrderRequest
             {
-                Intent = _paymentIntentMap["CAPTURE"],
+                Intent = CheckoutPaymentIntent.Capture,
                 Payer = new Payer
                 {
+                    // A4: PayPal requires a payer name; populate it from the
+                    // customer's billing name rather than sending empty strings.
                     Name = new Name
                     {
-                        GivenName = "",
-                        Surname = ""
+                        GivenName = payerName.GivenName,
+                        Surname = payerName.Surname
                     },
                     EmailAddress = customerDetails.LogInEmail
                 },
@@ -256,27 +246,32 @@ public class CheckoutController : ControllerBase
             },
         };
 
-        // Persist a PayFlow request row before executing payment (legacy lifecycle parity).
-        await LogPayFlowRequestAsync(customerDetails, refId, checkoutData);
-
 #if DEBUG
         using (StackExchange.Profiling.MiniProfiler.Current?.CustomTiming("paypal", "POST /v2/checkout/orders"))
         {
 #endif
             PaypalServerSdk.Standard.Http.Response.ApiResponse<Order> result = await _ordersController.CreateOrderAsync(createOrderInput);
+        // Persist a PayFlow request row for the order. It is the reconciliation
+        // anchor the webhook uses when a browser abandons checkout after PayPal
+        // has captured the payment, so it is written from the created order.
+        await LogPayFlowRequestAsync(customerDetails, refId, checkoutData, result.Data);
         return result;
 #if DEBUG
         }
 #endif
     }
-    private async Task LogPayFlowRequestAsync(spGetCustomerDetailsByServerCounterResult customer, string webOrderNumber, (decimal ProductsPrice, decimal ShippingCost, decimal TaxAmount) checkoutData)
+    private async Task LogPayFlowRequestAsync(spGetCustomerDetailsByServerCounterResult customer, string webOrderNumber, (decimal ProductsPrice, decimal ShippingCost, decimal TaxAmount) checkoutData, Order order)
     {
         var counterOutput = new OutputParameter<int>();
         var totals = checkoutData;
 
-        string cardLastFour = string.Empty;
-        string requestAcct = string.Empty;
-        string requestCvv2 = string.Empty;
+        // A1: PayPal REST v2 never exposes the full PAN or CVV2 to the server
+        // (card data is tokenized in the browser), so Request_ACCT/Request_CVV2
+        // are always empty here. What IS available for a card payment is the
+        // last 4 digits and expiry from the payment source, which we persist
+        // instead of encrypting fake values.
+        string cardLastFour = order.PaymentSource?.Card?.LastDigits ?? string.Empty;
+        string requestExpDate = order.PaymentSource?.Card?.Expiry ?? string.Empty;
 
         string[] nameParts = string.IsNullOrWhiteSpace(customer.BillingFullName)
             ? Array.Empty<string>()
@@ -284,16 +279,25 @@ public class CheckoutController : ControllerBase
         string firstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
         string lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
 
+        // A1: do not pretend to encrypt with an empty passphrase. The legacy
+        // PayFlow Pro encryption columns are only meaningful when a real key is
+        // configured; pass NULL so EncryptByPassphrase stores NULL instead of a
+        // fake blob.
+        string? encryptionKey = _config.GetValue<string>("PayFlow:EncryptionKey");
+        if (string.IsNullOrWhiteSpace(encryptionKey)) encryptionKey = null;
+        string? iv = _config.GetValue<string>("PayFlow:IV");
+        if (string.IsNullOrWhiteSpace(iv)) iv = null;
+
         await _procedures.spPayFlowRequests_InsertAsync(
-            encryptionKey: _config.GetValue<string>("PayFlow:EncryptionKey") ?? string.Empty,
+            encryptionKey: encryptionKey,
             status: "pending",
             userAgent: Request.Headers["User-Agent"].ToString(),
             request_TRXTYPE: "S",
             request_TENDER: "C",
-            request_ACCT: requestAcct,
-            request_EXPDATE: string.Empty,
+            request_ACCT: string.Empty,
+            request_EXPDATE: requestExpDate,
             request_AMT: totals.ProductsPrice + totals.ShippingCost + totals.TaxAmount,
-            request_CVV2: requestCvv2,
+            request_CVV2: string.Empty,
             request_BILLTOFIRSTNAME: firstName,
             request_BILLTOLASTNAME: lastName,
             request_BILLTOSTREET: customer.BillingStreetAddress1,
@@ -305,14 +309,34 @@ public class CheckoutController : ControllerBase
             request_CUSTIP: HttpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty,
             request_ORDERID: webOrderNumber,
             request_COMMENT1: "PayPal REST v2",
-            request_COMMENT2: string.Empty,
+            // Persist the selected shipping code so the webhook reconciliation
+            // path can record the order without relying on the (lost) session.
+            request_COMMENT2: HttpContext.Session.GetSelectedShippingCode() ?? string.Empty,
             webOrderNumber: webOrderNumber,
             customerID: HttpContext.Session.GetCustomerServerCounter(),
             rightFour: cardLastFour,
-            iV: _config.GetValue<string>("PayFlow:IV") ?? string.Empty,
+            iV: iv,
             counterOUTPUT: counterOutput);
 
         HttpContext.Session.SetPayFlowRequestCounter(counterOutput.Value);
+    }
+
+    // A4: split a full billing name into the given name and surname PayPal
+    // expects. Handles "FirstName LastName" and "FirstName Middle LastName".
+    private static (string GivenName, string Surname) SplitBillingName(string fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName))
+        {
+            return (string.Empty, string.Empty);
+        }
+
+        string[] parts = fullName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 1)
+        {
+            return (parts[0], string.Empty);
+        }
+
+        return (parts[0], string.Join(" ", parts.Skip(1)));
     }
 
     private async Task UpdatePayFlowRequestAnswerAsync(Order? order, bool isSuccess, string? failureMessage = null)
@@ -353,13 +377,15 @@ public class CheckoutController : ControllerBase
         return Regex.Replace(phone, @"\D", "");
     }
     
-    private readonly Dictionary<string, string?> _stateCodeCache = new(StringComparer.OrdinalIgnoreCase);
+    // A3: shared across all controller instances (controllers are transient) so
+    // the state-code DB lookups are cached process-wide, not rebuilt per request.
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, string?> _stateCodeCache = new(StringComparer.OrdinalIgnoreCase);
 
     private async Task<string?> GetStateCode(string stateName)
     {
         if (string.IsNullOrWhiteSpace(stateName)) return null;
 
-        // 2. Check if we already looked this up during this request
+        // 2. Check if we already looked this up
         if (_stateCodeCache.TryGetValue(stateName, out var cachedCode))
         {
             return cachedCode;
@@ -424,24 +450,13 @@ public class CheckoutController : ControllerBase
             if (result.StatusCode >= 200 && result.StatusCode < 300)
             {
                 string userAgent = Request.Headers["User-Agent"].ToString();
-                var totalWeightGrams = HttpContext.Session.GetTotalWeightGrams();
-                decimal? weight = 0m;
-                var weightResults = await _procedures.spGetWeightOfProductAsync(activeCartName);
-                string notChangedAddress = "-";
-                string noCreditCardNumber = "";
-                string noExpDate = "";
-                string poNumber = null;
-                string yesPrintedInvoice = "y";
-                string noHowFoundUs = "-";
                 // SECURITY: Only use the IP resolved by UseForwardedHeaders from a configured
                 // trusted proxy. Never read X-Forwarded-For directly - it is spoofable by any client.
                 string remHost = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
                 string sessionId = HttpContext.Session.Id;
                 string selectedShippingMethod = HttpContext.Session.GetSelectedShippingCode() ?? "Not Selected";
-                string orderedStatus = "ordered";
                 string ipAddress = remHost;
-                string noOrderNotes = ""; // TODO: You can implement logic to generate order notes based on the order details and pass that here instead of an empty string.
-                
+
                 var purchaseUnit = result.Data.PurchaseUnits.First();
                 var capture = purchaseUnit.Payments?.Captures?.FirstOrDefault();
                 var orderNumber = purchaseUnit.InvoiceId ?? result.Data.Id; // Fallback to Order ID if Invoice ID is not set
@@ -454,7 +469,6 @@ public class CheckoutController : ControllerBase
                 decimal? orderTotal = purchaseUnit.Amount?.MValue is { } orderTotalValue
                     ? decimal.Parse(orderTotalValue, NumberStyles.Any, CultureInfo.InvariantCulture)
                     : 0m;
-                decimal? creditCardAmountPaid = orderTotal; // Since we just captured the payment, the amount paid is equal to the order total
                 decimal? totalPrice = purchaseUnit.Amount?.Breakdown?.ItemTotal?.MValue is { } itemTotalValue
                     ? decimal.Parse(itemTotalValue, NumberStyles.Any, CultureInfo.InvariantCulture)
                     : 0m;
@@ -484,88 +498,37 @@ public class CheckoutController : ControllerBase
                 }
 
                 await UpdatePayFlowRequestAnswerAsync(result.Data, isSuccess: true);
-                
-                await _procedures.spRecordPurchaseAsync(
-                    c.LogInEmail, 
-                    c.Password, 
-                    c.PriceGroup,
-                    userAgent,
-                    weightResults.FirstOrDefault()?.sumweight ?? weight,
-                    DateTime.UtcNow,
-                    customerServerCounter,
-                    notChangedAddress,
-                    c.PowerUserName,
-                    remHost,
-                    sessionId,
-                    selectedShippingMethod,
-                    noCreditCardNumber,
-                    noExpDate,
-                    creditCardAmountPaid,
-                    poNumber,
-                    yesPrintedInvoice,
-                    c.Email,
-                    "Mail", // ShippingMethodPullSheetText TODO: This is currently hardcoded because we don't have a "pull sheet text" value from the shipping options. You may want to map your shipping codes to pull sheet texts in the future and store that in the session as well.
-                    c.Phone,
-                    c.FullName,
-                    c.StreetAddress1,
-                    c.StreetAddress2,
-                    c.City,
-                    c.Island,
-                    c.StateProvince,
-                    c.PostalCode,
-                    c.Country,
-                    c.BillingFullName,
-                    c.BillingStreetAddress1,
-                    c.BillingStreetAddress2,
-                    c.BillingCity,
-                    c.BillingIsland,
-                    c.BillingStateProvince,
-                    c.BillingPostalCode,
-                    c.BillingCountry,
-                    noHowFoundUs,
-                    orderedStatus,
-                    orderNumber,
-                    "201", // OrderProcessChoice TODO: This is currently hardcoded because we don't have multiple order process choices. You may want to determine this value based on the order details in the future and store it in the session as well.
-                    customerID.ToString(),
-                    0m, // PayPalAmountDue is 0 because we just captured the payment successfully
-                    0m, // GoogleCheckoutAmountDue (not used)
-                    0m, // WesternUnionAmountDue (not used)
-                    0m, // CheckCashorMoneyOrderAmountDue (not used
-                    ipAddress,
-                    noOrderNotes,
-                    shipping,
-                    tax,
-                    totalPrice,
-                    orderTotal,
-                    totalQuantity,
-                    0m, // GiftCardAmount is 0 because we are not handling gift cards in this example. You may want to implement gift card logic in the future and pass the gift card amount here instead of 0.
-                    null, // GiftCardNumber is null because we are not handling gift cards in this example. You may want to implement gift card logic in the future and pass the gift card number here instead of null.
-                    0, // GiftCardAccountsServerCounter is 0 because we are not handling gift cards in this example. You may want to implement gift card logic in the future and pass the appropriate server counter here instead of 0.
-                    1, // NumberOfLineItems is 1 for simplicity since we are not currently summing up the quantities of individual items in the order. You may want to implement logic to calculate the total number of line items based on the order details in the future and pass that value here instead of 1.
-                    activeCartName
-                    );
-                
-                // This returns the Order object containing capture details,
-                var deleteCount = await _procedures.DeleteBackordersAsync(activeCartName, customerID);
-                Console.WriteLine($"DeleteBackordersAsync result count: {deleteCount}");
 
-                // spOrderedQueries
-                var orderedQueriesCount = await _procedures.spOrderedQueriesAsync(activeCartName, guestCartName, customerServerCounter);
-                Console.WriteLine($"spOrderedQueriesAsync result count: {orderedQueriesCount}");
-
-                // C5: persist the PayPal capture details that spRecordPurchase does
-                // not write (transaction id, payment status, payer email, amounts).
+                // C5: derive the PayPal payment details, then record the order
+                // (order + line items + PayPal payment info) via the shared
+                // service so the webhook reconciliation path reuses the same
+                // logic.
                 string paypalStatus = capture?.Status?.ToString() ?? result.Data.Status?.ToString() ?? "COMPLETED";
                 string paypalPendingReason = capture?.StatusDetails?.Reason?.ToString() ?? string.Empty;
                 decimal? paypalAmountDue = paypalStatus.Equals("Pending", StringComparison.OrdinalIgnoreCase) ? orderTotal : 0m;
-                await _procedures.spUpdatePayPalPaymentInfoAsync(
+
+                await _orderRecordingService.RecordPurchaseAsync(
+                    customer: c,
                     orderNumber: orderNumber,
-                    paypalTransactionID: capture?.Id ?? string.Empty,
-                    payPalPaymentStatus: paypalStatus,
-                    payPalEmail: result.Data.Payer?.EmailAddress ?? string.Empty,
-                    payPalAmountPaid: orderTotal,
+                    customerServerCounter: customerServerCounter,
+                    customerID: customerID,
+                    activeCartName: activeCartName,
+                    guestCartName: guestCartName,
+                    orderTotal: orderTotal,
+                    shipping: shipping,
+                    tax: tax,
+                    totalPrice: totalPrice,
+                    totalQuantity: totalQuantity,
+                    userAgent: userAgent,
+                    remHost: remHost,
+                    sessionId: sessionId,
+                    selectedShippingMethod: selectedShippingMethod,
+                    ipAddress: ipAddress,
+                    paypalTransactionId: capture?.Id ?? string.Empty,
+                    paypalStatus: paypalStatus,
+                    paypalEmail: result.Data.Payer?.EmailAddress ?? string.Empty,
                     paypalAmountDue: paypalAmountDue,
-                    payPalPendingReason: paypalPendingReason);
+                    paypalPendingReason: paypalPendingReason);
 
                 // The capture is verified and the purchase recorded; mark it so a
                 // retry/double-click short-circuits instead of charging again.

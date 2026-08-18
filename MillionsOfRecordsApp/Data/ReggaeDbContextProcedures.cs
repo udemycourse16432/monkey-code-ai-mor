@@ -3571,6 +3571,33 @@ namespace MillionsOfRecordsApp.Data
             return _;
         }
 
+        public virtual async Task<List<spDownload_PayFlowRequestsResult>> spGetPayFlowRequestByWebOrderNumberAsync(string webOrderNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "WebOrderNumber",
+                    Size = 20,
+                    Value = webOrderNumber ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<spDownload_PayFlowRequestsResult>("EXEC @returnValue = [dbo].[spGetPayFlowRequestByWebOrderNumber] @WebOrderNumber = @WebOrderNumber", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<List<spResidentialDeliveryResult>> spResidentialDeliveryAsync(int? counter, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter

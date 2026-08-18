@@ -83,3 +83,15 @@ test.describe('Checkout API - capture-order', () => {
     expect(res.status()).toBeGreaterThanOrEqual(400);
   });
 });
+
+test.describe('PayPal webhook - POST /api/paypal/webhook', () => {
+  test('rejects a webhook without valid transmission signature headers', async ({ request }) => {
+    // Signature verification happens before any business logic, so a payload
+    // without PayPal-Transmission-* headers must be rejected with 401. This
+    // keeps an unauthenticated caller from triggering order reconciliation.
+    const res = await request.post('/api/paypal/webhook', {
+      data: { event_type: 'PAYMENT.CAPTURE.COMPLETED' },
+    });
+    expect(res.status()).toBe(401);
+  });
+});
